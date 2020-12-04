@@ -59,6 +59,7 @@
   "dependencies": {
     "@blackglory/http-status": "^0.1.1",
     "@blackglory/types": "^0.1.7",
-    "cross-fetch": "^3.0.6"
+    "cross-fetch": "^3.0.6",
+    "extra-request": "^0.1.1"
   }
 }

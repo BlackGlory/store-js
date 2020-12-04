@@ -1,6 +1,14 @@
-import { head, putJson, get, del } from './utils'
-import { NotFound } from '@blackglory/http-status'
+import { fetch } from 'cross-fetch'
+import { head, put, get, del } from 'extra-request'
 import { Json } from '@blackglory/types'
+import { url, pathname, json, searchParams } from 'extra-request/lib/es2018/transformers'
+import { NotFound } from '@blackglory/http-status'
+import { checkHTTPStatus, toJSON } from './utils'
+
+interface Item {
+  rev: string
+  doc: Json
+}
 
 export interface StoreClientOptions {
   server: string
@@ -10,31 +18,46 @@ export interface StoreClientOptions {
 export class StoreClient {
   constructor(private options: StoreClientOptions) {}
 
-  async set(storeId: string, itemId: string, doc: Json, options: {
-    rev?: string
-    token?: string
-  } = {}): Promise<string> {
+  async set(
+    storeId: string
+  , itemId: string
+  , doc: Json
+  , options: {
+      rev?: string
+      token?: string
+    } = {}
+  ): Promise<string> {
     const token = options.token ?? this.options.token
-    const res = await putJson({
-      baseUrl: this.options.server
-    , pathname: `/store/${storeId}/items/${itemId}`
-    , querystring: token ? { token } : {}
-    , json: doc
-    })
-    return res.headers.get('ETag')!
+    const req = put(
+      url(this.options.server)
+    , pathname(`/store/${storeId}/items/${itemId}`)
+    , token && searchParams({ token })
+    , json(doc)
+    )
+
+    return await fetch(req)
+      .then(checkHTTPStatus)
+      .then(res => res.headers.get('ETag')!)
   }
 
-  async has(storeId: string, itemId: string, options: {
-    rev?: string
-    token?: string
-  } = {}): Promise<boolean> {
+  async has(
+    storeId: string
+  , itemId: string
+  , options: {
+      rev?: string
+      token?: string
+    } = {}
+  ): Promise<boolean> {
     const token = options.token ?? this.options.token
+    const req = head(
+      url(this.options.server)
+    , pathname(`/store/${storeId}/items/${itemId}`)
+    , token && searchParams({ token })
+    )
+
     try {
-      await head({
-        baseUrl: this.options.server
-      , pathname: `/store/${storeId}/items/${itemId}`
-      , querystring: token ? { token } : {}
-      })
+      await fetch(req)
+        .then(checkHTTPStatus)
       return true
     } catch (e) {
       if (e instanceof NotFound) return false
@@ -42,44 +65,58 @@ export class StoreClient {
     }
   }
 
-  async get(storeId: string, itemId: string, options: {
-    rev?: string
-    token?: string
-  } = {}): Promise<{
-    rev: string
-    doc: Json
-  }> {
+  async get(
+    storeId: string
+  , itemId: string
+  , options: {
+      rev?: string
+      token?: string
+    } = {}
+  ): Promise<Item> {
     const token = options.token ?? this.options.token
-    const res = await get({
-      baseUrl: this.options.server
-    , pathname: `/store/${storeId}/items/${itemId}`
-    , querystring: token ? { token } : {}
-    })
-    return {
-      rev: res.headers.get('ETag')!
-    , doc: await res.json()
-    }
+    const req = get(
+      url(this.options.server)
+    , pathname(`/store/${storeId}/items/${itemId}`)
+    , token && searchParams({ token })
+    )
+
+    return await fetch(req)
+      .then(checkHTTPStatus)
+      .then(async res => ({
+        rev: res.headers.get('ETag')!
+      , doc: await res.json()
+      }))
   }
 
   async list(storeId: string, options: { token?: string } = {}): Promise<string[]> {
     const token = options.token ?? this.options.token
-    const res = await get({
-      baseUrl: this.options.server
-    , pathname: `/store/${storeId}/items`
-    , querystring: token ? { token } : {}
-    })
-    return res.json()
+    const req = get(
+      url(this.options.server)
+    , pathname(`/store/${storeId}/items`)
+    , token && searchParams({ token })
+    )
+
+    return await fetch(req)
+      .then(checkHTTPStatus)
+      .then(toJSON) as string[]
   }
 
-  async remove(storeId: string, itemId: string, options: {
-    rev?: string
-    token?: string
-  } = {}): Promise<void> {
+  async remove(
+    storeId: string
+  , itemId: string
+  , options: {
+      rev?: string
+      token?: string
+    } = {}
+  ): Promise<void> {
     const token = options.token ?? this.options.token
-    await del({
-      baseUrl: this.options.server
-    , pathname: `/store/${storeId}/items/${itemId}`
-    , querystring: token ? { token } : {}
-    })
+    const req = del(
+      url(this.options.server)
+    , pathname(`/store/${storeId}/items/${itemId}`)
+    , token && searchParams({ token })
+    )
+
+    await fetch(req)
+      .then(checkHTTPStatus)
   }
 }

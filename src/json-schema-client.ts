@@ -1,5 +1,8 @@
+import { fetch } from 'cross-fetch'
 import { Json } from '@blackglory/types'
-import { get, putJson, del } from './utils'
+import { password, checkHTTPStatus, toJSON } from './utils'
+import { get, put, del } from 'extra-request'
+import { url, pathname, json } from 'extra-request/lib/es2018/transformers'
 
 export interface JsonSchemaClientOptions {
   server: string
@@ -10,37 +13,49 @@ export class JsonSchemaClient {
   constructor(private options: JsonSchemaClientOptions) {}
 
   async getIds(): Promise<string[]> {
-    const res = await get({
-      baseUrl: this.options.server
-    , pathname: '/api/store-with-json-schema'
-    , adminPassword: this.options.adminPassword
-    })
-    return await res.json()
+    const req = get(
+      url(this.options.server)
+    , pathname('/api/store-with-json-schema')
+    , password(this.options.adminPassword)
+    )
+
+    return await fetch(req)
+      .then(checkHTTPStatus)
+      .then(toJSON) as string[]
   }
 
   async get(id: string): Promise<Json> {
-    const res = await get({
-      baseUrl: this.options.server
-    , pathname: `/api/store/${id}/json-schema`
-    , adminPassword: this.options.adminPassword
-    })
-    return await res.json()
+    const req = get(
+      url(this.options.server)
+    , pathname(`/api/store/${id}/json-schema`)
+    , password(this.options.adminPassword)
+    )
+
+    return await fetch(req)
+      .then(checkHTTPStatus)
+      .then(toJSON)
   }
 
   async set(id: string, schema: Json): Promise<void> {
-    await putJson({
-      baseUrl: this.options.server
-    , pathname: `/api/store/${id}/json-schema`
-    , json: schema
-    , adminPassword: this.options.adminPassword
-    })
+    const req = put(
+      url(this.options.server)
+    , pathname(`/api/store/${id}/json-schema`)
+    , password(this.options.adminPassword)
+    , json(schema)
+    )
+
+    await fetch(req)
+      .then(checkHTTPStatus)
   }
 
   async remove(id: string): Promise<void> {
-    await del({
-      baseUrl: this.options.server
-    , pathname: `/api/store/${id}/json-schema`
-    , adminPassword: this.options.adminPassword
-    })
+    const req = del(
+      url(this.options.server)
+    , pathname(`/api/store/${id}/json-schema`)
+    , password(this.options.adminPassword)
+    )
+
+    await fetch(req)
+      .then(checkHTTPStatus)
   }
 }
