@@ -3,9 +3,9 @@
 ## Install
 
 ```sh
-npm install --save @blackglory/store
+npm install --save @blackglory/store-js
 # or
-yarn add @blackglory/store
+yarn add @blackglory/store-js
 ```
 
 ## API
