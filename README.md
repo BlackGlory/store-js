@@ -57,10 +57,10 @@ StoreClient#list(storeId: string, options?: {
 }): Promise<string[]>
 ```
 
-#### remove
+#### del
 
 ```ts
-StoreClient#remove(storeId: string, itemId: string, options?: {
+StoreClient#del(storeId: string, itemId: string, options?: {
   rev?: string
   token?: string
 }): Promise<void>

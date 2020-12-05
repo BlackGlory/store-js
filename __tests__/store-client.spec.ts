@@ -60,12 +60,12 @@ describe('StoreClient', () => {
     expect(proResult).toStrictEqual(['id'])
   })
 
-  it('remove(storeId: string, itemId: string, options?: { rev?: string; token?: string }): Promise<void>', async () => {
+  it('del(storeId: string, itemId: string, options?: { rev?: string; token?: string }): Promise<void>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
 
-    const result = client.remove(storeId, itemId)
+    const result = client.del(storeId, itemId)
     const proResult = await result
 
     expect(result).toBePromise()

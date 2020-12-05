@@ -101,7 +101,7 @@ export class StoreClient {
       .then(toJSON) as string[]
   }
 
-  async remove(
+  async del(
     storeId: string
   , itemId: string
   , options: {
