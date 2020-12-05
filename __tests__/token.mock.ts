@@ -22,6 +22,7 @@ export const server = setupServer(
           token: 'token'
         , write: true
         , read: false
+        , delete: false
         }
       ])
     )

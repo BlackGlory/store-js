@@ -30,6 +30,7 @@ describe('TokenClient', () => {
       token: 'token'
     , write: true
     , read: false
+    , delete: false
     }])
   })
 
