@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
-const UMD_NAME = 'Chan'
+const UMD_NAME = 'Store'
 
 function createOptions({ directory, target }) {
   return [
