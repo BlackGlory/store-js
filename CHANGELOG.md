@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/BlackGlory/store-js/compare/v0.1.2...v0.2.0) (2020-12-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove => del
+
+* rename remove to del ([a1c2e13](https://github.com/BlackGlory/store-js/commit/a1c2e13780f43f59bb1876c46b525001815a54b4))
+
 ### [0.1.2](https://github.com/BlackGlory/store-js/compare/v0.1.1...v0.1.2) (2020-12-05)
 
 
