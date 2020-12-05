@@ -20,6 +20,7 @@ export const server = setupServer(
     , ctx.json({
         writeTokenRequired: true
       , readTokenRequired: false
+      , deleteTokenRequired: null
       })
     )
   })

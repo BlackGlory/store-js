@@ -29,6 +29,7 @@ describe('TokenPolicyClient', () => {
     expect(proResult).toStrictEqual({
       writeTokenRequired: true
     , readTokenRequired: false
+    , deleteTokenRequired: null
     })
   })
 
