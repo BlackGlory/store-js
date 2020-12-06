@@ -3,7 +3,7 @@ import { head, put, get, del } from 'extra-request'
 import { Json } from '@blackglory/types'
 import { url, pathname, json, searchParams } from 'extra-request/lib/es2018/transformers'
 import { NotFound } from '@blackglory/http-status'
-import { checkHTTPStatus, toJSON } from './utils'
+import { ok, toJSON } from 'extra-response'
 
 interface Item {
   rev: string
@@ -36,7 +36,7 @@ export class StoreClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(res => res.headers.get('ETag')!)
   }
 
@@ -56,8 +56,7 @@ export class StoreClient {
     )
 
     try {
-      await fetch(req)
-        .then(checkHTTPStatus)
+      await fetch(req).then(ok)
       return true
     } catch (e) {
       if (e instanceof NotFound) return false
@@ -81,7 +80,7 @@ export class StoreClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(async res => ({
         rev: res.headers.get('ETag')!
       , doc: await res.json()
@@ -97,7 +96,7 @@ export class StoreClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON) as string[]
   }
 
@@ -116,7 +115,6 @@ export class StoreClient {
     , token && searchParams({ token })
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 }

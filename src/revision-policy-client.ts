@@ -1,7 +1,8 @@
 import { fetch } from 'cross-fetch'
-import { password, checkHTTPStatus, toJSON } from './utils'
+import { password } from './utils'
 import { get, put, del } from 'extra-request'
 import { url, pathname, json } from 'extra-request/lib/es2018/transformers'
+import { ok, toJSON } from 'extra-response'
 
 interface RevisionPolicy {
   updateRevisionRequired: boolean | null
@@ -24,7 +25,7 @@ export class RevisionPolicyClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON) as string[]
   }
 
@@ -36,7 +37,7 @@ export class RevisionPolicyClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON) as RevisionPolicy
   }
 
@@ -48,8 +49,7 @@ export class RevisionPolicyClient {
     , json(val)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async removeUpdateRevisionRequired(id: string): Promise<void> {
@@ -59,8 +59,7 @@ export class RevisionPolicyClient {
     , password(this.options.adminPassword)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async setDeleteRevisionRequired(id: string, val: boolean): Promise<void> {
@@ -71,8 +70,7 @@ export class RevisionPolicyClient {
     , json(val)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async removeDeleteRevisionRequired(id: string): Promise<void> {
@@ -82,7 +80,6 @@ export class RevisionPolicyClient {
     , password(this.options.adminPassword)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 }
