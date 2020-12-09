@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/BlackGlory/store-js/compare/v0.2.2...v0.3.0) (2020-12-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* get => getJSON
+set => setJSON
+
+### Features
+
+* add getJSON, setJSON ([cb20a86](https://github.com/BlackGlory/store-js/commit/cb20a867509c9c2d952d64e626951e30fce088cf))
+
 ### [0.2.2](https://github.com/BlackGlory/store-js/compare/v0.2.1...v0.2.2) (2020-12-08)
 
 ### [0.2.1](https://github.com/BlackGlory/store-js/compare/v0.2.0...v0.2.1) (2020-12-06)
