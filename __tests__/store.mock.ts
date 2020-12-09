@@ -1,11 +1,10 @@
 import { setupServer } from 'msw/node'
 import { rest } from 'msw'
-import { badJson, badToken } from '@test/utils'
+import { badToken } from '@test/utils'
 
 export const server = setupServer(
   rest.put('/store/:storeId/items/:itemId', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
-    if (badJson(req)) return res(ctx.status(400))
 
     return res(
       ctx.status(204)
@@ -28,7 +27,7 @@ export const server = setupServer(
     return res(
       ctx.status(200)
     , ctx.set('ETag', 'revision')
-    , ctx.json({})
+    , ctx.json(null)
     )
   })
 

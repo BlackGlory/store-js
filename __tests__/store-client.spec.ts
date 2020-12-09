@@ -9,13 +9,26 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('StoreClient', () => {
-  it('set(storeId: string, itemId: string, doc: Json, options?: { rev?: string; token?: string }): Promise<string>', async () => {
+  it('set(storeId: string, itemId: string, doc: string, options?: { rev?: string; token?: string }): Promise<string>', async () => {
+    const client = createClient()
+    const storeId = 'store-id'
+    const itemId = 'item-id'
+    const doc = 'message'
+
+    const result = client.set(storeId, itemId, doc)
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toBe('revision')
+  })
+
+  it('setJSON(storeId: string, itemId: string, doc: Json, options?: { rev?: string; token?: string }): Promise<string>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
     const doc = { message: 'message' }
 
-    const result = client.set(storeId, itemId, doc)
+    const result = client.setJSON(storeId, itemId, doc)
     const proResult = await result
 
     expect(result).toBePromise()
@@ -34,7 +47,7 @@ describe('StoreClient', () => {
     expect(proResult).toBeTrue()
   })
 
-  it('get(storeId: string, itemId: string, options?: { rev?: string, token?: string }): Promise<{ rev: string; doc: Json }>', async () => {
+  it('get(storeId: string, itemId: string, options?: { rev?: string, token?: string }): Promise<{ rev: string; doc: string }>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -45,7 +58,22 @@ describe('StoreClient', () => {
     expect(result).toBePromise()
     expect(proResult).toStrictEqual({
       rev: 'revision'
-    , doc: {}
+    , doc: 'null'
+    })
+  })
+
+  it('getJSON(storeId: string, itemId: string, options?: { rev?: string, token?: string }): Promise<{ rev: string; doc: Json }>', async () => {
+    const client = createClient()
+    const storeId = 'store-id'
+    const itemId = 'item-id'
+
+    const result = client.getJSON(storeId, itemId)
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toStrictEqual({
+      rev: 'revision'
+    , doc: null
     })
   })
 

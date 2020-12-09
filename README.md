@@ -22,7 +22,16 @@ new StoreClient({
 #### set
 
 ```ts
-StoreClient#set(storeId: string, itemId: string, doc: Json, options?: {
+StoreClient#set(storeId: string, itemId: string, doc: string, options?: {
+  rev?: string
+  token?: string
+}): Promise<string>
+```
+
+#### setJSON
+
+```ts
+StoreClient#setJSON(storeId: string, itemId: string, doc: Json, options?: {
   rev?: string
   token?: string
 }): Promise<string>
@@ -41,6 +50,18 @@ StoreClient#has(storeId: string, itemId: string, options?: {
 
 ```ts
 StoreClient#get(storeId: string, itemId: string, options?: {
+  rev?: string
+  token?: string
+}): Promise<{
+  rev: string
+  doc: string
+}>
+```
+
+#### getJSON
+
+```ts
+StoreClient#getJSON(storeId: string, itemId: string, options?: {
   rev?: string
   token?: string
 }): Promise<{
