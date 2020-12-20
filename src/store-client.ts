@@ -10,6 +10,11 @@ interface Item {
   doc: Json
 }
 
+interface Info {
+  id: string
+  items: number
+}
+
 export interface StoreClientOptions {
   server: string
   token?: string
@@ -161,5 +166,16 @@ export class StoreClient {
     )
 
     await fetch(req).then(ok)
+  }
+
+  async info(): Promise<Info[]> {
+    const req = get(
+      url(this.options.server)
+    , pathname('/store')
+    )
+
+    return await fetch(req)
+      .then(ok)
+      .then(toJSON) as Info[]
   }
 }

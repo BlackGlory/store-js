@@ -87,6 +87,15 @@ StoreClient#del(storeId: string, itemId: string, options?: {
 }): Promise<void>
 ```
 
+#### info
+
+```ts
+StoreClient#info(): Promise<Array<{
+  id: string
+  items: number
+}>>
+```
+
 ### StoreManager
 
 ```ts

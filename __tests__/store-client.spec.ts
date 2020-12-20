@@ -99,6 +99,18 @@ describe('StoreClient', () => {
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
+
+  it('info(): Promise<Array<{ id: string; items: number }>>', async () => {
+    const client = createClient()
+
+    const result = client.info()
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toStrictEqual([
+      { id: 'id', items: 1 }
+    ])
+  })
 })
 
 function createClient() {
