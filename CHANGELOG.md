@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2](https://github.com/BlackGlory/store-js/compare/v0.3.1...v0.3.2) (2020-12-20)
+
+
+### Features
+
+* add StoreClient#info ([6747853](https://github.com/BlackGlory/store-js/commit/6747853764ac50d433df60dd49cfc6ed5c2ae99c))
+
 ### [0.3.1](https://github.com/BlackGlory/store-js/compare/v0.3.0...v0.3.1) (2020-12-20)
 
 ## [0.3.0](https://github.com/BlackGlory/store-js/compare/v0.2.2...v0.3.0) (2020-12-09)
