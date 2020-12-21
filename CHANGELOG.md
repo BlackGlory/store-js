@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.3](https://github.com/BlackGlory/store-js/compare/v0.3.2...v0.3.3) (2020-12-21)
+
+
+### Features
+
+* add RequestOptions ([627ce8f](https://github.com/BlackGlory/store-js/commit/627ce8fb86d29f1d6c1ef84727633cab82e6c942))
+
 ### [0.3.2](https://github.com/BlackGlory/store-js/compare/v0.3.1...v0.3.2) (2020-12-20)
 
 
