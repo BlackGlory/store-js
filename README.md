@@ -19,40 +19,39 @@ new StoreClient({
 })
 ```
 
+```ts
+interface StoreClientRequestOptions {
+  signal?: AbortSignal
+  token?: string
+}
+
+interface StoreClientRequestOptionsWithRevision extends StoreClientRequestOptions {
+  rev?: string
+}
+```
+
 #### set
 
 ```ts
-StoreClient#set(storeId: string, itemId: string, doc: string, options?: {
-  rev?: string
-  token?: string
-}): Promise<string>
+StoreClient#set(storeId: string, itemId: string, doc: string, options?: StoreClientRequestOptionsWithRevision): Promise<string>
 ```
 
 #### setJSON
 
 ```ts
-StoreClient#setJSON(storeId: string, itemId: string, doc: Json, options?: {
-  rev?: string
-  token?: string
-}): Promise<string>
+StoreClient#setJSON(storeId: string, itemId: string, doc: Json, options?: StoreClientRequestOptionsWithRevision): Promise<string>
 ```
 
 #### has
 
 ```ts
-StoreClient#has(storeId: string, itemId: string, options?: {
-  rev?: string
-  token?: string
-}): Promise<boolean>
+StoreClient#has(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<boolean>
 ```
 
 #### get
 
 ```ts
-StoreClient#get(storeId: string, itemId: string, options?: {
-  rev?: string
-  token?: string
-}): Promise<{
+StoreClient#get(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<{
   rev: string
   doc: string
 }>
@@ -61,36 +60,27 @@ StoreClient#get(storeId: string, itemId: string, options?: {
 #### getJSON
 
 ```ts
-StoreClient#getJSON(storeId: string, itemId: string, options?: {
-  rev?: string
-  token?: string
-}): Promise<{
-  rev: string
+StoreClient#getJSON(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<{ rev: string
   doc: Json
 }>
-```
-
-#### list
-
-```ts
-StoreClient#list(storeId: string, options?: {
-  token?: string
-}): Promise<string[]>
 ```
 
 #### del
 
 ```ts
-StoreClient#del(storeId: string, itemId: string, options?: {
-  rev?: string
-  token?: string
-}): Promise<void>
+StoreClient#del(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<void>
+```
+
+#### list
+
+```ts
+StoreClient#list(storeId: string, options?: StoreClientRequestOptions): Promise<string[]>
 ```
 
 #### info
 
 ```ts
-StoreClient#info(): Promise<Array<{
+StoreClient#info(options?: { signal?: AbortSignal }): Promise<Array<{
   id: string
   items: number
 }>>
@@ -105,30 +95,36 @@ new StoreManager({
 })
 ```
 
+```ts
+interface StoreManagerRequestOptions {
+  signal?: AbortSignal
+}
+```
+
 #### JsonSchema
 
 ##### getIds
 
 ```ts
-StoreManager#JsonSchema.getIds(): Promise<string[]>
+StoreManager#JsonSchema.getIds(options?: StoreManagerRequestOptions): Promise<string[]>
 ```
 
 ##### get
 
 ```ts
-StoreManager#JsonSchema.get(id: string): Promise<Json>
+StoreManager#JsonSchema.get(id: string, options?: StoreManagerRequestOptions): Promise<Json>
 ```
 
 ##### set
 
 ```ts
-StoreManager#JsonSchema.set(id: string, schema: Json): Promise<void>
+StoreManager#JsonSchema.set(id: string, schema: Json, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### remove
 
 ```ts
-StoreManager#JsonSchema.remove(id: string): Promise<void>
+StoreManager#JsonSchema.remove(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 #### RevisionPolicy
@@ -136,13 +132,13 @@ StoreManager#JsonSchema.remove(id: string): Promise<void>
 ##### getIds
 
 ```ts
-StoreManager#RevisionPolicy.getIds(): Promise<string[]>
+StoreManager#RevisionPolicy.getIds(options?: StoreManagerRequestOptions): Promise<string[]>
 ```
 
 ##### get
 
 ```ts
-StoreManager#RevisionPolicy.get(id: string): Promise<{
+StoreManager#RevisionPolicy.get(id: string, options?: StoreManagerRequestOptions): Promise<{
   updateRevisionRequired: boolean | null
   deleteRevisionRequired: boolean | null
 }>
@@ -151,25 +147,25 @@ StoreManager#RevisionPolicy.get(id: string): Promise<{
 ##### setUpdateRevisionRequired
 
 ```ts
-StoreManager#RevisionPolicy.setUpdateRevisionRequired(id: string, val: boolean): Promise<void>
+StoreManager#RevisionPolicy.setUpdateRevisionRequired(id: string, val: boolean, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### removeUpdateRevisionRequired
 
 ```ts
-StoreManager#RevisionPolicy.removeUpdateRevisionRequired(id: string): Promise<void>
+StoreManager#RevisionPolicy.removeUpdateRevisionRequired(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### setDeleteRevisionRequired
 
 ```ts
-StoreManager#RevisionPolicy.setDeleteRevisionRequired(id: string, val: boolean): Promise<void>
+StoreManager#RevisionPolicy.setDeleteRevisionRequired(id: string, val: boolean, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### removeDeleteRevisionRequired
 
 ```ts
-StoreManager#RevisionPolicy.removeDeleteRevisionRequired(id: string): Promise<void>
+StoreManager#RevisionPolicy.removeDeleteRevisionRequired(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 #### Blacklist
@@ -177,19 +173,19 @@ StoreManager#RevisionPolicy.removeDeleteRevisionRequired(id: string): Promise<vo
 ##### getIds
 
 ```ts
-StoreManager#Blacklist.getIds(): Promise<string[]>
+StoreManager#Blacklist.getIds(options?: StoreManagerRequestOptions): Promise<string[]>
 ```
 
 ##### add
 
 ```ts
-StoreManager#Blacklist.add(id: string): Promise<void>
+StoreManager#Blacklist.add(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### remove
 
 ```ts
-StoreManager#Blacklist.remove(id: string): Promise<void>
+StoreManager#Blacklist.remove(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 #### Whitelist
@@ -197,19 +193,19 @@ StoreManager#Blacklist.remove(id: string): Promise<void>
 ##### getIds
 
 ```ts
-StoreManager#Whitelist.getIds(): Promise<string[]>
+StoreManager#Whitelist.getIds(options?: StoreManagerRequestOptions): Promise<string[]>
 ```
 
 ##### add
 
 ```ts
-StoreManager#Whitelist.add(id: string): Promise<void>
+StoreManager#Whitelist.add(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### remove
 
 ```ts
-StoreManager#Whitelist.remove(id: string): Promise<void>
+StoreManager#Whitelist.remove(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 #### TokenPolicy
@@ -217,13 +213,13 @@ StoreManager#Whitelist.remove(id: string): Promise<void>
 ##### getIds
 
 ```ts
-StoreManager#TokenPolicy.getIds(): Promise<string[]>
+StoreManager#TokenPolicy.getIds(options?: StoreManagerRequestOptions): Promise<string[]>
 ```
 
 ##### get
 
 ```ts
-StoreManager#TokenPolicy.get(id: string): Promise<{
+StoreManager#TokenPolicy.get(id: string, options?: StoreManagerRequestOptions): Promise<{
   writeTokenRequired: boolean | null
   readTokenRequired: boolean | null
   deleteTokenRequired: boolean | null
@@ -233,38 +229,38 @@ StoreManager#TokenPolicy.get(id: string): Promise<{
 ##### setWriteTokenRequired
 
 ```ts
-StoreManager#TokenPolicy.setWriteTokenRequired(id: string, val: boolean): Promise<void>
+StoreManager#TokenPolicy.setWriteTokenRequired(id: string, val: boolean, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### removeWriteTokenRequired
 
 ```ts
-StoreManager#TokenPolicy.removeWriteTokenRequired(id: string): Promise<void>
+StoreManager#TokenPolicy.removeWriteTokenRequired(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### setReadTokenRequired
 
 
 ```ts
-StoreManager#TokenPolicy.setReadTokenRequired(id: string, val: boolean): Promise<void>
+StoreManager#TokenPolicy.setReadTokenRequired(id: string, val: boolean, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### removeReadTokenRequired
 
 ```ts
-StoreManager#TokenPolicy.removeReadTokenRequired(id: string): Promise<void>
+StoreManager#TokenPolicy.removeReadTokenRequired(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### setDeleteTokenRequired
 
 ```ts
-StoreManager#TokenPolicy.setDeleteTokenRequired(id: string, val: boolean): Promise<void>
+StoreManager#TokenPolicy.setDeleteTokenRequired(id: string, val: boolean, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### removeDeleteTokenRequired
 
 ```ts
-StoreManager#TokenPolicy.removeDeleteTokenRequired(id: string): Promise<void>
+StoreManager#TokenPolicy.removeDeleteTokenRequired(id: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 #### Token
@@ -272,13 +268,13 @@ StoreManager#TokenPolicy.removeDeleteTokenRequired(id: string): Promise<void>
 ##### getIds
 
 ```ts
-StoreManager#Token.getIds(): Promise<string[]>
+StoreManager#Token.getIds(options?: StoreManagerRequestOptions): Promise<string[]>
 ```
 
 ##### getTokens
 
 ```ts
-StoreManager#Token.getTokens(id: string): Promise<Array<{
+StoreManager#Token.getTokens(id: string, options?: StoreManagerRequestOptions): Promise<Array<{
   token: string
   write: boolean
   read: boolean
@@ -289,35 +285,35 @@ StoreManager#Token.getTokens(id: string): Promise<Array<{
 ##### addWriteToken
 
 ```ts
-StoreManager#Token.addWriteToken(id: string, token: string): Promise<void>
+StoreManager#Token.addWriteToken(id: string, token: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### removeWriteToken
 
 ```ts
-StoreManager#Token.removeWriteToken(id: string, token: string): Promise<void>
+StoreManager#Token.removeWriteToken(id: string, token: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### addReadToken
 
 ```ts
-StoreManager#Token.addReadToken(id: string, token: string): Promise<void>
+StoreManager#Token.addReadToken(id: string, token: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### removeReadToken
 
 ```ts
-StoreManager#Token.removeReadToken(id: string, token: string): Promise<void>
+StoreManager#Token.removeReadToken(id: string, token: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### addDeleteToken
 
 ```ts
-StoreManager#Token.addDeleteToken(id: string, token: string): Promise<void>
+StoreManager#Token.addDeleteToken(id: string, token: string, options?: StoreManagerRequestOptions): Promise<void>
 ```
 
 ##### removeDeleteToken
 
 ```ts
-StoreManager#Token.removeDeleteToken(id: string, token: string): Promise<void>
+StoreManager#Token.removeDeleteToken(id: string, token: string, options?: StoreManagerRequestOptions): Promise<void>
 ```

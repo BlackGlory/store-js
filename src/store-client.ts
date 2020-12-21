@@ -1,7 +1,7 @@
 import { fetch } from 'cross-fetch'
 import { head, put, get, del } from 'extra-request'
 import { Json } from '@blackglory/types'
-import { url, pathname, json, text, searchParams } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, json, text, searchParams, signal } from 'extra-request/lib/es2018/transformers'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON } from 'extra-response'
 
@@ -20,6 +20,15 @@ export interface StoreClientOptions {
   token?: string
 }
 
+export interface StoreClientRequestOptions {
+  signal?: AbortSignal
+  token?: string
+}
+
+export interface StoreClientRequestOptionsWithRevision extends StoreClientRequestOptions {
+  rev?: string
+}
+
 export class StoreClient {
   constructor(private options: StoreClientOptions) {}
 
@@ -27,10 +36,7 @@ export class StoreClient {
     storeId: string
   , itemId: string
   , doc: string
-  , options: {
-      rev?: string
-      token?: string
-    } = {}
+  , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<string> {
     const token = options.token ?? this.options.token
     const req = put(
@@ -38,6 +44,7 @@ export class StoreClient {
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
     , text(doc)
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -49,10 +56,7 @@ export class StoreClient {
     storeId: string
   , itemId: string
   , doc: Json
-  , options: {
-      rev?: string
-      token?: string
-    } = {}
+  , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<string> {
     const token = options.token ?? this.options.token
     const req = put(
@@ -60,6 +64,7 @@ export class StoreClient {
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
     , json(doc)
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -70,16 +75,14 @@ export class StoreClient {
   async has(
     storeId: string
   , itemId: string
-  , options: {
-      rev?: string
-      token?: string
-    } = {}
+  , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<boolean> {
     const token = options.token ?? this.options.token
     const req = head(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , options.signal && signal(options.signal)
     )
 
     try {
@@ -94,10 +97,7 @@ export class StoreClient {
   get(
     storeId: string
   , itemId: string
-  , options: {
-      rev?: string
-      token?: string
-    } = {}
+  , options?: StoreClientRequestOptionsWithRevision
   ): Promise<Item> {
     return this._get(storeId, itemId, options).then(async res => ({
       rev: res.headers.get('ETag')!
@@ -108,10 +108,7 @@ export class StoreClient {
   getJSON(
     storeId: string
   , itemId: string
-  , options: {
-      rev?: string
-      token?: string
-    } = {}
+  , options?: StoreClientRequestOptionsWithRevision
   ): Promise<Item> {
     return this._get(storeId, itemId, options).then(async res => ({
       rev: res.headers.get('ETag')!
@@ -122,27 +119,26 @@ export class StoreClient {
   async _get(
     storeId: string
   , itemId: string
-  , options: {
-      rev?: string
-      token?: string
-    } = {}
+  , options: StoreClientRequestOptionsWithRevision = {}
   ) {
     const token = options.token ?? this.options.token
     const req = get(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req).then(ok)
   }
 
-  async list(storeId: string, options: { token?: string } = {}): Promise<string[]> {
+  async list(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
     const token = options.token ?? this.options.token
     const req = get(
       url(this.options.server)
     , pathname(`/store/${storeId}/items`)
     , token && searchParams({ token })
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -153,25 +149,24 @@ export class StoreClient {
   async del(
     storeId: string
   , itemId: string
-  , options: {
-      rev?: string
-      token?: string
-    } = {}
+  , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const req = del(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async info(): Promise<Info[]> {
+  async info(options: { signal?: AbortSignal } = {}): Promise<Info[]> {
     const req = get(
       url(this.options.server)
     , pathname('/store')
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
