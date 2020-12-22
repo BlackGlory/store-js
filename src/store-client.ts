@@ -1,13 +1,12 @@
 import { fetch } from 'cross-fetch'
 import { head, put, get, del } from 'extra-request'
-import { Json } from '@blackglory/types'
 import { url, pathname, json, text, searchParams, signal } from 'extra-request/lib/es2018/transformers'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON } from 'extra-response'
 
-interface Item {
+interface Item<T> {
   rev: string
-  doc: Json
+  doc: T
 }
 
 interface Info {
@@ -52,10 +51,10 @@ export class StoreClient {
       .then(res => res.headers.get('ETag')!)
   }
 
-  async setJSON(
+  async setJSON<T>(
     storeId: string
   , itemId: string
-  , doc: Json
+  , doc: T
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<string> {
     const token = options.token ?? this.options.token
@@ -98,18 +97,18 @@ export class StoreClient {
     storeId: string
   , itemId: string
   , options?: StoreClientRequestOptionsWithRevision
-  ): Promise<Item> {
+  ): Promise<Item<string>> {
     return this._get(storeId, itemId, options).then(async res => ({
       rev: res.headers.get('ETag')!
     , doc: await res.text()
     }))
   }
 
-  getJSON(
+  getJSON<T>(
     storeId: string
   , itemId: string
   , options?: StoreClientRequestOptionsWithRevision
-  ): Promise<Item> {
+  ): Promise<Item<T>> {
     return this._get(storeId, itemId, options).then(async res => ({
       rev: res.headers.get('ETag')!
     , doc: await res.json()
@@ -120,7 +119,7 @@ export class StoreClient {
     storeId: string
   , itemId: string
   , options: StoreClientRequestOptionsWithRevision = {}
-  ) {
+  ): Promise<Response> {
     const token = options.token ?? this.options.token
     const req = get(
       url(this.options.server)
