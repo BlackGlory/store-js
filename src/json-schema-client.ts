@@ -1,5 +1,4 @@
 import { fetch } from 'cross-fetch'
-import { Json } from '@blackglory/types'
 import { password } from './utils'
 import { get, put, del } from 'extra-request'
 import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
@@ -23,7 +22,7 @@ export class JsonSchemaClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string, options: StoreManagerRequestOptions = {}): Promise<Json> {
+  async get(id: string, options: StoreManagerRequestOptions = {}): Promise<unknown> {
     const req = get(
       url(this.options.server)
     , pathname(`/api/store/${id}/json-schema`)
@@ -33,10 +32,10 @@ export class JsonSchemaClient {
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as Json
+      .then(toJSON)
   }
 
-  async set(id: string, schema: Json, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async set(id: string, schema: unknown, options: StoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/api/store/${id}/json-schema`)
