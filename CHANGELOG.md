@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/BlackGlory/store-js/compare/v0.3.7...v0.4.0) (2020-12-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove info
+
+### Features
+
+* add clear, listStores, listItems, stats; remove info ([85518f0](https://github.com/BlackGlory/store-js/commit/85518f0ee8d07850380e9c980b8bdd35cb299486))
+
 ### [0.3.7](https://github.com/BlackGlory/store-js/compare/v0.3.6...v0.3.7) (2020-12-30)
 
 ### [0.3.6](https://github.com/BlackGlory/store-js/compare/v0.3.5...v0.3.6) (2020-12-30)
