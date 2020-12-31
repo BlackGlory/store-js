@@ -28,6 +28,10 @@ export interface StoreClientRequestOptionsWithRevision extends StoreClientReques
   rev?: string
 }
 
+export interface StoreClientRequestOptionsWithoutToken {
+  signal?: AbortSignal
+}
+
 export class StoreClient {
   constructor(private options: StoreClientOptions) {}
 
@@ -131,7 +135,7 @@ export class StoreClient {
     return await fetch(req).then(ok)
   }
 
-  async list(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
+  async listItems(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
     const token = options.token ?? this.options.token
     const req = get(
       url(this.options.server)
@@ -161,15 +165,42 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
-  async info(options: { signal?: AbortSignal } = {}): Promise<Info[]> {
+  async clear(
+    storeId: string
+  , options: StoreClientRequestOptions = {}
+  ): Promise<void> {
+    const token = options.token ?? this.options.token
+    const req = del(
+      url(this.options.server)
+    , pathname(`/store/${storeId}`)
+    , token && searchParams({ token })
+    , options.signal && signal(options.signal)
+    )
+
+    await fetch(req).then(ok)
+  }
+
+  async stats(storeId: string, options: StoreClientRequestOptionsWithoutToken = {}): Promise<Info> {
     const req = get(
       url(this.options.server)
-    , pathname('/store')
+    , pathname(`/store/${storeId}/stats`)
     , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as Info[]
+      .then(toJSON) as Info
+  }
+
+  async listStores(options: StoreClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+    const req = get(
+      url(this.options.server)
+    , pathname(`/store`)
+    , options.signal && signal(options.signal)
+    )
+
+    return await fetch(req)
+      .then(ok)
+      .then(toJSON) as string[]
   }
 }

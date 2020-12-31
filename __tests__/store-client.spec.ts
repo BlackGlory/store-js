@@ -9,7 +9,7 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('StoreClient', () => {
-  it('set(storeId: string, itemId: string, doc: string, options?: { rev?: string; token?: string }): Promise<string>', async () => {
+  it('set(storeId: string, itemId: string, doc: string): Promise<string>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -22,7 +22,7 @@ describe('StoreClient', () => {
     expect(proResult).toBe('revision')
   })
 
-  it('setJSON(storeId: string, itemId: string, doc: Json, options?: { rev?: string; token?: string }): Promise<string>', async () => {
+  it('setJSON(storeId: string, itemId: string, doc: Json): Promise<string>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -35,7 +35,7 @@ describe('StoreClient', () => {
     expect(proResult).toBe('revision')
   })
 
-  it('has(storeId, string, itemId: string, options?: { rev?: string; token?: string }): Promise<boolean>', async () => {
+  it('has(storeId, string, itemId: string): Promise<boolean>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -47,7 +47,7 @@ describe('StoreClient', () => {
     expect(proResult).toBeTrue()
   })
 
-  it('get(storeId: string, itemId: string, options?: { rev?: string, token?: string }): Promise<{ rev: string; doc: string }>', async () => {
+  it('get(storeId: string, itemId: string): Promise<{ rev: string; doc: string }>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -62,7 +62,7 @@ describe('StoreClient', () => {
     })
   })
 
-  it('getJSON(storeId: string, itemId: string, options?: { rev?: string, token?: string }): Promise<{ rev: string; doc: Json }>', async () => {
+  it('getJSON(storeId: string, itemId: string): Promise<{ rev: string; doc: Json }>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -77,18 +77,28 @@ describe('StoreClient', () => {
     })
   })
 
-  it('list(storeId: string, options?: { token?: string }): Promise<string[]>', async () => {
+  it('listItems(storeId: string): Promise<string[]>', async () => {
     const client = createClient()
     const storeId = 'store-id'
 
-    const result = client.list(storeId)
+    const result = client.listItems(storeId)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toStrictEqual(['id'])
   })
 
-  it('del(storeId: string, itemId: string, options?: { rev?: string; token?: string }): Promise<void>', async () => {
+  it('listStores(): Promise<string[]>', async () => {
+    const client = createClient()
+
+    const result = client.listStores()
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toStrictEqual(['id'])
+  })
+
+  it('del(storeId: string, itemId: string): Promise<void>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -100,16 +110,29 @@ describe('StoreClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('info(): Promise<Array<{ id: string; items: number }>>', async () => {
+  it('clear(storeId: string): Prmise<void>', async () => {
     const client = createClient()
+    const storeId = 'store-id'
 
-    const result = client.info()
+    const result = client.clear(storeId)
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toStrictEqual([
-      { id: 'id', items: 1 }
-    ])
+    expect(proResult).toBeUndefined()
+  })
+
+  it('stats(storeId: string): Promise<{ id: string; items: number }>', async () => {
+    const client = createClient()
+    const storeId = 'store-id'
+
+    const result = client.stats(storeId)
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toStrictEqual({
+      id: storeId
+    , items: 1
+    })
   })
 })
 

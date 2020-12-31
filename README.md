@@ -28,7 +28,12 @@ interface StoreClientRequestOptions {
 interface StoreClientRequestOptionsWithRevision extends StoreClientRequestOptions {
   rev?: string
 }
+
+interface StoreClientRequestOptionsWithoutToken {
+  signal?: AbortSignal
+}
 ```
+
 
 #### set
 
@@ -71,19 +76,31 @@ StoreClient#getJSON(storeId: string, itemId: string, options?: StoreClientReques
 StoreClient#del(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<void>
 ```
 
-#### list
+#### clear
 
 ```ts
-StoreClient#list(storeId: string, options?: StoreClientRequestOptions): Promise<string[]>
+StoreClient#clear(storeId: string, options?: StoreClientRequestOptions): Promise<void>
 ```
 
-#### info
+#### listItems
 
 ```ts
-StoreClient#info(options?: { signal?: AbortSignal }): Promise<Array<{
+StoreClient#listItems(storeId: string, options?: StoreClientRequestOptions): Promise<string[]>
+```
+
+#### listStores
+
+```ts
+StoreClient#listStores(options?: StoreClientRequestOptionsWithoutToken): Promise<string[]>
+```
+
+#### stats
+
+```ts
+StoreClient#stats(storeId: string, options?: StoreClientRequestOptionsWithoutToken): Promise<<{
   id: string
   items: number
-}>>
+}>
 ```
 
 ### StoreManager

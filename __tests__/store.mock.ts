@@ -40,7 +40,30 @@ export const server = setupServer(
     )
   })
 
+, rest.get('/store/:storeId/stats', (req, res, ctx) => {
+    return res(
+      ctx.status(200)
+    , ctx.json({
+        id: req.params.storeId
+      , items: 1
+      })
+    )
+  })
+
+, rest.get('/store', (req, res, ctx) => {
+    return res(
+      ctx.status(200)
+    , ctx.json(['id'])
+    )
+  })
+
 , rest.delete('/store/:storeId/items/:itemId', (req, res, ctx) => {
+    if (badToken(req)) return res(ctx.status(401))
+
+    return res(ctx.status(204))
+  })
+
+, rest.delete('/store/:storeId', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
