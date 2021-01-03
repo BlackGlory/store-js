@@ -115,7 +115,7 @@ export class StoreClient {
     }))
   }
 
-  async _get(
+  private async _get(
     storeId: string
   , itemId: string
   , options: StoreClientRequestOptionsWithRevision = {}
