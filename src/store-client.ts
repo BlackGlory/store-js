@@ -40,7 +40,7 @@ export class StoreClient {
   , itemId: string
   , doc: string
   , options: StoreClientRequestOptionsWithRevision = {}
-  ): Promise<string> {
+  ): Promise<void> {
     const token = options.token ?? this.options.token
     const req = put(
       url(this.options.server)
@@ -50,9 +50,7 @@ export class StoreClient {
     , options.signal && signal(options.signal)
     )
 
-    return await fetch(req)
-      .then(ok)
-      .then(res => res.headers.get('ETag')!)
+    await fetch(req).then(ok)
   }
 
   async setJSON<T>(
@@ -60,7 +58,7 @@ export class StoreClient {
   , itemId: string
   , doc: T
   , options: StoreClientRequestOptionsWithRevision = {}
-  ): Promise<string> {
+  ): Promise<void> {
     const token = options.token ?? this.options.token
     const req = put(
       url(this.options.server)
@@ -70,9 +68,7 @@ export class StoreClient {
     , options.signal && signal(options.signal)
     )
 
-    return await fetch(req)
-      .then(ok)
-      .then(res => res.headers.get('ETag')!)
+    await fetch(req).then(ok)
   }
 
   async has(

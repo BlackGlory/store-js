@@ -38,13 +38,13 @@ interface StoreClientRequestOptionsWithoutToken {
 #### set
 
 ```ts
-StoreClient#set(storeId: string, itemId: string, doc: string, options?: StoreClientRequestOptionsWithRevision): Promise<string>
+StoreClient#set(storeId: string, itemId: string, doc: string, options?: StoreClientRequestOptionsWithRevision): Promise<void>
 ```
 
 #### setJSON
 
 ```ts
-StoreClient#setJSON(storeId: string, itemId: string, doc: Json, options?: StoreClientRequestOptionsWithRevision): Promise<string>
+StoreClient#setJSON(storeId: string, itemId: string, doc: Json, options?: StoreClientRequestOptionsWithRevision): Promise<void>
 ```
 
 #### has

@@ -9,7 +9,7 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('StoreClient', () => {
-  it('set(storeId: string, itemId: string, doc: string): Promise<string>', async () => {
+  it('set(storeId: string, itemId: string, doc: string): Promise<void>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -19,10 +19,10 @@ describe('StoreClient', () => {
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toBe('revision')
+    expect(proResult).toBeUndefined()
   })
 
-  it('setJSON(storeId: string, itemId: string, doc: Json): Promise<string>', async () => {
+  it('setJSON(storeId: string, itemId: string, doc: Json): Promise<void>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -32,7 +32,7 @@ describe('StoreClient', () => {
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toBe('revision')
+    expect(proResult).toBeUndefined()
   })
 
   it('has(storeId, string, itemId: string): Promise<boolean>', async () => {

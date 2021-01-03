@@ -8,7 +8,6 @@ export const server = setupServer(
 
     return res(
       ctx.status(204)
-    , ctx.set('ETag', 'revision')
     )
   })
 
