@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/BlackGlory/store-js/compare/v0.4.1...v0.4.2) (2021-01-03)
+
+
+### Features
+
+* hide StoreClient#_get ([1d996f3](https://github.com/BlackGlory/store-js/commit/1d996f3a8159ccf8f94a28a1d6f7762a62881922))
+
 ### [0.4.1](https://github.com/BlackGlory/store-js/compare/v0.4.0...v0.4.1) (2021-01-03)
 
 
