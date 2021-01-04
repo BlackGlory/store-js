@@ -1,4 +1,3 @@
-import { Headers } from 'cross-fetch'
 import { HTTPOptions, HTTPOptionsTransformer } from 'extra-request'
 
 export function password(password: string): HTTPOptionsTransformer {

@@ -59,7 +59,7 @@
   "dependencies": {
     "@blackglory/types": "^0.2.1",
     "cross-fetch": "^3.0.6",
-    "extra-request": "^0.2.3",
+    "extra-request": "^0.2.4",
     "extra-response": "^0.2.0"
   }
 }

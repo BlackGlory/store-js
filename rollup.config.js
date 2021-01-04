@@ -12,7 +12,7 @@ function createOptions({ directory, target }) {
     , output: createOutput('index')
     , plugins: [
         typescript({ target })
-      , resolve()
+      , resolve({ browser: true })
       , commonjs()
       ]
     }
@@ -21,7 +21,7 @@ function createOptions({ directory, target }) {
     , output: createMinification('index')
     , plugins: [
         typescript({ target })
-      , resolve()
+      , resolve({ browser: true })
       , commonjs()
       , terser()
       ]
