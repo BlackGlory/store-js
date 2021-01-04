@@ -9,8 +9,6 @@
   ],
   "main": "lib/es2018/index.js",
   "types": "lib/es2018/index.d.ts",
-  "module": "dist/es2018/index.mjs",
-  "browser": "dist/es2018/index.umd.js",
   "repository": "git@github.com:BlackGlory/store-js.git",
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
@@ -40,6 +38,7 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-typescript": "^8.1.0",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
@@ -60,7 +59,7 @@
   "dependencies": {
     "@blackglory/types": "^0.2.4",
     "cross-fetch": "^3.0.6",
-    "extra-request": "^0.2.4",
-    "extra-response": "^0.2.1"
+    "extra-request": "^0.2.5",
+    "extra-response": "^0.2.2"
   }
 }
