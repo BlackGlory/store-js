@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/BlackGlory/store-js/compare/v0.4.4...v0.4.5) (2021-01-04)
+
+
+### Bug Fixes
+
+* bundle for browser ([f5b2531](https://github.com/BlackGlory/store-js/commit/f5b253138d23cb27829f569c62f67d75dd01c708))
+
 ### [0.4.4](https://github.com/BlackGlory/store-js/compare/v0.4.3...v0.4.4) (2021-01-04)
 
 ### [0.4.3](https://github.com/BlackGlory/store-js/compare/v0.4.2...v0.4.3) (2021-01-04)
