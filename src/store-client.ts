@@ -1,4 +1,4 @@
-import { fetch } from 'cross-fetch'
+import { fetch } from 'extra-fetch'
 import { head, put, get, del } from 'extra-request'
 import { url, pathname, json, text, searchParams, signal } from 'extra-request/lib/es2018/transformers'
 import { NotFound } from '@blackglory/http-status'
