@@ -47,6 +47,12 @@ StoreClient#set(storeId: string, itemId: string, doc: string, options?: StoreCli
 StoreClient#setJSON(storeId: string, itemId: string, doc: Json, options?: StoreClientRequestOptionsWithRevision): Promise<void>
 ```
 
+#### setCSV
+
+```ts
+StoreClient#setJSON<T extends object>(storeId: string, itemId: string, doc: T[], options?: StoreClientRequestOptionsWithRevision): Promise<void>
+```
+
 #### has
 
 ```ts
@@ -65,8 +71,18 @@ StoreClient#get(storeId: string, itemId: string, options?: StoreClientRequestOpt
 #### getJSON
 
 ```ts
-StoreClient#getJSON(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<{ rev: string
+StoreClient#getJSON(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<{
+  rev: string
   doc: Json
+}>
+```
+
+#### getCSV
+
+```ts
+StoreClient#getCSV<T extends object>(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<{
+  rev: string
+  doc: T[]
 }>
 ```
 

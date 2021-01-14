@@ -35,6 +35,19 @@ describe('StoreClient', () => {
     expect(proResult).toBeUndefined()
   })
 
+  it('setCSV<T extends object>(storeId: string, itemId: string, doc: T[]): Promise<void>', async () => {
+    const client = createClient()
+    const storeId = 'store-id'
+    const itemId = 'item-id'
+    const doc = [{ message: 'message' }]
+
+    const result = client.setCSV(storeId, itemId, doc)
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toBeUndefined()
+  })
+
   it('has(storeId, string, itemId: string): Promise<boolean>', async () => {
     const client = createClient()
     const storeId = 'store-id'
@@ -50,30 +63,44 @@ describe('StoreClient', () => {
   it('get(storeId: string, itemId: string): Promise<{ rev: string; doc: string }>', async () => {
     const client = createClient()
     const storeId = 'store-id'
-    const itemId = 'item-id'
 
-    const result = client.get(storeId, itemId)
+    const result = client.get(storeId, 'text')
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toStrictEqual({
       rev: 'revision'
-    , doc: 'null'
+    , doc: 'text'
     })
   })
 
   it('getJSON(storeId: string, itemId: string): Promise<{ rev: string; doc: Json }>', async () => {
     const client = createClient()
     const storeId = 'store-id'
-    const itemId = 'item-id'
 
-    const result = client.getJSON(storeId, itemId)
+    const result = client.getJSON(storeId, 'json')
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toStrictEqual({
       rev: 'revision'
-    , doc: null
+    , doc: { 'hello': 'world' }
+    })
+  })
+
+  it('getCSV<T extends object>(storeId: string, itemId: string): Promise<{ rev: string; doc: T[] }>', async () => {
+    const client = createClient()
+    const storeId = 'store-id'
+
+    const result = client.getCSV(storeId, 'csv')
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toStrictEqual({
+      rev: 'revision'
+    , doc: [
+        { key: 'hello', value: 'world' }
+      ]
     })
   })
 

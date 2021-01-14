@@ -20,13 +20,33 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/store/:storeId/items/:itemId', (req, res, ctx) => {
+, rest.get('/store/:storeId/items/text', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(
       ctx.status(200)
     , ctx.set('ETag', 'revision')
-    , ctx.json(null)
+    , ctx.text('text')
+    )
+  })
+
+, rest.get('/store/:storeId/items/json', (req, res, ctx) => {
+    if (badToken(req)) return res(ctx.status(401))
+
+    return res(
+      ctx.status(200)
+    , ctx.set('ETag', 'revision')
+    , ctx.json({ hello: 'world' })
+    )
+  })
+
+, rest.get('/store/:storeId/items/csv', (req, res, ctx) => {
+    if (badToken(req)) return res(ctx.status(401))
+
+    return res(
+      ctx.status(200)
+    , ctx.set('ETag', 'revision')
+    , ctx.text('key,value\r\nhello,world')
     )
   })
 

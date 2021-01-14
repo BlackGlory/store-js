@@ -1,8 +1,8 @@
 import { fetch } from 'extra-fetch'
 import { head, put, get, del } from 'extra-request'
-import { url, pathname, json, text, searchParams, signal } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, json, text, csv, searchParams, signal } from 'extra-request/lib/es2018/transformers'
 import { NotFound } from '@blackglory/http-status'
-import { ok, toJSON } from 'extra-response'
+import { ok, toJSON, toCSV, toText } from 'extra-response'
 
 interface Item<T> {
   rev: string
@@ -71,6 +71,24 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
+  async setCSV<T extends object>(
+    storeId: string
+  , itemId: string
+  , doc: T[]
+  , options: StoreClientRequestOptionsWithRevision = {}
+  ): Promise<void> {
+    const token = options.token ?? this.options.token
+    const req = put(
+      url(this.options.server)
+    , pathname(`/store/${storeId}/items/${itemId}`)
+    , token && searchParams({ token })
+    , csv(doc)
+    , options.signal && signal(options.signal)
+    )
+
+    await fetch(req).then(ok)
+  }
+
   async has(
     storeId: string
   , itemId: string
@@ -100,7 +118,7 @@ export class StoreClient {
   ): Promise<Item<string>> {
     return this._get(storeId, itemId, options).then(async res => ({
       rev: res.headers.get('ETag')!
-    , doc: await res.text()
+    , doc: await toText(res)
     }))
   }
 
@@ -111,7 +129,18 @@ export class StoreClient {
   ): Promise<Item<T>> {
     return this._get(storeId, itemId, options).then(async res => ({
       rev: res.headers.get('ETag')!
-    , doc: await res.json()
+    , doc: await toJSON(res)
+    }))
+  }
+
+  getCSV<T extends object>(
+    storeId: string
+  , itemId: string
+  , options?: StoreClientRequestOptionsWithRevision
+  ): Promise<Item<T[]>> {
+    return this._get(storeId, itemId, options).then(async res => ({
+      rev: res.headers.get('ETag')!
+    , doc: await toCSV(res) as T[]
     }))
   }
 
