@@ -4,19 +4,29 @@ import resolve from '@rollup/plugin-node-resolve'
 import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import analyze from 'rollup-plugin-analyzer'
+import alias from '@rollup/plugin-alias'
 
 const UMD_NAME = 'Store'
 
 function createOptions({ directory, target }) {
+  const commonPlugins = [
+    alias({
+      entries: [
+        { find: 'papaparse', replacement: 'node_modules/papaparse/papaparse.min.js' }
+      ]
+    })
+  , typescript({ target })
+  , json()
+  , resolve({ browser: true })
+  , commonjs()
+  ]
+
   return [
     {
       input: 'src/index.ts'
     , output: createOutput('index')
     , plugins: [
-        typescript({ target })
-      , json()
-      , resolve({ browser: true })
-      , commonjs()
+        ...commonPlugins
       , analyze({ summaryOnly: true })
       ]
     }
@@ -24,10 +34,7 @@ function createOptions({ directory, target }) {
       input: 'src/index.ts'
     , output: createMinification('index')
     , plugins: [
-        typescript({ target })
-      , json()
-      , resolve({ browser: true })
-      , commonjs()
+        ...commonPlugins
       , terser()
       ]
     }
