@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.8](https://github.com/BlackGlory/store-js/compare/v0.4.7...v0.4.8) (2021-01-14)
+
+
+### Features
+
+* add StoreClient#setCSV, StoreClient#getCSV ([fe28ac5](https://github.com/BlackGlory/store-js/commit/fe28ac5c5c1ec4d0a6fe291eb519bac20885f54b))
+
 ### [0.4.7](https://github.com/BlackGlory/store-js/compare/v0.4.6...v0.4.7) (2021-01-08)
 
 ### [0.4.6](https://github.com/BlackGlory/store-js/compare/v0.4.5...v0.4.6) (2021-01-04)
