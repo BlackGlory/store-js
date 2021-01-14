@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.9](https://github.com/BlackGlory/store-js/compare/v0.4.8...v0.4.9) (2021-01-14)
+
+
+### Bug Fixes
+
+* rollup cannot resolve papaparse browser field ([6074311](https://github.com/BlackGlory/store-js/commit/607431118e670169dfcb703784d5fc883fe3d9f0))
+
 ### [0.4.8](https://github.com/BlackGlory/store-js/compare/v0.4.7...v0.4.8) (2021-01-14)
 
 
