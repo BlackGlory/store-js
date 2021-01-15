@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.10](https://github.com/BlackGlory/store-js/compare/v0.4.9...v0.4.10) (2021-01-15)
+
+
+### Bug Fixes
+
+* esm bundle ([f5d16f3](https://github.com/BlackGlory/store-js/commit/f5d16f3126c0476fd5e52576424c114da1d2fc12))
+
 ### [0.4.9](https://github.com/BlackGlory/store-js/compare/v0.4.8...v0.4.9) (2021-01-14)
 
 
