@@ -22,14 +22,14 @@ export default [
 
 function createOptions({ directory, target }) {
   const commonPlugins = [
-    replace({
-      'Object.defineProperty(exports, "__esModule", { value: true });': ''
-    , delimiters: ['\n', '\n']
-    })
-  , alias({
+    alias({
       entries: [
         { find: 'papaparse', replacement: 'node_modules/papaparse/papaparse.min.js' }
       ]
+    })
+  , replace({
+      'Object.defineProperty(exports, "__esModule", { value: true });': ''
+    , delimiters: ['\n', '\n']
     })
   , typescript({ target })
   , json()
