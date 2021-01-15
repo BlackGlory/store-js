@@ -5,12 +5,28 @@ import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
 import analyze from 'rollup-plugin-analyzer'
 import alias from '@rollup/plugin-alias'
+import replace from '@rollup/plugin-replace'
 
 const UMD_NAME = 'Store'
 
+export default [
+  ...createOptions({
+    directory: 'es2015'
+  , target: 'ES2015'
+  })
+, ...createOptions({
+    directory: 'es2018'
+  , target: 'ES2018'
+  })
+]
+
 function createOptions({ directory, target }) {
   const commonPlugins = [
-    alias({
+    replace({
+      'Object.defineProperty(exports, "__esModule", { value: true });': ''
+    , delimiters: ['\n', '\n']
+    })
+  , alias({
       entries: [
         { find: 'papaparse', replacement: 'node_modules/papaparse/papaparse.min.js' }
       ]
@@ -72,14 +88,3 @@ function createOptions({ directory, target }) {
     ]
   }
 }
-
-export default [
-  ...createOptions({
-    directory: 'es2015'
-  , target: 'ES2015'
-  })
-, ...createOptions({
-    directory: 'es2018'
-  , target: 'ES2018'
-  })
-]
