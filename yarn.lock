@@ -312,10 +312,10 @@
     "@types/node" "^14.14.19"
     ajv "^7.0.3"
 
-"@blackglory/types@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.2.5.tgz#f880b7823825a981b9482cdde9879bb81f58319c"
-  integrity sha512-/hRuEf5hfcs1AlthPYnvtxZIYWwKNxTbEQsbyvJzT7vdgNblbVVABfzQ8IV2DbaLLedxcBWqOzf4E5T6PvnqyQ==
+"@blackglory/types@^0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.2.6.tgz#0fd273c3430a5fba2313774b6f16005f17f51778"
+  integrity sha512-2gvzqKWMpiPIS2F6G9Au06QyKabtj3tnBmkwNjZ25trvOEdUWfKeJ7g+K8/8EncLzITb2PK3FbMejMlq+iZL/Q==
   dependencies:
     "@types/node" "^14.14.19"
     ajv "^7.0.3"
@@ -2445,10 +2445,10 @@ extra-fetch@^0.1.6:
     formdata-node "^2.4.0"
     node-fetch "3.0.0-beta.9"
 
-extra-fetch@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/extra-fetch/-/extra-fetch-0.1.7.tgz#d14de4528e63b18d0a3469f9d1f16cdccb637301"
-  integrity sha512-z4PYoqEOjwqKi9yF0eGuW7zgIwoQuT4vhIiRDUUxzZ5upfYLCNZ4CIvhA6j4SYC+Ahyy4uqlWXF20L0APObZfQ==
+extra-fetch@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/extra-fetch/-/extra-fetch-0.1.8.tgz#2384f778c9426bc49ebe1a522f417576c77feebd"
+  integrity sha512-cZB9WorA75nJUYDLj319cpWdr+8N8LKCO9ZCWwVg/2gbprQIa8J72VcfTZS6mUWkF84HrDk6f3eaxe4UKrORmw==
   dependencies:
     abort-controller "^3.0.0"
     domexception "^2.0.1"
@@ -2456,10 +2456,10 @@ extra-fetch@^0.1.7:
     formdata-node "^2.4.0"
     node-fetch "3.0.0-beta.9"
 
-extra-request@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/extra-request/-/extra-request-0.3.1.tgz#7fd1b56770643a5bf86f44bcad135cd66c37b7c6"
-  integrity sha512-W8iIg+oWRjYkvxXjv4ud2OgThWbjRnrQQOjSvhGLmXha3zOrNxZw5sG+Dcj/+s+Np13X8qHgMItaWkualhSidA==
+extra-request@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/extra-request/-/extra-request-0.3.2.tgz#30ed76cf0a15e8f04b978ef469a6e133f8e01da1"
+  integrity sha512-gnf9FU+5lUVG5u4CsNFlD4zCQF9czpN2kFLZBICTP4Bvf7WVl12XHldrdmnz91RmLrB9i1mRCoJuE9c53So4IQ==
   dependencies:
     "@blackglory/types" "^0.2.4"
     "@types/node" "^14.14.20"
@@ -2467,10 +2467,10 @@ extra-request@^0.3.1:
     papaparse "^5.3.0"
     typed-assert "^1.0.7"
 
-extra-response@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/extra-response/-/extra-response-0.2.3.tgz#ac46ed347255ff0f8509cd8aba83c06bd127121d"
-  integrity sha512-fxztjal5m2xSTnXcSRUo1VP+207K2qfM5e9DBuoMFglSrO9X34nbu+mEyzee0x+MTs2caRci/euOXWJGW6oozQ==
+extra-response@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/extra-response/-/extra-response-0.2.4.tgz#60ca240303602465059e5a2762aa29ea481354da"
+  integrity sha512-2aTD9yH12qrsWEGyMP+l6CRA855EHQ9qL+FJ8i8eVgmMTBqaGz4M+KkpqauVUoR06H1xLNk3fY5k97DjAwEZbA==
   dependencies:
     "@blackglory/http-status" "^0.1.5"
     iterable-operator "^0.12.6"
