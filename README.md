@@ -26,7 +26,7 @@ interface StoreClientRequestOptions {
 }
 
 interface StoreClientRequestOptionsWithRevision extends StoreClientRequestOptions {
-  rev?: string
+  revision?: string
 }
 
 interface StoreClientRequestOptionsWithoutToken {
@@ -38,19 +38,19 @@ interface StoreClientRequestOptionsWithoutToken {
 #### set
 
 ```ts
-StoreClient#set(storeId: string, itemId: string, doc: string, options?: StoreClientRequestOptionsWithRevision): Promise<void>
+StoreClient#set(storeId: string, itemId: string, payload: string, options?: StoreClientRequestOptionsWithRevision): Promise<void>
 ```
 
 #### setJSON
 
 ```ts
-StoreClient#setJSON(storeId: string, itemId: string, doc: Json, options?: StoreClientRequestOptionsWithRevision): Promise<void>
+StoreClient#setJSON(storeId: string, itemId: string, payload: Json, options?: StoreClientRequestOptionsWithRevision): Promise<void>
 ```
 
 #### setCSV
 
 ```ts
-StoreClient#setJSON<T extends object>(storeId: string, itemId: string, doc: T[], options?: StoreClientRequestOptionsWithRevision): Promise<void>
+StoreClient#setJSON<T extends object>(storeId: string, itemId: string, payload: T[], options?: StoreClientRequestOptionsWithRevision): Promise<void>
 ```
 
 #### has
@@ -63,8 +63,8 @@ StoreClient#has(storeId: string, itemId: string, options?: StoreClientRequestOpt
 
 ```ts
 StoreClient#get(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<{
-  rev: string
-  doc: string
+  revision: string
+  payload: string
 }>
 ```
 
@@ -72,8 +72,8 @@ StoreClient#get(storeId: string, itemId: string, options?: StoreClientRequestOpt
 
 ```ts
 StoreClient#getJSON(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<{
-  rev: string
-  doc: Json
+  revision: string
+  payload: Json
 }>
 ```
 
@@ -81,8 +81,8 @@ StoreClient#getJSON(storeId: string, itemId: string, options?: StoreClientReques
 
 ```ts
 StoreClient#getCSV<T extends object>(storeId: string, itemId: string, options?: StoreClientRequestOptionsWithRevision): Promise<{
-  rev: string
-  doc: T[]
+  revision: string
+  payload: T[]
 }>
 ```
 

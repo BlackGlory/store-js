@@ -9,7 +9,7 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('StoreClient', () => {
-  it('set(storeId: string, itemId: string, doc: string): Promise<void>', async () => {
+  it('set(storeId: string, itemId: string, payload: string): Promise<void>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -22,7 +22,7 @@ describe('StoreClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('setJSON(storeId: string, itemId: string, doc: Json): Promise<void>', async () => {
+  it('setJSON(storeId: string, itemId: string, payload: Json): Promise<void>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -35,7 +35,7 @@ describe('StoreClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('setCSV<T extends object>(storeId: string, itemId: string, doc: T[]): Promise<void>', async () => {
+  it('setCSV<T extends object>(storeId: string, itemId: string, payload: T[]): Promise<void>', async () => {
     const client = createClient()
     const storeId = 'store-id'
     const itemId = 'item-id'
@@ -60,7 +60,7 @@ describe('StoreClient', () => {
     expect(proResult).toBeTrue()
   })
 
-  it('get(storeId: string, itemId: string): Promise<{ rev: string; doc: string }>', async () => {
+  it('get(storeId: string, itemId: string): Promise<{ revision: string; payload: string }>', async () => {
     const client = createClient()
     const storeId = 'store-id'
 
@@ -69,12 +69,12 @@ describe('StoreClient', () => {
 
     expect(result).toBePromise()
     expect(proResult).toStrictEqual({
-      rev: 'revision'
-    , doc: 'text'
+      revision: 'revision'
+    , payload: 'text'
     })
   })
 
-  it('getJSON(storeId: string, itemId: string): Promise<{ rev: string; doc: Json }>', async () => {
+  it('getJSON(storeId: string, itemId: string): Promise<{ revision: string; payload: Json }>', async () => {
     const client = createClient()
     const storeId = 'store-id'
 
@@ -83,12 +83,12 @@ describe('StoreClient', () => {
 
     expect(result).toBePromise()
     expect(proResult).toStrictEqual({
-      rev: 'revision'
-    , doc: { 'hello': 'world' }
+      revision: 'revision'
+    , payload: { 'hello': 'world' }
     })
   })
 
-  it('getCSV<T extends object>(storeId: string, itemId: string): Promise<{ rev: string; doc: T[] }>', async () => {
+  it('getCSV<T extends object>(storeId: string, itemId: string): Promise<{ revision: string; payload: T[] }>', async () => {
     const client = createClient()
     const storeId = 'store-id'
 
@@ -97,8 +97,8 @@ describe('StoreClient', () => {
 
     expect(result).toBePromise()
     expect(proResult).toStrictEqual({
-      rev: 'revision'
-    , doc: [
+      revision: 'revision'
+    , payload: [
         { key: 'hello', value: 'world' }
       ]
     })

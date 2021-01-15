@@ -5,8 +5,8 @@ import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 
 interface Item<T> {
-  rev: string
-  doc: T
+  revision: string
+  payload: T
 }
 
 interface Info {
@@ -25,7 +25,7 @@ export interface StoreClientRequestOptions {
 }
 
 export interface StoreClientRequestOptionsWithRevision extends StoreClientRequestOptions {
-  rev?: string
+  revision?: string
 }
 
 export interface StoreClientRequestOptionsWithoutToken {
@@ -38,7 +38,7 @@ export class StoreClient {
   async set(
     storeId: string
   , itemId: string
-  , doc: string
+  , payload: string
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
@@ -46,7 +46,7 @@ export class StoreClient {
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
-    , text(doc)
+    , text(payload)
     , options.signal && signal(options.signal)
     )
 
@@ -56,7 +56,7 @@ export class StoreClient {
   async setJSON<T>(
     storeId: string
   , itemId: string
-  , doc: T
+  , payload: T
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
@@ -64,7 +64,7 @@ export class StoreClient {
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
-    , json(doc)
+    , json(payload)
     , options.signal && signal(options.signal)
     )
 
@@ -74,7 +74,7 @@ export class StoreClient {
   async setCSV<T extends object>(
     storeId: string
   , itemId: string
-  , doc: T[]
+  , payload: T[]
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
@@ -82,7 +82,7 @@ export class StoreClient {
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
-    , csv(doc)
+    , csv(payload)
     , options.signal && signal(options.signal)
     )
 
@@ -117,8 +117,8 @@ export class StoreClient {
   , options?: StoreClientRequestOptionsWithRevision
   ): Promise<Item<string>> {
     return this._get(storeId, itemId, options).then(async res => ({
-      rev: res.headers.get('ETag')!
-    , doc: await toText(res)
+      revision: res.headers.get('ETag')!
+    , payload: await toText(res)
     }))
   }
 
@@ -128,8 +128,8 @@ export class StoreClient {
   , options?: StoreClientRequestOptionsWithRevision
   ): Promise<Item<T>> {
     return this._get(storeId, itemId, options).then(async res => ({
-      rev: res.headers.get('ETag')!
-    , doc: await toJSON(res)
+      revision: res.headers.get('ETag')!
+    , payload: await toJSON(res)
     }))
   }
 
@@ -139,8 +139,8 @@ export class StoreClient {
   , options?: StoreClientRequestOptionsWithRevision
   ): Promise<Item<T[]>> {
     return this._get(storeId, itemId, options).then(async res => ({
-      rev: res.headers.get('ETag')!
-    , doc: await toCSV(res) as T[]
+      revision: res.headers.get('ETag')!
+    , payload: await toCSV(res) as T[]
     }))
   }
 
