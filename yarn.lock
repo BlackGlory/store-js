@@ -283,7 +283,7 @@
   resolved "https://registry.yarnpkg.com/@blackglory/errors/-/errors-0.1.4.tgz#9420c2f972a0609be3ae53f023ca3f8aebbb28f9"
   integrity sha512-Ix/r14W9wxX051MDPaOvag4jbnQ6wYDNc4OfQjPXU7ZD0FTQ/Nnr7qDHkg/Uv6R5FUP3MrWs3omXAN7g0YtBxw==
 
-"@blackglory/http-status@^0.1.6":
+"@blackglory/http-status@^0.1.7":
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/@blackglory/http-status/-/http-status-0.1.7.tgz#5fd3df2bdc57316660580273ed18ba2c6c830972"
   integrity sha512-I3ytl5K8sipk9RQJK7+mndpCWz80m+nbSCyJaIkv/oOj2SA0NTHt3n0n3wGdGiD9T0nxcNN9GOOtDo+aiOC9Lw==
@@ -304,12 +304,12 @@
   resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.1.7.tgz#3007d9e6b79943e5310105bef288a423f32950d2"
   integrity sha512-SfRGxA/azjxvreiZKQs+n0VHeDyWT63sejlMD4GHUAjN1jY2e8HMiBU30ersUiEEJxGLnWlH7cW6B6A3Z71b6g==
 
-"@blackglory/types@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.2.7.tgz#f2c7bf6f71e9608b1df9db56aa853dbbfab4a4ec"
-  integrity sha512-Jjd2uIGePZL8gufsOOvUsOBqg8Gr+GHiB8HLSgaBmVZPV7gANGEZ1YmjrsGUBI4l17F2Jz+vXw7G+TFAtfOxfA==
+"@blackglory/types@^0.2.9":
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.2.9.tgz#8f87fdc5242dd493cff7ef2d18d325debaa2e0ba"
+  integrity sha512-4Z9wpm98rV2uNw1MF10DqqtHiGVSGikwXz75Mb5Z3uF63w7pX4oRpuq+wdifyD50QOfZvb9ZP3pPdu1GlWy+hg==
   dependencies:
-    "@types/node" "^14.14.21"
+    "@types/node" "^14.14.22"
     ajv "^7.0.3"
 
 "@cnakazawa/watch@^1.0.3":
@@ -922,11 +922,6 @@
   version "14.14.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.10.tgz#5958a82e41863cfc71f2307b3748e3491ba03785"
   integrity sha512-J32dgx2hw8vXrSbu4ZlVhn1Nm3GbeCFNw2FWL8S5QKucHGY0cyNwjdQdO+KMBZ4wpmC7KhLCiNsdk1RFRIYUQQ==
-
-"@types/node@^14.14.21":
-  version "14.14.21"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.21.tgz#d934aacc22424fe9622ebf6857370c052eae464e"
-  integrity sha512-cHYfKsnwllYhjOzuC5q1VpguABBeecUp24yFluHpn/BQaVxB1CuQ1FSRZCzrPxrkIfWISXV2LbeoBthLWg0+0A==
 
 "@types/node@^14.14.22":
   version "14.14.22"
@@ -2475,24 +2470,25 @@ extra-fetch@^0.1.9:
     formdata-node "^2.4.0"
     node-fetch "3.0.0-beta.9"
 
-extra-request@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/extra-request/-/extra-request-0.3.3.tgz#501e512009b71362d61b504fd179eef090c19ac7"
-  integrity sha512-kQjkSzMp5EhYorIM5n+KCZoMRpmtItrjoUM0l9HV+s+5d5f6XR+1W7RudoP90bf78xKla/HIdvRka24jyB8PqA==
+extra-request@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/extra-request/-/extra-request-0.3.5.tgz#b0e6d9ab8f7b3e7edf3f38822a6e56c94913cccf"
+  integrity sha512-WMqmUVpmM+anx69BKs1/rZ1FXetJ2DqGV4bObd9o67f33WhKcaRuIhJmxex5oMOLGnj/il6dK5edrP1J/1Imjg==
   dependencies:
-    "@blackglory/types" "^0.2.7"
+    "@blackglory/types" "^0.2.9"
     "@types/node" "^14.14.22"
     extra-fetch "^0.1.9"
+    js-base64 "^3.6.0"
     papaparse "^5.3.0"
     typed-assert "^1.0.7"
 
-extra-response@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/extra-response/-/extra-response-0.2.7.tgz#2450ddef63675c6a83c040d3330c01147a4de882"
-  integrity sha512-a0CZuC7jIBEJ+e4Wak+V11r+bipatXnFoNf/02RaU79Vy0Tp7o7rQ8VT820068vYWduBsK/ieOggzhHfCBNajw==
+extra-response@^0.2.8:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/extra-response/-/extra-response-0.2.8.tgz#194ca499e118c10a334650b2393cdbaf0d59cbf3"
+  integrity sha512-yWKp8xLMAP5Pz7WWuiqtmnDkSPlQlA+zZWNthIkzBCz/NOBqNQgk7VHyAqGZyVU1uR3M2BYsHZwBgaVw0QCyOQ==
   dependencies:
-    "@blackglory/http-status" "^0.1.6"
-    iterable-operator "^0.12.7"
+    "@blackglory/http-status" "^0.1.7"
+    iterable-operator "^0.12.9"
     papaparse "^5.3.0"
 
 extsprintf@1.3.0:
@@ -3481,12 +3477,12 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-iterable-operator@^0.12.7:
-  version "0.12.8"
-  resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-0.12.8.tgz#57dd8010e34500095a42362a6ae95503c0b79f5c"
-  integrity sha512-oShOfoVq1RDLD0+jHvJVuvdbIi8SGuwIX34gTvgYxRQ1L2z766W4USwQeOA6kqW0RtWhA9hHRSB6iVbM/MC5Ig==
+iterable-operator@^0.12.9:
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-0.12.9.tgz#2e0ca7fb38a22e4185e9f99d22887fd5d44f59d9"
+  integrity sha512-L8p3zUuW1x+oUknp9bRtQ+xXuPuaOMWujc0m+i/VMxBunvLjeqZ3Qb7XkcqUy95c9JKnom1foGZXv1lCPdbjiA==
   dependencies:
-    "@blackglory/types" "^0.2.7"
+    "@blackglory/types" "^0.2.9"
 
 jest-changed-files@^26.6.2:
   version "26.6.2"
@@ -3927,6 +3923,11 @@ jest@^26.6.3:
     "@jest/core" "^26.6.3"
     import-local "^3.0.2"
     jest-cli "^26.6.3"
+
+js-base64@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.6.0.tgz#773e1de628f4f298d65a7e9842c50244751f5756"
+  integrity sha512-wVdUBYQeY2gY73RIlPrysvpYx+2vheGo8Y1SNQv/BzHToWpAZzJU7Z6uheKMAe+GLSBig5/Ps2nxg/8tRB73xg==
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -5354,10 +5355,10 @@ rollup-plugin-terser@^7.0.2:
     serialize-javascript "^4.0.0"
     terser "^5.0.0"
 
-rollup@^2.37.0:
-  version "2.37.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.37.0.tgz#5baf631dc224a56d7eb88dd11b20aa28c1e8dc6f"
-  integrity sha512-cbxuxkMGCQV+TnVh+yZSUerbVb5i8soRydbzHYoMNojgt7MMi+jDLLs24U9HHCssKkwkXmsj+LXcOZMldTbz2w==
+rollup@^2.37.1:
+  version "2.37.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.37.1.tgz#aa7aadffd75c80393f9314f9857e851b0ffd34e7"
+  integrity sha512-V3ojEeyGeSdrMSuhP3diBb06P+qV4gKQeanbDv+Qh/BZbhdZ7kHV0xAt8Yjk4GFshq/WjO7R4c7DFM20AwTFVQ==
   optionalDependencies:
     fsevents "~2.1.2"
 
