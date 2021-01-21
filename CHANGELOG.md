@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.3](https://github.com/BlackGlory/store-js/compare/v0.5.2...v0.5.3) (2021-01-21)
+
+
+### Features
+
+* support basic auth in StoreClient ([aae59eb](https://github.com/BlackGlory/store-js/commit/aae59eb8330511c8ee7b929929a1ed00090a1d7f))
+
 ### [0.5.2](https://github.com/BlackGlory/store-js/compare/v0.5.1...v0.5.2) (2021-01-20)
 
 ### [0.5.1](https://github.com/BlackGlory/store-js/compare/v0.5.0...v0.5.1) (2021-01-17)
