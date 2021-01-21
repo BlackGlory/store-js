@@ -15,7 +15,11 @@ yarn add @blackglory/store-js
 ```ts
 new StoreClient({
   server: string
-, token?: string
+  token?: string
+  basicAuth?: {
+    username: string
+    password: string
+  }
 })
 ```
 
@@ -124,7 +128,7 @@ StoreClient#stats(storeId: string, options?: StoreClientRequestOptionsWithoutTok
 ```ts
 new StoreManager({
   server: string
-, adminPassword: string
+  adminPassword: string
 })
 ```
 

@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { head, put, get, del } from 'extra-request'
-import { url, pathname, json, text, csv, searchParams, signal } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, json, text, csv, searchParams, signal, basicAuth } from 'extra-request/lib/es2018/transformers'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 
@@ -17,6 +17,10 @@ interface Info {
 export interface StoreClientOptions {
   server: string
   token?: string
+  basicAuth?: {
+    username: string
+    password: string
+  }
 }
 
 export interface StoreClientRequestOptions {
@@ -42,10 +46,12 @@ export class StoreClient {
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
     const req = put(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
     , text(payload)
     , options.signal && signal(options.signal)
     )
@@ -60,10 +66,12 @@ export class StoreClient {
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
     const req = put(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
     , json(payload)
     , options.signal && signal(options.signal)
     )
@@ -78,10 +86,12 @@ export class StoreClient {
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
     const req = put(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
     , csv(payload)
     , options.signal && signal(options.signal)
     )
@@ -95,10 +105,12 @@ export class StoreClient {
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<boolean> {
     const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
     const req = head(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     )
 
@@ -150,10 +162,12 @@ export class StoreClient {
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<Response> {
     const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     )
 
@@ -162,10 +176,12 @@ export class StoreClient {
 
   async listItems(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
     const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
     , pathname(`/store/${storeId}/items`)
     , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     )
 
@@ -180,10 +196,12 @@ export class StoreClient {
   , options: StoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
     const req = del(
       url(this.options.server)
     , pathname(`/store/${storeId}/items/${itemId}`)
     , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     )
 
@@ -195,10 +213,12 @@ export class StoreClient {
   , options: StoreClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
     const req = del(
       url(this.options.server)
     , pathname(`/store/${storeId}`)
     , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     )
 
@@ -206,9 +226,11 @@ export class StoreClient {
   }
 
   async stats(storeId: string, options: StoreClientRequestOptionsWithoutToken = {}): Promise<Info> {
+    const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
     , pathname(`/store/${storeId}/stats`)
+    , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     )
 
@@ -218,9 +240,11 @@ export class StoreClient {
   }
 
   async listStores(options: StoreClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+    const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
     , pathname(`/store`)
+    , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     )
 
