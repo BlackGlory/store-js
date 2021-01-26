@@ -174,22 +174,6 @@ export class StoreClient {
     return await fetch(req).then(ok)
   }
 
-  async listItems(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
-    const token = options.token ?? this.options.token
-    const auth = this.options.basicAuth
-    const req = get(
-      url(this.options.server)
-    , pathname(`/store/${storeId}/items`)
-    , token && searchParams({ token })
-    , auth && basicAuth(auth.username, auth.password)
-    , options.signal && signal(options.signal)
-    )
-
-    return await fetch(req)
-      .then(ok)
-      .then(toJSON) as string[]
-  }
-
   async del(
     storeId: string
   , itemId: string
@@ -239,11 +223,27 @@ export class StoreClient {
       .then(toJSON) as Info
   }
 
+  async listItems(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
+    const token = options.token ?? this.options.token
+    const auth = this.options.basicAuth
+    const req = get(
+      url(this.options.server)
+    , pathname(`/store/${storeId}/items`)
+    , token && searchParams({ token })
+    , auth && basicAuth(auth.username, auth.password)
+    , options.signal && signal(options.signal)
+    )
+
+    return await fetch(req)
+      .then(ok)
+      .then(toJSON) as string[]
+  }
+
   async listStores(options: StoreClientRequestOptionsWithoutToken = {}): Promise<string[]> {
     const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
-    , pathname(`/store`)
+    , pathname('/store')
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     )
