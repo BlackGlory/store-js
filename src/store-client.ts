@@ -223,7 +223,7 @@ export class StoreClient {
       .then(toJSON) as Info
   }
 
-  async listItems(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
+  async getAllItemIds(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
     const req = get(

@@ -104,11 +104,11 @@ describe('StoreClient', () => {
     })
   })
 
-  it('listItems(storeId: string): Promise<string[]>', async () => {
+  it('getAllItemIds(storeId: string): Promise<string[]>', async () => {
     const client = createClient()
     const storeId = 'store-id'
 
-    const result = client.listItems(storeId)
+    const result = client.getAllItemIds(storeId)
     const proResult = await result
 
     expect(result).toBePromise()

@@ -102,10 +102,10 @@ StoreClient#del(storeId: string, itemId: string, options?: StoreClientRequestOpt
 StoreClient#clear(storeId: string, options?: StoreClientRequestOptions): Promise<void>
 ```
 
-#### listItems
+#### getAllItemIds
 
 ```ts
-StoreClient#listItems(storeId: string, options?: StoreClientRequestOptions): Promise<string[]>
+StoreClient#getAllItemIds(storeId: string, options?: StoreClientRequestOptions): Promise<string[]>
 ```
 
 #### listStores
