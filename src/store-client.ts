@@ -239,7 +239,7 @@ export class StoreClient {
       .then(toJSON) as string[]
   }
 
-  async listStores(options: StoreClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+  async getAllStoreIds(options: StoreClientRequestOptionsWithoutToken = {}): Promise<string[]> {
     const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)

@@ -115,10 +115,10 @@ describe('StoreClient', () => {
     expect(proResult).toStrictEqual(['id'])
   })
 
-  it('listStores(): Promise<string[]>', async () => {
+  it('getAllStoreIds(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.listStores()
+    const result = client.getAllStoreIds()
     const proResult = await result
 
     expect(result).toBePromise()

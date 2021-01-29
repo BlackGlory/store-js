@@ -108,10 +108,10 @@ StoreClient#clear(storeId: string, options?: StoreClientRequestOptions): Promise
 StoreClient#getAllItemIds(storeId: string, options?: StoreClientRequestOptions): Promise<string[]>
 ```
 
-#### listStores
+#### getAllStoreIds
 
 ```ts
-StoreClient#listStores(options?: StoreClientRequestOptionsWithoutToken): Promise<string[]>
+StoreClient#getAllStoreIds(options?: StoreClientRequestOptionsWithoutToken): Promise<string[]>
 ```
 
 #### stats
