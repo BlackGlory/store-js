@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/BlackGlory/store-js/compare/v0.5.4...v0.6.0) (2021-01-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* StoreClient#listStores => getAllStoreIds
+* StoreClient#listItems => getAllItemIds
+
+### Features
+
+* rename listItems => getAllItemIds ([fe3ee0a](https://github.com/BlackGlory/store-js/commit/fe3ee0a4a3d4cac08baec47c5f237f77a68ba006))
+* rename listStores => getAllStoreIds ([689b2b0](https://github.com/BlackGlory/store-js/commit/689b2b02d78be7e2b9d0e40b74699e8306f892d4))
+
 ### [0.5.4](https://github.com/BlackGlory/store-js/compare/v0.5.3...v0.5.4) (2021-01-26)
 
 ### [0.5.3](https://github.com/BlackGlory/store-js/compare/v0.5.2...v0.5.3) (2021-01-21)
