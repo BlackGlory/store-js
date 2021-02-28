@@ -5,13 +5,13 @@ import { TokenPolicyClient } from './token-policy-client'
 import { TokenClient } from './token-client'
 import { RevisionPolicyClient } from './revision-policy-client'
 
-export interface StoreManagerOptions {
+export interface IStoreManagerOptions {
   server: string
   adminPassword: string
 }
 
 export class StoreManager {
-  constructor(private options: StoreManagerOptions) {}
+  constructor(private options: IStoreManagerOptions) {}
 
   JsonSchema = new JsonSchemaClient(this.options)
   Blacklist = new BlacklistClient(this.options)

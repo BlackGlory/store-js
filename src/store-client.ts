@@ -4,17 +4,17 @@ import { url, pathname, json, text, csv, searchParams, signal, basicAuth } from 
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 
-interface Item<T> {
+interface IItem<T> {
   revision: string
   payload: T
 }
 
-interface Info {
+interface IInfo {
   id: string
   items: number
 }
 
-export interface StoreClientOptions {
+export interface IStoreClientOptions {
   server: string
   token?: string
   basicAuth?: {
@@ -23,27 +23,27 @@ export interface StoreClientOptions {
   }
 }
 
-export interface StoreClientRequestOptions {
+export interface IStoreClientRequestOptions {
   signal?: AbortSignal
   token?: string
 }
 
-export interface StoreClientRequestOptionsWithRevision extends StoreClientRequestOptions {
+export interface IStoreClientRequestOptionsWithRevision extends IStoreClientRequestOptions {
   revision?: string
 }
 
-export interface StoreClientRequestOptionsWithoutToken {
+export interface IStoreClientRequestOptionsWithoutToken {
   signal?: AbortSignal
 }
 
 export class StoreClient {
-  constructor(private options: StoreClientOptions) {}
+  constructor(private options: IStoreClientOptions) {}
 
   async set(
     storeId: string
   , itemId: string
   , payload: string
-  , options: StoreClientRequestOptionsWithRevision = {}
+  , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
@@ -63,7 +63,7 @@ export class StoreClient {
     storeId: string
   , itemId: string
   , payload: T
-  , options: StoreClientRequestOptionsWithRevision = {}
+  , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
@@ -83,7 +83,7 @@ export class StoreClient {
     storeId: string
   , itemId: string
   , payload: T[]
-  , options: StoreClientRequestOptionsWithRevision = {}
+  , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
@@ -102,7 +102,7 @@ export class StoreClient {
   async has(
     storeId: string
   , itemId: string
-  , options: StoreClientRequestOptionsWithRevision = {}
+  , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<boolean> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
@@ -126,8 +126,8 @@ export class StoreClient {
   get(
     storeId: string
   , itemId: string
-  , options?: StoreClientRequestOptionsWithRevision
-  ): Promise<Item<string>> {
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<string>> {
     return this._get(storeId, itemId, options).then(async res => ({
       revision: res.headers.get('ETag')!
     , payload: await toText(res)
@@ -137,8 +137,8 @@ export class StoreClient {
   getJSON<T>(
     storeId: string
   , itemId: string
-  , options?: StoreClientRequestOptionsWithRevision
-  ): Promise<Item<T>> {
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<T>> {
     return this._get(storeId, itemId, options).then(async res => ({
       revision: res.headers.get('ETag')!
     , payload: await toJSON(res)
@@ -148,8 +148,8 @@ export class StoreClient {
   getCSV<T extends object>(
     storeId: string
   , itemId: string
-  , options?: StoreClientRequestOptionsWithRevision
-  ): Promise<Item<T[]>> {
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<T[]>> {
     return this._get(storeId, itemId, options).then(async res => ({
       revision: res.headers.get('ETag')!
     , payload: await toCSV(res) as T[]
@@ -159,7 +159,7 @@ export class StoreClient {
   private async _get(
     storeId: string
   , itemId: string
-  , options: StoreClientRequestOptionsWithRevision = {}
+  , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<Response> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
@@ -177,7 +177,7 @@ export class StoreClient {
   async del(
     storeId: string
   , itemId: string
-  , options: StoreClientRequestOptionsWithRevision = {}
+  , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
@@ -194,7 +194,7 @@ export class StoreClient {
 
   async clear(
     storeId: string
-  , options: StoreClientRequestOptions = {}
+  , options: IStoreClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
@@ -209,7 +209,7 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
-  async stats(storeId: string, options: StoreClientRequestOptionsWithoutToken = {}): Promise<Info> {
+  async stats(storeId: string, options: IStoreClientRequestOptionsWithoutToken = {}): Promise<IInfo> {
     const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
@@ -220,10 +220,10 @@ export class StoreClient {
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as Info
+      .then(toJSON) as IInfo
   }
 
-  async getAllItemIds(storeId: string, options: StoreClientRequestOptions = {}): Promise<string[]> {
+  async getAllItemIds(storeId: string, options: IStoreClientRequestOptions = {}): Promise<string[]> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
     const req = get(
@@ -239,7 +239,7 @@ export class StoreClient {
       .then(toJSON) as string[]
   }
 
-  async getAllStoreIds(options: StoreClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+  async getAllStoreIds(options: IStoreClientRequestOptionsWithoutToken = {}): Promise<string[]> {
     const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)

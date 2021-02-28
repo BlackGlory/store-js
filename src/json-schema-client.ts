@@ -4,11 +4,11 @@ import { password } from './utils'
 import { get, put, del } from 'extra-request'
 import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
-import type { StoreManagerOptions } from './store-manager'
+import type { IStoreManagerOptions } from './store-manager'
 import { StoreManagerRequestOptions } from './types'
 
 export class JsonSchemaClient {
-  constructor(private options: StoreManagerOptions) {}
+  constructor(private options: IStoreManagerOptions) {}
 
   async getIds(options: StoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
