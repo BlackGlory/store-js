@@ -4,6 +4,8 @@ import { url, pathname, json, text, csv, searchParams, signal, basicAuth } from 
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 
+export { HTTPClientError } from '@blackglory/http-status'
+
 interface IItem<T> {
   revision: string
   payload: T
