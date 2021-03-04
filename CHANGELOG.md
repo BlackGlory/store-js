@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.6](https://github.com/BlackGlory/store-js/compare/v0.6.5...v0.6.6) (2021-03-04)
+
+
+### Features
+
+* export HTTPClientError ([b2578dd](https://github.com/BlackGlory/store-js/commit/b2578dd60366478d34b447092ce026a5cd7decc3))
+
 ### [0.6.5](https://github.com/BlackGlory/store-js/compare/v0.6.4...v0.6.5) (2021-02-28)
 
 ### [0.6.4](https://github.com/BlackGlory/store-js/compare/v0.6.3...v0.6.4) (2021-02-25)
