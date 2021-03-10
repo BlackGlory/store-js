@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.9](https://github.com/BlackGlory/store-js/compare/v0.6.8...v0.6.9) (2021-03-10)
+
+
+### Features
+
+* add keepalive option ([51c2541](https://github.com/BlackGlory/store-js/commit/51c25410d2be5281657893975d1042f242702edd))
+
 ### [0.6.8](https://github.com/BlackGlory/store-js/compare/v0.6.7...v0.6.8) (2021-03-05)
 
 ### [0.6.7](https://github.com/BlackGlory/store-js/compare/v0.6.6...v0.6.7) (2021-03-04)
