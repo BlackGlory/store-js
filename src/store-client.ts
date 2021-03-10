@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { head, put, get, del } from 'extra-request'
-import { url, pathname, json, text, csv, searchParams, signal, basicAuth } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, json, text, csv, searchParams, signal, basicAuth, keepalive } from 'extra-request/lib/es2018/transformers'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 
@@ -23,11 +23,13 @@ export interface IStoreClientOptions {
     username: string
     password: string
   }
+  keepalive?: boolean
 }
 
 export interface IStoreClientRequestOptions {
   signal?: AbortSignal
   token?: string
+  keepalive?: boolean
 }
 
 export interface IStoreClientRequestOptionsWithRevision extends IStoreClientRequestOptions {
@@ -36,6 +38,7 @@ export interface IStoreClientRequestOptionsWithRevision extends IStoreClientRequ
 
 export interface IStoreClientRequestOptionsWithoutToken {
   signal?: AbortSignal
+  keepalive?: boolean
 }
 
 export class StoreClient {
@@ -56,6 +59,7 @@ export class StoreClient {
     , auth && basicAuth(auth.username, auth.password)
     , text(payload)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -76,6 +80,7 @@ export class StoreClient {
     , auth && basicAuth(auth.username, auth.password)
     , json(payload)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -96,6 +101,7 @@ export class StoreClient {
     , auth && basicAuth(auth.username, auth.password)
     , csv(payload)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -114,6 +120,7 @@ export class StoreClient {
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     try {
@@ -171,6 +178,7 @@ export class StoreClient {
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     return await fetch(req).then(ok)
@@ -189,6 +197,7 @@ export class StoreClient {
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -206,6 +215,7 @@ export class StoreClient {
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -218,6 +228,7 @@ export class StoreClient {
     , pathname(`/store/${storeId}/stats`)
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     return await fetch(req)
@@ -234,6 +245,7 @@ export class StoreClient {
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     return await fetch(req)
@@ -248,6 +260,7 @@ export class StoreClient {
     , pathname('/store')
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     return await fetch(req)

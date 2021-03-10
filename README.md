@@ -15,11 +15,12 @@ yarn add @blackglory/store-js
 ```ts
 new StoreClient({
   server: string
-  token?: string
-  basicAuth?: {
+, token?: string
+, basicAuth?: {
     username: string
-    password: string
+  , password: string
   }
+, keepalive?: boolean
 })
 ```
 
@@ -27,6 +28,7 @@ new StoreClient({
 interface IStoreClientRequestOptions {
   signal?: AbortSignal
   token?: string
+  keepalive?: boolean
 }
 
 interface IStoreClientRequestOptionsWithRevision extends IStoreClientRequestOptions {
@@ -35,6 +37,7 @@ interface IStoreClientRequestOptionsWithRevision extends IStoreClientRequestOpti
 
 interface IStoreClientRequestOptionsWithoutToken {
   signal?: AbortSignal
+  keepalive?: boolean
 }
 ```
 
