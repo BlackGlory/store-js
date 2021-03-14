@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import { badAuth } from '@test/utils'
 
 export const server = setupServer(
-  rest.get('/api/store-with-tokens', (req, res, ctx) => {
+  rest.get('/admin/store-with-tokens', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -12,7 +12,7 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/api/store/:id/tokens', (req, res, ctx) => {
+, rest.get('/admin/store/:id/tokens', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -28,37 +28,37 @@ export const server = setupServer(
     )
   })
 
-, rest.put('/api/store/:id/tokens/:token/write', (req, res, ctx) => {
+, rest.put('/admin/store/:id/tokens/:token/write', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/api/store/:id/tokens/:token/write', (req, res, ctx) => {
+, rest.delete('/admin/store/:id/tokens/:token/write', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.put('/api/store/:id/tokens/:token/read', (req, res, ctx) => {
+, rest.put('/admin/store/:id/tokens/:token/read', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/api/store/:id/tokens/:token/read', (req, res, ctx) => {
+, rest.delete('/admin/store/:id/tokens/:token/read', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.put('/api/store/:id/tokens/:token/delete', (req, res, ctx) => {
+, rest.put('/admin/store/:id/tokens/:token/delete', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/api/store/:id/tokens/:token/delete', (req, res, ctx) => {
+, rest.delete('/admin/store/:id/tokens/:token/delete', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))

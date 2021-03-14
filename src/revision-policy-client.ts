@@ -17,7 +17,7 @@ export class RevisionPolicyClient {
   async getIds(options: StoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
-    , pathname('/api/store-with-revision-policies')
+    , pathname('/admin/store-with-revision-policies')
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -30,7 +30,7 @@ export class RevisionPolicyClient {
   async get(id: string, options: StoreManagerRequestOptions = {}): Promise<RevisionPolicy> {
     const req = get(
       url(this.options.server)
-    , pathname(`/api/store/${id}/revision-policies`)
+    , pathname(`/admin/store/${id}/revision-policies`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -43,7 +43,7 @@ export class RevisionPolicyClient {
   async setUpdateRevisionRequired(id: string, val: boolean, options: StoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/store/${id}/revision-policies/update-revision-required`)
+    , pathname(`/admin/store/${id}/revision-policies/update-revision-required`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -55,7 +55,7 @@ export class RevisionPolicyClient {
   async removeUpdateRevisionRequired(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/store/${id}/revision-policies/update-revision-required`)
+    , pathname(`/admin/store/${id}/revision-policies/update-revision-required`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -66,7 +66,7 @@ export class RevisionPolicyClient {
   async setDeleteRevisionRequired(id: string, val: boolean, options: StoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/store/${id}/revision-policies/delete-revision-required`)
+    , pathname(`/admin/store/${id}/revision-policies/delete-revision-required`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -78,7 +78,7 @@ export class RevisionPolicyClient {
   async removeDeleteRevisionRequired(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/store/${id}/revision-policies/delete-revision-required`)
+    , pathname(`/admin/store/${id}/revision-policies/delete-revision-required`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
