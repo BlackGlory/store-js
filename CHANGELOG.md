@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/BlackGlory/store-js/compare/v0.6.9...v0.7.0) (2021-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename /api to /admin
+
+### Features
+
+* rename /api to /admin ([b76b5f8](https://github.com/BlackGlory/store-js/commit/b76b5f8ba6d65aaefe812db4f2f721fc0261a476))
+
 ### [0.6.9](https://github.com/BlackGlory/store-js/compare/v0.6.8...v0.6.9) (2021-03-10)
 
 
