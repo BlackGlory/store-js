@@ -4,12 +4,12 @@ import { get, put, del } from 'extra-request'
 import { url, pathname, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import type { IStoreManagerOptions } from './store-manager'
-import { StoreManagerRequestOptions } from './types'
+import { IStoreManagerRequestOptions } from './types'
 
 export class WhitelistClient {
   constructor(private options: IStoreManagerOptions) {}
 
-  async getIds(options: StoreManagerRequestOptions = {}): Promise<string[]> {
+  async getIds(options: IStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/whitelist')
@@ -22,7 +22,7 @@ export class WhitelistClient {
       .then(toJSON) as string[]
   }
 
-  async add(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async add(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/admin/whitelist/${id}`)
@@ -33,7 +33,7 @@ export class WhitelistClient {
     await fetch(req).then(ok)
   }
 
-  async remove(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async remove(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/admin/whitelist/${id}`)

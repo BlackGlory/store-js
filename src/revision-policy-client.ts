@@ -4,9 +4,9 @@ import { get, put, del } from 'extra-request'
 import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import type { IStoreManagerOptions } from './store-manager'
-import { StoreManagerRequestOptions } from './types'
+import { IStoreManagerRequestOptions } from './types'
 
-interface RevisionPolicy {
+interface IRevisionPolicy {
   updateRevisionRequired: boolean | null
   deleteRevisionRequired: boolean | null
 }
@@ -14,7 +14,7 @@ interface RevisionPolicy {
 export class RevisionPolicyClient {
   constructor(private options: IStoreManagerOptions) {}
 
-  async getIds(options: StoreManagerRequestOptions = {}): Promise<string[]> {
+  async getIds(options: IStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/store-with-revision-policies')
@@ -27,7 +27,7 @@ export class RevisionPolicyClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string, options: StoreManagerRequestOptions = {}): Promise<RevisionPolicy> {
+  async get(id: string, options: IStoreManagerRequestOptions = {}): Promise<IRevisionPolicy> {
     const req = get(
       url(this.options.server)
     , pathname(`/admin/store/${id}/revision-policies`)
@@ -37,10 +37,10 @@ export class RevisionPolicyClient {
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as RevisionPolicy
+      .then(toJSON) as IRevisionPolicy
   }
 
-  async setUpdateRevisionRequired(id: string, val: boolean, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async setUpdateRevisionRequired(id: string, val: boolean, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/admin/store/${id}/revision-policies/update-revision-required`)
@@ -52,7 +52,7 @@ export class RevisionPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeUpdateRevisionRequired(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async removeUpdateRevisionRequired(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/admin/store/${id}/revision-policies/update-revision-required`)
@@ -63,7 +63,7 @@ export class RevisionPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async setDeleteRevisionRequired(id: string, val: boolean, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async setDeleteRevisionRequired(id: string, val: boolean, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/admin/store/${id}/revision-policies/delete-revision-required`)
@@ -75,7 +75,7 @@ export class RevisionPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeDeleteRevisionRequired(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async removeDeleteRevisionRequired(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/admin/store/${id}/revision-policies/delete-revision-required`)

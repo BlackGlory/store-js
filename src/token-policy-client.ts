@@ -4,9 +4,9 @@ import { get, put, del } from 'extra-request'
 import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import type { IStoreManagerOptions } from './store-manager'
-import { StoreManagerRequestOptions } from './types'
+import { IStoreManagerRequestOptions } from './types'
 
-interface TokenPolicy {
+interface ITokenPolicy {
   writeTokenRequired: boolean | null
   readTokenRequired: boolean | null
   deleteTokenRequired: boolean | null
@@ -15,7 +15,7 @@ interface TokenPolicy {
 export class TokenPolicyClient {
   constructor(private options: IStoreManagerOptions) {}
 
-  async getIds(options: StoreManagerRequestOptions = {}): Promise<string[]> {
+  async getIds(options: IStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/store-with-token-policies')
@@ -28,7 +28,7 @@ export class TokenPolicyClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string, options: StoreManagerRequestOptions = {}): Promise<TokenPolicy> {
+  async get(id: string, options: IStoreManagerRequestOptions = {}): Promise<ITokenPolicy> {
     const req = get(
       url(this.options.server)
     , pathname(`/admin/store/${id}/token-policies`)
@@ -38,10 +38,10 @@ export class TokenPolicyClient {
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as TokenPolicy
+      .then(toJSON) as ITokenPolicy
   }
 
-  async setWriteTokenRequired(id: string, val: boolean, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async setWriteTokenRequired(id: string, val: boolean, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/admin/store/${id}/token-policies/write-token-required`)
@@ -53,7 +53,7 @@ export class TokenPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeWriteTokenRequired(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async removeWriteTokenRequired(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/admin/store/${id}/token-policies/write-token-required`)
@@ -64,7 +64,7 @@ export class TokenPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async setReadTokenRequired(id: string, val: boolean, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async setReadTokenRequired(id: string, val: boolean, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/admin/store/${id}/token-policies/read-token-required`)
@@ -76,7 +76,7 @@ export class TokenPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeReadTokenRequired(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async removeReadTokenRequired(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/admin/store/${id}/token-policies/read-token-required`)
@@ -87,7 +87,7 @@ export class TokenPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async setDeleteTokenRequired(id: string, val: boolean, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async setDeleteTokenRequired(id: string, val: boolean, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/admin/store/${id}/token-policies/delete-token-required`)
@@ -99,7 +99,7 @@ export class TokenPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeDeleteTokenRequired(id: string, options: StoreManagerRequestOptions = {}): Promise<void> {
+  async removeDeleteTokenRequired(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/admin/store/${id}/token-policies/delete-token-required`)

@@ -1,3 +1,3 @@
-export interface StoreManagerRequestOptions {
+export interface IStoreManagerRequestOptions {
   signal?: AbortSignal
 }
