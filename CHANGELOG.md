@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.4](https://github.com/BlackGlory/store-js/compare/v0.7.3...v0.7.4) (2021-03-20)
+
+
+### Bug Fixes
+
+* use Headers from extra-fetch ([5f3c8cf](https://github.com/BlackGlory/store-js/commit/5f3c8cf454ba3aa47d1122f0a1e708e0c67d5de1))
+
 ### [0.7.3](https://github.com/BlackGlory/store-js/compare/v0.7.2...v0.7.3) (2021-03-19)
 
 ### [0.7.2](https://github.com/BlackGlory/store-js/compare/v0.7.1...v0.7.2) (2021-03-17)
