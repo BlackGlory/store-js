@@ -1,4 +1,5 @@
 import { IHTTPOptions, IHTTPOptionsTransformer } from 'extra-request'
+import { Headers } from 'extra-fetch'
 
 export function password(password: string): IHTTPOptionsTransformer {
   return (options: IHTTPOptions) => {
