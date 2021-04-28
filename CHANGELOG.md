@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/BlackGlory/store-js/compare/v0.7.4...v0.8.0) (2021-04-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename
+
+* rename ([b74e883](https://github.com/BlackGlory/store-js/commit/b74e883885b2c4469b77871536c7e55d27e681d9))
+
 ### [0.7.4](https://github.com/BlackGlory/store-js/compare/v0.7.3...v0.7.4) (2021-03-20)
 
 
