@@ -14,7 +14,7 @@ interface IRevisionPolicy {
 export class RevisionPolicyClient {
   constructor(private options: IStoreManagerOptions) {}
 
-  async getIds(options: IStoreManagerRequestOptions = {}): Promise<string[]> {
+  async getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/store-with-revision-policies')
@@ -27,10 +27,13 @@ export class RevisionPolicyClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string, options: IStoreManagerRequestOptions = {}): Promise<IRevisionPolicy> {
+  async get(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<IRevisionPolicy> {
     const req = get(
       url(this.options.server)
-    , pathname(`/admin/store/${id}/revision-policies`)
+    , pathname(`/admin/store/${namespace}/revision-policies`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -40,10 +43,14 @@ export class RevisionPolicyClient {
       .then(toJSON) as IRevisionPolicy
   }
 
-  async setUpdateRevisionRequired(id: string, val: boolean, options: IStoreManagerRequestOptions = {}): Promise<void> {
+  async setUpdateRevisionRequired(
+    namespace: string
+  , val: boolean
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/store/${id}/revision-policies/update-revision-required`)
+    , pathname(`/admin/store/${namespace}/revision-policies/update-revision-required`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -52,10 +59,13 @@ export class RevisionPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeUpdateRevisionRequired(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
+  async removeUpdateRevisionRequired(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/store/${id}/revision-policies/update-revision-required`)
+    , pathname(`/admin/store/${namespace}/revision-policies/update-revision-required`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -63,10 +73,14 @@ export class RevisionPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async setDeleteRevisionRequired(id: string, val: boolean, options: IStoreManagerRequestOptions = {}): Promise<void> {
+  async setDeleteRevisionRequired(
+    namespace: string
+  , val: boolean
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/store/${id}/revision-policies/delete-revision-required`)
+    , pathname(`/admin/store/${namespace}/revision-policies/delete-revision-required`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -75,10 +89,13 @@ export class RevisionPolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeDeleteRevisionRequired(id: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
+  async removeDeleteRevisionRequired(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/store/${id}/revision-policies/delete-revision-required`)
+    , pathname(`/admin/store/${namespace}/revision-policies/delete-revision-required`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

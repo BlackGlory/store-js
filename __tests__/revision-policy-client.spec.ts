@@ -8,21 +8,26 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('RevisionPolicyClient', () => {
-  it('getIds(): Promise<string[]>', async () => {
+  it('getNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getIds()
+    const result = client.getNamespaces()
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['id'])
+    expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('get(id: string): Promise<{ updateRevisionRequired: boolean | null; deleteRevisionRequired: boolean | null }>', async () => {
+  it(`
+    get(namespace: string): Promise<{
+      updateRevisionRequired: boolean | null
+      deleteRevisionRequired: boolean | null
+    }>
+  `, async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.get(id)
+    const result = client.get(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
@@ -32,46 +37,46 @@ describe('RevisionPolicyClient', () => {
     })
   })
 
-  it('setUpdateRevisionRequired(id: string, val: boolean): Promise<void>', async () => {
+  it('setUpdateRevisionRequired(namespace: string, val: boolean): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = true
 
-    const result = client.setUpdateRevisionRequired(id, val)
+    const result = client.setUpdateRevisionRequired(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('removeUpdateRevisionRequired(id: string): Promise<void>', async () => {
+  it('removeUpdateRevisionRequired(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.removeUpdateRevisionRequired(id)
+    const result = client.removeUpdateRevisionRequired(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('setDeleteRevisionRequired(id: string, val: boolean): Promise<void>', async () => {
+  it('setDeleteRevisionRequired(namespace: string, val: boolean): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = true
 
-    const result = client.setDeleteRevisionRequired(id, val)
+    const result = client.setDeleteRevisionRequired(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('removeDeleteRevisionRequired(id: string): Promise<void>', async () => {
+  it('removeDeleteRevisionRequired(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.removeDeleteRevisionRequired(id)
+    const result = client.removeDeleteRevisionRequired(namespace)
     const proResult = await result
 
     expect(result).toBePromise()

@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import { badToken } from '@test/utils'
 
 export const server = setupServer(
-  rest.put('/store/:storeId/items/:itemId', (req, res, ctx) => {
+  rest.put('/store/:namespace/items/:id', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(
@@ -11,7 +11,7 @@ export const server = setupServer(
     )
   })
 
-, rest.head('/store/:storeId/items/:itemId', (req, res, ctx) => {
+, rest.head('/store/:namespace/items/:id', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(
@@ -20,7 +20,7 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/store/:storeId/items/text', (req, res, ctx) => {
+, rest.get('/store/:namespace/items/text', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(
@@ -30,7 +30,7 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/store/:storeId/items/json', (req, res, ctx) => {
+, rest.get('/store/:namespace/items/json', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(
@@ -40,7 +40,7 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/store/:storeId/items/csv', (req, res, ctx) => {
+, rest.get('/store/:namespace/items/csv', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(
@@ -50,7 +50,7 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/store/:storeId/items', (req, res, ctx) => {
+, rest.get('/store/:namespace/items', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(
@@ -59,30 +59,23 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/store/:storeId/stats', (req, res, ctx) => {
+, rest.get('/store/:namespace/stats', (req, res, ctx) => {
     return res(
       ctx.status(200)
     , ctx.json({
-        id: req.params.storeId
+        namespace: req.params.namespace
       , items: 1
       })
     )
   })
 
-, rest.get('/store', (req, res, ctx) => {
-    return res(
-      ctx.status(200)
-    , ctx.json(['id'])
-    )
-  })
-
-, rest.delete('/store/:storeId/items/:itemId', (req, res, ctx) => {
+, rest.delete('/store/:namespace/items/:id', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/store/:storeId', (req, res, ctx) => {
+, rest.delete('/store/:namespace', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
@@ -91,9 +84,7 @@ export const server = setupServer(
 , rest.get('/store', (req, res, ctx) => {
     return res(
       ctx.status(200)
-    , ctx.json([
-        { id: 'id', items: 1 }
-      ])
+    , ctx.json(['namespace'])
     )
   })
 )

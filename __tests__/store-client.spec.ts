@@ -9,62 +9,73 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('StoreClient', () => {
-  it('set(storeId: string, itemId: string, payload: string): Promise<void>', async () => {
+  it('set(namespace: string, id: string, payload: string): Promise<void>', async () => {
     const client = createClient()
-    const storeId = 'store-id'
-    const itemId = 'item-id'
+    const namespace = 'namespace'
+    const id = 'item-id'
     const doc = 'message'
 
-    const result = client.set(storeId, itemId, doc)
+    const result = client.set(namespace, id, doc)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('setJSON(storeId: string, itemId: string, payload: Json): Promise<void>', async () => {
+  it('setJSON(namespace: string, id: string, payload: Json): Promise<void>', async () => {
     const client = createClient()
-    const storeId = 'store-id'
-    const itemId = 'item-id'
+    const namespace = 'namespace'
+    const id = 'item-id'
     const doc = { message: 'message' }
 
-    const result = client.setJSON(storeId, itemId, doc)
+    const result = client.setJSON(namespace, id, doc)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('setCSV<T extends object>(storeId: string, itemId: string, payload: T[]): Promise<void>', async () => {
+  it(`
+    setCSV<T extends object>(
+      namespace: string
+    , id: string
+    , payload: T[]
+    ): Promise<void>
+  `, async () => {
     const client = createClient()
-    const storeId = 'store-id'
-    const itemId = 'item-id'
+    const namespace = 'namespace'
+    const id = 'item-id'
     const doc = [{ message: 'message' }]
 
-    const result = client.setCSV(storeId, itemId, doc)
+    const result = client.setCSV(namespace, id, doc)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('has(storeId, string, itemId: string): Promise<boolean>', async () => {
+  it('has(namespace, string, id: string): Promise<boolean>', async () => {
     const client = createClient()
-    const storeId = 'store-id'
-    const itemId = 'item-id'
+    const namespace = 'namespace'
+    const id = 'item-id'
 
-    const result = client.has(storeId, itemId)
+    const result = client.has(namespace, id)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeTrue()
   })
 
-  it('get(storeId: string, itemId: string): Promise<{ revision: string; payload: string }>', async () => {
+  it(`
+    get(
+      namespace: string
+    , id: string
+    ): Promise<{ revision: string; payload: string }>
+  `, async () => {
     const client = createClient()
-    const storeId = 'store-id'
+    const namespace = 'namespace'
 
-    const result = client.get(storeId, 'text')
+    const result = client.get(namespace, 'text')
     const proResult = await result
 
     expect(result).toBePromise()
@@ -74,11 +85,16 @@ describe('StoreClient', () => {
     })
   })
 
-  it('getJSON(storeId: string, itemId: string): Promise<{ revision: string; payload: Json }>', async () => {
+  it(`
+    getJSON(
+      namespace: string
+    , id: string
+    ): Promise<{ revision: string; payload: Json }>
+  `, async () => {
     const client = createClient()
-    const storeId = 'store-id'
+    const namespace = 'namespace'
 
-    const result = client.getJSON(storeId, 'json')
+    const result = client.getJSON(namespace, 'json')
     const proResult = await result
 
     expect(result).toBePromise()
@@ -88,11 +104,16 @@ describe('StoreClient', () => {
     })
   })
 
-  it('getCSV<T extends object>(storeId: string, itemId: string): Promise<{ revision: string; payload: T[] }>', async () => {
+  it(`
+    getCSV<T extends object>(
+      namespace: string
+    , id: string
+    ): Promise<{ revision: string; payload: T[] }>
+  `, async () => {
     const client = createClient()
-    const storeId = 'store-id'
+    const namespace = 'namespace'
 
-    const result = client.getCSV(storeId, 'csv')
+    const result = client.getCSV(namespace, 'csv')
     const proResult = await result
 
     expect(result).toBePromise()
@@ -104,60 +125,60 @@ describe('StoreClient', () => {
     })
   })
 
-  it('getAllItemIds(storeId: string): Promise<string[]>', async () => {
+  it('getAllItemIds(namespace: string): Promise<string[]>', async () => {
     const client = createClient()
-    const storeId = 'store-id'
+    const namespace = 'namespace'
 
-    const result = client.getAllItemIds(storeId)
+    const result = client.getAllItemIds(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toStrictEqual(['id'])
   })
 
-  it('getAllStoreIds(): Promise<string[]>', async () => {
+  it('getAllNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getAllStoreIds()
+    const result = client.getAllNamespaces()
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['id'])
+    expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('del(storeId: string, itemId: string): Promise<void>', async () => {
+  it('del(namespace: string, id: string): Promise<void>', async () => {
     const client = createClient()
-    const storeId = 'store-id'
-    const itemId = 'item-id'
+    const namespace = 'namespace'
+    const id = 'item-id'
 
-    const result = client.del(storeId, itemId)
-    const proResult = await result
-
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
-  })
-
-  it('clear(storeId: string): Prmise<void>', async () => {
-    const client = createClient()
-    const storeId = 'store-id'
-
-    const result = client.clear(storeId)
+    const result = client.del(namespace, id)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('stats(storeId: string): Promise<{ id: string; items: number }>', async () => {
+  it('clear(namespace: string): Prmise<void>', async () => {
     const client = createClient()
-    const storeId = 'store-id'
+    const namespace = 'namespace'
 
-    const result = client.stats(storeId)
+    const result = client.clear(namespace)
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toBeUndefined()
+  })
+
+  it('stats(namespace: string): Promise<{ namespace: string; items: number }>', async () => {
+    const client = createClient()
+    const namespace = 'namespace'
+
+    const result = client.stats(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toStrictEqual({
-      id: storeId
+      namespace
     , items: 1
     })
   })

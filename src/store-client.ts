@@ -12,7 +12,7 @@ interface IItem<T> {
 }
 
 interface IInfo {
-  id: string
+  namespace: string
   items: number
 }
 
@@ -45,8 +45,8 @@ export class StoreClient {
   constructor(private options: IStoreClientOptions) {}
 
   async set(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , payload: string
   , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
@@ -54,7 +54,7 @@ export class StoreClient {
     const auth = this.options.basicAuth
     const req = put(
       url(this.options.server)
-    , pathname(`/store/${storeId}/items/${itemId}`)
+    , pathname(`/store/${namespace}/items/${id}`)
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , text(payload)
@@ -66,8 +66,8 @@ export class StoreClient {
   }
 
   async setJSON<T>(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , payload: T
   , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
@@ -75,7 +75,7 @@ export class StoreClient {
     const auth = this.options.basicAuth
     const req = put(
       url(this.options.server)
-    , pathname(`/store/${storeId}/items/${itemId}`)
+    , pathname(`/store/${namespace}/items/${id}`)
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , json(payload)
@@ -87,8 +87,8 @@ export class StoreClient {
   }
 
   async setCSV<T extends object>(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , payload: T[]
   , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
@@ -96,7 +96,7 @@ export class StoreClient {
     const auth = this.options.basicAuth
     const req = put(
       url(this.options.server)
-    , pathname(`/store/${storeId}/items/${itemId}`)
+    , pathname(`/store/${namespace}/items/${id}`)
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , csv(payload)
@@ -108,15 +108,15 @@ export class StoreClient {
   }
 
   async has(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<boolean> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
     const req = head(
       url(this.options.server)
-    , pathname(`/store/${storeId}/items/${itemId}`)
+    , pathname(`/store/${namespace}/items/${id}`)
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
@@ -133,48 +133,48 @@ export class StoreClient {
   }
 
   get(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , options?: IStoreClientRequestOptionsWithRevision
   ): Promise<IItem<string>> {
-    return this._get(storeId, itemId, options).then(async res => ({
+    return this._get(namespace, id, options).then(async res => ({
       revision: res.headers.get('ETag')!
     , payload: await toText(res)
     }))
   }
 
   getJSON<T>(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , options?: IStoreClientRequestOptionsWithRevision
   ): Promise<IItem<T>> {
-    return this._get(storeId, itemId, options).then(async res => ({
+    return this._get(namespace, id, options).then(async res => ({
       revision: res.headers.get('ETag')!
     , payload: await toJSON(res)
     }))
   }
 
   getCSV<T extends object>(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , options?: IStoreClientRequestOptionsWithRevision
   ): Promise<IItem<T[]>> {
-    return this._get(storeId, itemId, options).then(async res => ({
+    return this._get(namespace, id, options).then(async res => ({
       revision: res.headers.get('ETag')!
     , payload: await toCSV(res) as T[]
     }))
   }
 
   private async _get(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<Response> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
-    , pathname(`/store/${storeId}/items/${itemId}`)
+    , pathname(`/store/${namespace}/items/${id}`)
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
@@ -185,15 +185,15 @@ export class StoreClient {
   }
 
   async del(
-    storeId: string
-  , itemId: string
+    namespace: string
+  , id: string
   , options: IStoreClientRequestOptionsWithRevision = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
     const req = del(
       url(this.options.server)
-    , pathname(`/store/${storeId}/items/${itemId}`)
+    , pathname(`/store/${namespace}/items/${id}`)
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
@@ -204,14 +204,14 @@ export class StoreClient {
   }
 
   async clear(
-    storeId: string
+    namespace: string
   , options: IStoreClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
     const req = del(
       url(this.options.server)
-    , pathname(`/store/${storeId}`)
+    , pathname(`/store/${namespace}`)
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
@@ -221,11 +221,14 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
-  async stats(storeId: string, options: IStoreClientRequestOptionsWithoutToken = {}): Promise<IInfo> {
+  async stats(
+    namespace: string
+  , options: IStoreClientRequestOptionsWithoutToken = {}
+  ): Promise<IInfo> {
     const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
-    , pathname(`/store/${storeId}/stats`)
+    , pathname(`/store/${namespace}/stats`)
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
     , keepalive(options.keepalive ?? this.options.keepalive)
@@ -236,12 +239,15 @@ export class StoreClient {
       .then(toJSON) as IInfo
   }
 
-  async getAllItemIds(storeId: string, options: IStoreClientRequestOptions = {}): Promise<string[]> {
+  async getAllItemIds(
+    namespace: string
+  , options: IStoreClientRequestOptions = {}
+  ): Promise<string[]> {
     const token = options.token ?? this.options.token
     const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
-    , pathname(`/store/${storeId}/items`)
+    , pathname(`/store/${namespace}/items`)
     , token && searchParams({ token })
     , auth && basicAuth(auth.username, auth.password)
     , options.signal && signal(options.signal)
@@ -253,7 +259,9 @@ export class StoreClient {
       .then(toJSON) as string[]
   }
 
-  async getAllStoreIds(options: IStoreClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+  async getAllNamespaces(
+    options: IStoreClientRequestOptionsWithoutToken = {}
+  ): Promise<string[]> {
     const auth = this.options.basicAuth
     const req = get(
       url(this.options.server)
