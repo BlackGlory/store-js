@@ -166,7 +166,7 @@ StoreClient#stats(
   namespace: string
 , options?: IStoreClientRequestOptionsWithoutToken
 ): Promise<<{
-  id: string
+  namespace: string
   items: number
 }>
 ```
