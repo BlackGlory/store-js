@@ -4,6 +4,7 @@ import { url, pathname, json, text, csv, searchParams, signal, basicAuth, keepal
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 
+export { NotFound } from '@blackglory/http-status'
 export { HTTPClientError } from '@blackglory/http-status'
 
 interface IItem<T> {
