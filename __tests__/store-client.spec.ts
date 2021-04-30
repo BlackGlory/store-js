@@ -35,7 +35,7 @@ describe('StoreClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it(`
+  test(`
     setCSV<T extends object>(
       namespace: string
     , id: string
@@ -66,7 +66,7 @@ describe('StoreClient', () => {
     expect(proResult).toBeTrue()
   })
 
-  it(`
+  test(`
     get(
       namespace: string
     , id: string
@@ -85,7 +85,7 @@ describe('StoreClient', () => {
     })
   })
 
-  it(`
+  test(`
     getJSON(
       namespace: string
     , id: string
@@ -104,7 +104,7 @@ describe('StoreClient', () => {
     })
   })
 
-  it(`
+  test(`
     getCSV<T extends object>(
       namespace: string
     , id: string
