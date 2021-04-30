@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.2](https://github.com/BlackGlory/store-js/compare/v0.8.1...v0.8.2) (2021-04-30)
+
+
+### Features
+
+* add tryGet, tryGetJSON, tryGetCSV ([033da82](https://github.com/BlackGlory/store-js/commit/033da82a8a2833e3356a4560623fe0a6ce517fd4))
+* export NotFound ([23f568d](https://github.com/BlackGlory/store-js/commit/23f568ddc00b43a6343e7a4a55d63291050a12b2))
+
 ### [0.8.1](https://github.com/BlackGlory/store-js/compare/v0.8.0...v0.8.1) (2021-04-30)
 
 ## [0.8.0](https://github.com/BlackGlory/store-js/compare/v0.7.4...v0.8.0) (2021-04-28)
