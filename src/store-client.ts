@@ -147,6 +147,19 @@ export class StoreClient {
     }))
   }
 
+  async tryGet(
+    namespace: string
+  , id: string
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<string> | null> {
+    try {
+      return await this.get(namespace, id, options)
+    } catch (e) {
+      if (e instanceof NotFound) return null
+      throw e
+    }
+  }
+
   /**
    * @throws {NotFound}
    */
@@ -161,6 +174,19 @@ export class StoreClient {
     }))
   }
 
+  async tryGetJSON<T>(
+    namespace: string
+  , id: string
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<T> | null> {
+    try {
+      return await this.getJSON<T>(namespace, id, options)
+    } catch (e) {
+      if (e instanceof NotFound) return null
+      throw e
+    }
+  }
+
   /**
    * @throws {NotFound}
    */
@@ -173,6 +199,19 @@ export class StoreClient {
       revision: res.headers.get('ETag')!
     , payload: await toCSV(res) as T[]
     }))
+  }
+
+  async tryGetCSV<T extends object>(
+    namespace: string
+  , id: string
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<T[]> | null> {
+    try {
+      return await this.getCSV<T>(namespace, id, options)
+    } catch (e) {
+      if (e instanceof NotFound) return null
+      throw e
+    }
   }
 
   /**

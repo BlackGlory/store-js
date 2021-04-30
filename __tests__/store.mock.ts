@@ -11,13 +11,25 @@ export const server = setupServer(
     )
   })
 
-, rest.head('/store/:namespace/items/:id', (req, res, ctx) => {
+, rest.head('/store/:namespace/items/id', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(
       ctx.status(200)
     , ctx.set('ETag', 'revision')
     )
+  })
+
+, rest.head('/store/:namespace/items/not-found', (req, res, ctx) => {
+    if (badToken(req)) return res(ctx.status(401))
+
+    return res(ctx.status(404))
+  })
+
+, rest.get('/store/:namespace/items/not-found', (req, res, ctx) => {
+    if (badToken(req)) return res(ctx.status(401))
+
+    return res(ctx.status(404))
   })
 
 , rest.get('/store/:namespace/items/text', (req, res, ctx) => {

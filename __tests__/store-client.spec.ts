@@ -1,6 +1,7 @@
 import { server } from '@test/store.mock'
-import { StoreClient } from '@src/store-client'
+import { StoreClient, NotFound } from '@src/store-client'
 import { TOKEN } from '@test/utils'
+import { getErrorPromise } from 'return-style'
 import '@blackglory/jest-matchers'
 import 'jest-extended'
 
@@ -54,74 +55,252 @@ describe('StoreClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  test('has(namespace, string, id: string): Promise<boolean>', async () => {
-    const client = createClient()
-    const namespace = 'namespace'
-    const id = 'item-id'
+  describe('has(namespace, string, id: string): Promise<boolean>', () => {
+    describe('exist', () => {
+      it('return true', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
 
-    const result = client.has(namespace, id)
-    const proResult = await result
+        const result = client.has(namespace, 'id')
+        const proResult = await result
 
-    expect(result).toBePromise()
-    expect(proResult).toBeTrue()
+        expect(result).toBePromise()
+        expect(proResult).toBeTrue()
+      })
+    })
+
+    describe('not exist', () => {
+      it('return false', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.has(namespace, 'not-found')
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toBeFalse()
+      })
+    })
   })
 
-  test(`
+  describe(`
     get(
       namespace: string
     , id: string
     ): Promise<{ revision: string; payload: string }>
-  `, async () => {
-    const client = createClient()
-    const namespace = 'namespace'
+  `, () => {
+    describe('exist', () => {
+      it('return item', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
 
-    const result = client.get(namespace, 'text')
-    const proResult = await result
+        const result = client.get(namespace, 'text')
+        const proResult = await result
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual({
-      revision: 'revision'
-    , payload: 'text'
+        expect(result).toBePromise()
+        expect(proResult).toStrictEqual({
+          revision: 'revision'
+        , payload: 'text'
+        })
+      })
+    })
+
+    describe('not exist', () => {
+      it('throw NotFound', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.get(namespace, 'not-found')
+        const err = await getErrorPromise(result)
+
+        expect(result).toBePromise()
+        expect(err).toBeInstanceOf(NotFound)
+      })
     })
   })
 
-  test(`
+  describe(`
+    tryGet(
+      namespace: string
+    , id: string
+    ): Promise<{ revision: string; payload: string } | null>
+  `, () => {
+    describe('exist', () => {
+      it('return item', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.tryGet(namespace, 'text')
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toStrictEqual({
+          revision: 'revision'
+        , payload: 'text'
+        })
+      })
+    })
+
+    describe('not exist', () => {
+      it('return null', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.tryGet(namespace, 'not-found')
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toBeNull()
+      })
+    })
+  })
+
+  describe(`
     getJSON(
       namespace: string
     , id: string
     ): Promise<{ revision: string; payload: Json }>
-  `, async () => {
-    const client = createClient()
-    const namespace = 'namespace'
+  `, () => {
+    describe('exist', () => {
+      it('return item', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
 
-    const result = client.getJSON(namespace, 'json')
-    const proResult = await result
+        const result = client.getJSON(namespace, 'json')
+        const proResult = await result
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual({
-      revision: 'revision'
-    , payload: { 'hello': 'world' }
+        expect(result).toBePromise()
+        expect(proResult).toStrictEqual({
+          revision: 'revision'
+        , payload: { 'hello': 'world' }
+        })
+      })
+    })
+
+    describe('not exist', () => {
+      it('throw NotFound', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.getJSON(namespace, 'not-found')
+        const err = await getErrorPromise(result)
+
+        expect(result).toBePromise()
+        expect(err).toBeInstanceOf(NotFound)
+      })
     })
   })
 
-  test(`
+  describe(`
+    tryGetJSON(
+      namespace: string
+    , id: string
+    ): Promise<{ revision: string; payload: Json } | null>
+  `, () => {
+    describe('exist', () => {
+      it('return item', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.tryGetJSON(namespace, 'json')
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toStrictEqual({
+          revision: 'revision'
+        , payload: { 'hello': 'world' }
+        })
+      })
+    })
+
+    describe('not exist', () => {
+      it('throw NotFound', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.tryGetJSON(namespace, 'not-found')
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toBeNull()
+      })
+    })
+  })
+
+
+  describe(`
     getCSV<T extends object>(
       namespace: string
     , id: string
     ): Promise<{ revision: string; payload: T[] }>
-  `, async () => {
-    const client = createClient()
-    const namespace = 'namespace'
+  `, () => {
+    describe('exist', () => {
+      it('return item', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
 
-    const result = client.getCSV(namespace, 'csv')
-    const proResult = await result
+        const result = client.getCSV(namespace, 'csv')
+        const proResult = await result
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual({
-      revision: 'revision'
-    , payload: [
-        { key: 'hello', value: 'world' }
-      ]
+        expect(result).toBePromise()
+        expect(proResult).toStrictEqual({
+          revision: 'revision'
+        , payload: [
+            { key: 'hello', value: 'world' }
+          ]
+        })
+      })
+    })
+
+    describe('not exist', () => {
+      it('thrown NotFound', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.getCSV(namespace, 'not-found')
+        const err = await getErrorPromise(result)
+
+        expect(result).toBePromise()
+        expect(err).toBeInstanceOf(NotFound)
+      })
+    })
+  })
+
+  describe(`
+    tryGetCSV<T extends object>(
+      namespace: string
+    , id: string
+    ): Promise<{ revision: string; payload: T[] } | null>
+  `, () => {
+    describe('exist', () => {
+      it('return item', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.tryGetCSV(namespace, 'csv')
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toStrictEqual({
+          revision: 'revision'
+        , payload: [
+            { key: 'hello', value: 'world' }
+          ]
+        })
+      })
+    })
+
+    describe('not exist', () => {
+      it('thrown NotFound', async () => {
+        const client = createClient()
+        const namespace = 'namespace'
+
+        const result = client.tryGetCSV(namespace, 'not-found')
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toBeNull()
+      })
     })
   })
 
