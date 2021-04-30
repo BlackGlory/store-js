@@ -132,6 +132,9 @@ export class StoreClient {
     }
   }
 
+  /**
+   * @throws {NotFound}
+   */
   get(
     namespace: string
   , id: string
@@ -143,6 +146,9 @@ export class StoreClient {
     }))
   }
 
+  /**
+   * @throws {NotFound}
+   */
   getJSON<T>(
     namespace: string
   , id: string
@@ -154,6 +160,9 @@ export class StoreClient {
     }))
   }
 
+  /**
+   * @throws {NotFound}
+   */
   getCSV<T extends object>(
     namespace: string
   , id: string
@@ -165,6 +174,9 @@ export class StoreClient {
     }))
   }
 
+  /**
+   * @throws {NotFound}
+   */
   private async _get(
     namespace: string
   , id: string
