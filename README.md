@@ -94,20 +94,7 @@ StoreClient#get(
 ): Promise<{
   revision: string
   payload: string
-}>
-```
-
-#### tryGet
-
-```ts
-StoreClient#tryGet(
-  namespace: string
-, id: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<{
-  revision: string
-  payload: string
-} | null>
+} | undefined>
 ```
 
 #### getJSON
@@ -120,20 +107,7 @@ StoreClient#getJSON(
 ): Promise<{
   revision: string
   payload: Json
-}>
-```
-
-#### tryGetJSON
-
-```ts
-StoreClient#tryGetJSON(
-  namespace: string
-, id: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<{
-  revision: string
-  payload: Json
-} | null>
+} | undefined>
 ```
 
 #### getCSV
@@ -146,20 +120,7 @@ StoreClient#getCSV<T extends object>(
 ): Promise<{
   revision: string
   payload: T[]
-}>
-```
-
-#### tryGetCSV
-
-```ts
-StoreClient#tryGetCSV<T extends object>(
-  namespace: string
-, id: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<{
-  revision: string
-  payload: T[]
-} | null>
+} | undefined>
 ```
 
 #### del

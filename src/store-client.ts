@@ -4,7 +4,6 @@ import { url, pathname, json, text, csv, searchParams, signal, basicAuth, keepal
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 
-export { NotFound } from '@blackglory/http-status'
 export { HTTPClientError } from '@blackglory/http-status'
 
 interface IItem<T> {
@@ -133,83 +132,50 @@ export class StoreClient {
     }
   }
 
-  /**
-   * @throws {NotFound}
-   */
-  get(
+  async get(
     namespace: string
   , id: string
   , options?: IStoreClientRequestOptionsWithRevision
-  ): Promise<IItem<string>> {
-    return this._get(namespace, id, options).then(async res => ({
-      revision: res.headers.get('ETag')!
-    , payload: await toText(res)
-    }))
-  }
-
-  async tryGet(
-    namespace: string
-  , id: string
-  , options?: IStoreClientRequestOptionsWithRevision
-  ): Promise<IItem<string> | null> {
+  ): Promise<IItem<string> | undefined> {
     try {
-      return await this.get(namespace, id, options)
+      return await this._get(namespace, id, options).then(async res => ({
+        revision: res.headers.get('ETag')!
+      , payload: await toText(res)
+      }))
     } catch (e) {
-      if (e instanceof NotFound) return null
+      if (e instanceof NotFound) return undefined
       throw e
     }
   }
 
-  /**
-   * @throws {NotFound}
-   */
-  getJSON<T>(
+  async getJSON<T>(
     namespace: string
   , id: string
   , options?: IStoreClientRequestOptionsWithRevision
-  ): Promise<IItem<T>> {
-    return this._get(namespace, id, options).then(async res => ({
-      revision: res.headers.get('ETag')!
-    , payload: await toJSON(res)
-    }))
-  }
-
-  async tryGetJSON<T>(
-    namespace: string
-  , id: string
-  , options?: IStoreClientRequestOptionsWithRevision
-  ): Promise<IItem<T> | null> {
+  ): Promise<IItem<T> | undefined> {
     try {
-      return await this.getJSON<T>(namespace, id, options)
+      return await this._get(namespace, id, options).then(async res => ({
+        revision: res.headers.get('ETag')!
+      , payload: await toJSON(res)
+      }))
     } catch (e) {
-      if (e instanceof NotFound) return null
+      if (e instanceof NotFound) return undefined
       throw e
     }
   }
 
-  /**
-   * @throws {NotFound}
-   */
-  getCSV<T extends object>(
+  async getCSV<T extends object>(
     namespace: string
   , id: string
   , options?: IStoreClientRequestOptionsWithRevision
-  ): Promise<IItem<T[]>> {
-    return this._get(namespace, id, options).then(async res => ({
-      revision: res.headers.get('ETag')!
-    , payload: await toCSV(res) as T[]
-    }))
-  }
-
-  async tryGetCSV<T extends object>(
-    namespace: string
-  , id: string
-  , options?: IStoreClientRequestOptionsWithRevision
-  ): Promise<IItem<T[]> | null> {
+  ): Promise<IItem<T[]> | undefined> {
     try {
-      return await this.getCSV<T>(namespace, id, options)
+      return await this._get(namespace, id, options).then(async res => ({
+        revision: res.headers.get('ETag')!
+      , payload: await toCSV(res) as T[]
+      }))
     } catch (e) {
-      if (e instanceof NotFound) return null
+      if (e instanceof NotFound) return undefined
       throw e
     }
   }
