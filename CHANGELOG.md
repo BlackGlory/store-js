@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/BlackGlory/store-js/compare/v0.8.3...v0.9.0) (2021-07-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* rewrite all `get` methods
+
+### Features
+
+* rewrite all `get` methods ([06ea124](https://github.com/BlackGlory/store-js/commit/06ea124644b1a71c9694118c3598cfe43661637b))
+
 ### [0.8.3](https://github.com/BlackGlory/store-js/compare/v0.8.2...v0.8.3) (2021-07-03)
 
 ### [0.8.2](https://github.com/BlackGlory/store-js/compare/v0.8.1...v0.8.2) (2021-04-30)
