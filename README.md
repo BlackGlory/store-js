@@ -21,6 +21,7 @@ new StoreClient({
   , password: string
   }
 , keepalive?: boolean
+, timeout?: number
 })
 ```
 
@@ -29,6 +30,7 @@ interface IStoreClientRequestOptions {
   signal?: AbortSignal
   token?: string
   keepalive?: boolean
+  timeout?: number | false
 }
 
 interface IStoreClientRequestOptionsWithRevision extends IStoreClientRequestOptions {
@@ -38,6 +40,7 @@ interface IStoreClientRequestOptionsWithRevision extends IStoreClientRequestOpti
 interface IStoreClientRequestOptionsWithoutToken {
   signal?: AbortSignal
   keepalive?: boolean
+  timeout?: number | false
 }
 ```
 
@@ -176,13 +179,17 @@ StoreClient#stats(
 ```ts
 new StoreManager({
   server: string
-  adminPassword: string
+, adminPassword: string
+, keepalive?: boolean
+, timeout?: number
 })
 ```
 
 ```ts
 interface IStoreManagerRequestOptions {
   signal?: AbortSignal
+  keepalive?: boolean
+  timeout?: number | false
 }
 ```
 

@@ -8,6 +8,8 @@ import { RevisionPolicyClient } from './revision-policy-client'
 export interface IStoreManagerOptions {
   server: string
   adminPassword: string
+  keepalive?: boolean
+  timeout?: number
 }
 
 export class StoreManager {
