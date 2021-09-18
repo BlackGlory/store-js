@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { head, put, get, del, IHTTPOptionsTransformer } from 'extra-request'
-import { url, pathname, json, text, csv, searchParams, signal, basicAuth, keepalive } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, json, text, csv, searchParams, signal, basicAuth, keepalive } from 'extra-request/transformers/index.js'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 import { Falsy } from 'justypes'
