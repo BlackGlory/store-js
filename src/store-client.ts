@@ -72,6 +72,9 @@ export class StoreClient {
     ]
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async set(
     namespace: string
   , id: string
@@ -87,6 +90,9 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async setJSON<T>(
     namespace: string
   , id: string
@@ -102,6 +108,9 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async setCSV<T extends object>(
     namespace: string
   , id: string
@@ -117,6 +126,9 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async has(
     namespace: string
   , id: string
@@ -136,6 +148,9 @@ export class StoreClient {
     }
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async get(
     namespace: string
   , id: string
@@ -152,6 +167,9 @@ export class StoreClient {
     }
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async getJSON<T>(
     namespace: string
   , id: string
@@ -168,6 +186,9 @@ export class StoreClient {
     }
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async getCSV<T extends object>(
     namespace: string
   , id: string
@@ -200,6 +221,9 @@ export class StoreClient {
     return await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async del(
     namespace: string
   , id: string
@@ -213,6 +237,9 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async clear(
     namespace: string
   , options: IStoreClientRequestOptions = {}
@@ -225,6 +252,9 @@ export class StoreClient {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async stats(
     namespace: string
   , options: IStoreClientRequestOptionsWithoutToken = {}
@@ -239,6 +269,9 @@ export class StoreClient {
       .then(toJSON) as IInfo
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async getAllItemIds(
     namespace: string
   , options: IStoreClientRequestOptions = {}
@@ -253,6 +286,9 @@ export class StoreClient {
       .then(toJSON) as string[]
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async getAllNamespaces(
     options: IStoreClientRequestOptionsWithoutToken = {}
   ): Promise<string[]> {
