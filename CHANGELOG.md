@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.4](https://github.com/BlackGlory/store-js/compare/v0.9.3...v0.9.4) (2021-10-06)
+
+
+### Features
+
+* export AbortError ([4fb707d](https://github.com/BlackGlory/store-js/commit/4fb707d0c644b7c098d680fe44433382afe0037f))
+
 ### [0.9.3](https://github.com/BlackGlory/store-js/compare/v0.9.2...v0.9.3) (2021-09-18)
 
 
