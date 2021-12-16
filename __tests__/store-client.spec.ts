@@ -2,7 +2,6 @@ import { server } from '@test/store.mock'
 import { StoreClient } from '@src/store-client'
 import { TOKEN } from '@test/utils'
 import '@blackglory/jest-matchers'
-import 'jest-extended'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
@@ -64,7 +63,7 @@ describe('StoreClient', () => {
         const proResult = await result
 
         expect(result).toBePromise()
-        expect(proResult).toBeTrue()
+        expect(proResult).toBe(true)
       })
     })
 
@@ -77,7 +76,7 @@ describe('StoreClient', () => {
         const proResult = await result
 
         expect(result).toBePromise()
-        expect(proResult).toBeFalse()
+        expect(proResult).toBe(false)
       })
     })
   })
