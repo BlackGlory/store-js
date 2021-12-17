@@ -4,7 +4,7 @@ import { url, pathname, json, text, csv, searchParams, signal, basicAuth, keepal
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 import { Falsy } from 'justypes'
-import { raceAbortSignals, timeoutSignal } from 'extra-promise'
+import { raceAbortSignals, timeoutSignal } from 'extra-abort'
 
 export { HTTPClientError } from '@blackglory/http-status'
 
