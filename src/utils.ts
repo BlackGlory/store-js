@@ -1,5 +1,5 @@
 import { IHTTPOptionsTransformer } from 'extra-request'
-import { url, signal, keepalive, bearerAuth } from 'extra-request/transformers/index.js'
+import { url, signal, keepalive, bearerAuth, header } from 'extra-request/transformers/index.js'
 import { timeoutSignal, raceAbortSignals } from 'extra-abort'
 import type { IStoreManagerOptions } from './store-manager'
 
@@ -26,6 +26,7 @@ export class StoreManagerBase {
         )
       ]))
     , keepalive(options.keepalive ?? this.options.keepalive)
+    , header('Accept-Version', '0.3.6')
     ]
   }
 }
