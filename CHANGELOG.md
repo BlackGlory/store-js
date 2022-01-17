@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://github.com/BlackGlory/store-js/compare/v0.10.1...v0.11.0) (2022-01-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* requires Store 0.3.6
+
+### Features
+
+* add Accept-Version headers ([923db88](https://github.com/BlackGlory/store-js/commit/923db88ae2c848a97571adf176834d46035b0d89))
+
 ### [0.10.1](https://github.com/BlackGlory/store-js/compare/v0.10.0...v0.10.1) (2021-12-17)
 
 ## [0.10.0](https://github.com/BlackGlory/store-js/compare/v0.9.5...v0.10.0) (2021-12-16)
