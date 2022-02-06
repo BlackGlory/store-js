@@ -151,7 +151,7 @@ StoreClient#clear(
 StoreClient#getAllItemIds(
   namespace: string
 , options?: IStoreClientRequestOptions
-): Promise<bigint[]>
+): Promise<string[]>
 ```
 
 #### getAllNamespaces
