@@ -9,6 +9,8 @@ export interface IStoreManagerRequestOptions {
   timeout?: number | false
 }
 
+export const expectedVersion = '0.3.6'
+
 export class StoreManagerBase {
   constructor(private options: IStoreManagerOptions) {}
 
@@ -26,7 +28,7 @@ export class StoreManagerBase {
         )
       ]))
     , keepalive(options.keepalive ?? this.options.keepalive)
-    , header('Accept-Version', '0.3.6')
+    , header('Accept-Version', expectedVersion)
     ]
   }
 }
