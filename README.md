@@ -1,7 +1,5 @@
 # store-js
-
 ## Install
-
 ```sh
 npm install --save @blackglory/store-js
 # or
@@ -9,9 +7,7 @@ yarn add @blackglory/store-js
 ```
 
 ## API
-
 ### StoreClient
-
 ```ts
 new StoreClient({
   server: string
@@ -45,7 +41,6 @@ interface IStoreClientRequestOptionsWithoutToken {
 ```
 
 #### set
-
 ```ts
 StoreClient#set(
   namespace: string
@@ -56,7 +51,6 @@ StoreClient#set(
 ```
 
 #### setJSON
-
 ```ts
 StoreClient#setJSON(
   namespace: string
@@ -67,7 +61,6 @@ StoreClient#setJSON(
 ```
 
 #### setCSV
-
 ```ts
 StoreClient#setJSON<T extends object>(
   namespace: string
@@ -78,7 +71,6 @@ StoreClient#setJSON<T extends object>(
 ```
 
 #### has
-
 ```ts
 StoreClient#has(
   namespace: string
@@ -88,7 +80,6 @@ StoreClient#has(
 ```
 
 #### get
-
 ```ts
 StoreClient#get(
   namespace: string
@@ -101,7 +92,6 @@ StoreClient#get(
 ```
 
 #### getJSON
-
 ```ts
 StoreClient#getJSON(
   namespace: string
@@ -114,7 +104,6 @@ StoreClient#getJSON(
 ```
 
 #### getCSV
-
 ```ts
 StoreClient#getCSV<T extends object>(
   namespace: string
@@ -127,7 +116,6 @@ StoreClient#getCSV<T extends object>(
 ```
 
 #### del
-
 ```ts
 StoreClient#del(
   namespace: string
@@ -137,7 +125,6 @@ StoreClient#del(
 ```
 
 #### clear
-
 ```ts
 StoreClient#clear(
   namespace: string
@@ -146,7 +133,6 @@ StoreClient#clear(
 ```
 
 #### getAllItemIds
-
 ```ts
 StoreClient#getAllItemIds(
   namespace: string
@@ -155,7 +141,6 @@ StoreClient#getAllItemIds(
 ```
 
 #### getAllNamespaces
-
 ```ts
 StoreClient#getAllNamespaces(
   options?: IStoreClientRequestOptionsWithoutToken
@@ -163,7 +148,6 @@ StoreClient#getAllNamespaces(
 ```
 
 #### stats
-
 ```ts
 StoreClient#stats(
   namespace: string
@@ -175,7 +159,6 @@ StoreClient#stats(
 ```
 
 ### StoreManager
-
 ```ts
 new StoreManager({
   server: string
@@ -194,9 +177,7 @@ interface IStoreManagerRequestOptions {
 ```
 
 #### JsonSchema
-
 ##### getNamespaces
-
 ```ts
 StoreManager#JsonSchema.getNamespaces(
   options?: IStoreManagerRequestOptions
@@ -204,13 +185,11 @@ StoreManager#JsonSchema.getNamespaces(
 ```
 
 ##### get
-
 ```ts
 StoreManager#JsonSchema.get(namespace: string, options?: IStoreManagerRequestOptions): Promise<Json>
 ```
 
 ##### set
-
 ```ts
 StoreManager#JsonSchema.set(
   namespace: string
@@ -220,7 +199,6 @@ StoreManager#JsonSchema.set(
 ```
 
 ##### remove
-
 ```ts
 StoreManager#JsonSchema.remove(
   namespace: string
@@ -229,9 +207,7 @@ StoreManager#JsonSchema.remove(
 ```
 
 #### RevisionPolicy
-
 ##### getNamespaces
-
 ```ts
 StoreManager#RevisionPolicy.getNamespaces(
   options?: IStoreManagerRequestOptions
@@ -239,7 +215,6 @@ StoreManager#RevisionPolicy.getNamespaces(
 ```
 
 ##### get
-
 ```ts
 StoreManager#RevisionPolicy.get(
   namespace: string
@@ -251,7 +226,6 @@ StoreManager#RevisionPolicy.get(
 ```
 
 ##### setUpdateRevisionRequired
-
 ```ts
 StoreManager#RevisionPolicy.setUpdateRevisionRequired(
   namespace: string
@@ -261,7 +235,6 @@ StoreManager#RevisionPolicy.setUpdateRevisionRequired(
 ```
 
 ##### removeUpdateRevisionRequired
-
 ```ts
 StoreManager#RevisionPolicy.removeUpdateRevisionRequired(
   namespace: string
@@ -270,7 +243,6 @@ StoreManager#RevisionPolicy.removeUpdateRevisionRequired(
 ```
 
 ##### setDeleteRevisionRequired
-
 ```ts
 StoreManager#RevisionPolicy.setDeleteRevisionRequired(
   namespace: string
@@ -280,7 +252,6 @@ StoreManager#RevisionPolicy.setDeleteRevisionRequired(
 ```
 
 ##### removeDeleteRevisionRequired
-
 ```ts
 StoreManager#RevisionPolicy.removeDeleteRevisionRequired(
   namespace: string
@@ -289,9 +260,7 @@ StoreManager#RevisionPolicy.removeDeleteRevisionRequired(
 ```
 
 #### Blacklist
-
 ##### getNamespaces
-
 ```ts
 StoreManager#Blacklist.getNamespaces(
   options?: IStoreManagerRequestOptions
@@ -299,7 +268,6 @@ StoreManager#Blacklist.getNamespaces(
 ```
 
 ##### add
-
 ```ts
 StoreManager#Blacklist.add(
   namespace: string
@@ -308,7 +276,6 @@ StoreManager#Blacklist.add(
 ```
 
 ##### remove
-
 ```ts
 StoreManager#Blacklist.remove(
   namespace: string
@@ -317,9 +284,7 @@ StoreManager#Blacklist.remove(
 ```
 
 #### Whitelist
-
 ##### getNamespaces
-
 ```ts
 StoreManager#Whitelist.getNamespaces(
   options?: IStoreManagerRequestOptions
@@ -327,7 +292,6 @@ StoreManager#Whitelist.getNamespaces(
 ```
 
 ##### add
-
 ```ts
 StoreManager#Whitelist.add(
   namespace: string
@@ -336,7 +300,6 @@ StoreManager#Whitelist.add(
 ```
 
 ##### remove
-
 ```ts
 StoreManager#Whitelist.remove(
   namespace: string
@@ -345,9 +308,7 @@ StoreManager#Whitelist.remove(
 ```
 
 #### TokenPolicy
-
 ##### getNamespaces
-
 ```ts
 StoreManager#TokenPolicy.getNamespaces(
   options?: IStoreManagerRequestOptions
@@ -355,7 +316,6 @@ StoreManager#TokenPolicy.getNamespaces(
 ```
 
 ##### get
-
 ```ts
 StoreManager#TokenPolicy.get(
   namespace: string
@@ -368,7 +328,6 @@ StoreManager#TokenPolicy.get(
 ```
 
 ##### setWriteTokenRequired
-
 ```ts
 StoreManager#TokenPolicy.setWriteTokenRequired(
   namespace: string
@@ -378,7 +337,6 @@ StoreManager#TokenPolicy.setWriteTokenRequired(
 ```
 
 ##### removeWriteTokenRequired
-
 ```ts
 StoreManager#TokenPolicy.removeWriteTokenRequired(
   namespace: string
@@ -387,8 +345,6 @@ StoreManager#TokenPolicy.removeWriteTokenRequired(
 ```
 
 ##### setReadTokenRequired
-
-
 ```ts
 StoreManager#TokenPolicy.setReadTokenRequired(
   namespace: string
@@ -398,7 +354,6 @@ StoreManager#TokenPolicy.setReadTokenRequired(
 ```
 
 ##### removeReadTokenRequired
-
 ```ts
 StoreManager#TokenPolicy.removeReadTokenRequired(
   namespace: string
@@ -407,7 +362,6 @@ StoreManager#TokenPolicy.removeReadTokenRequired(
 ```
 
 ##### setDeleteTokenRequired
-
 ```ts
 StoreManager#TokenPolicy.setDeleteTokenRequired(
   namespace: string
@@ -417,7 +371,6 @@ StoreManager#TokenPolicy.setDeleteTokenRequired(
 ```
 
 ##### removeDeleteTokenRequired
-
 ```ts
 StoreManager#TokenPolicy.removeDeleteTokenRequired(
   namespace: string
@@ -426,15 +379,12 @@ StoreManager#TokenPolicy.removeDeleteTokenRequired(
 ```
 
 #### Token
-
 ##### getNamespaces
-
 ```ts
 StoreManager#Token.getNamespaces(options?: IStoreManagerRequestOptions): Promise<string[]>
 ```
 
 ##### getTokens
-
 ```ts
 StoreManager#Token.getTokens(
   namespace: string
@@ -448,7 +398,6 @@ StoreManager#Token.getTokens(
 ```
 
 ##### addWriteToken
-
 ```ts
 StoreManager#Token.addWriteToken(
   namespace: string
@@ -458,7 +407,6 @@ StoreManager#Token.addWriteToken(
 ```
 
 ##### removeWriteToken
-
 ```ts
 StoreManager#Token.removeWriteToken(
   namespace: string
@@ -468,7 +416,6 @@ StoreManager#Token.removeWriteToken(
 ```
 
 ##### addReadToken
-
 ```ts
 StoreManager#Token.addReadToken(
   namespace: string
@@ -478,7 +425,6 @@ StoreManager#Token.addReadToken(
 ```
 
 ##### removeReadToken
-
 ```ts
 StoreManager#Token.removeReadToken(
   namespace: string
@@ -488,7 +434,6 @@ StoreManager#Token.removeReadToken(
 ```
 
 ##### addDeleteToken
-
 ```ts
 StoreManager#Token.addDeleteToken(
   namespace: string
@@ -498,7 +443,6 @@ StoreManager#Token.addDeleteToken(
 ```
 
 ##### removeDeleteToken
-
 ```ts
 StoreManager#Token.removeDeleteToken(
   namespace: string
