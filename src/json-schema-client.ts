@@ -23,7 +23,10 @@ export class JsonSchemaClient extends StoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async get(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<unknown> {
+  async get(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<unknown> {
     const req = get(
       ...this.getCommonTransformers(options)
     , pathname(`/admin/store/${namespace}/json-schema`)

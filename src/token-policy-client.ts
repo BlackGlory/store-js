@@ -28,7 +28,10 @@ export class TokenPolicyClient extends StoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async get(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<ITokenPolicy> {
+  async get(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<ITokenPolicy> {
     const req = get(
       ...this.getCommonTransformers(options)
     , pathname(`/admin/store/${namespace}/token-policies`)

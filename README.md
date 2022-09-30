@@ -9,19 +9,17 @@ yarn add @blackglory/store-js
 ## API
 ### StoreClient
 ```ts
-new StoreClient({
+interface IStoreClientOptions {
   server: string
-, token?: string
-, basicAuth?: {
+  token?: string
+  basicAuth?: {
     username: string
-  , password: string
+    password: string
   }
-, keepalive?: boolean
-, timeout?: number
-})
-```
+  keepalive?: boolean
+  timeout?: number
+}
 
-```ts
 interface IStoreClientRequestOptions {
   signal?: AbortSignal
   token?: string
@@ -38,415 +36,259 @@ interface IStoreClientRequestOptionsWithoutToken {
   keepalive?: boolean
   timeout?: number | false
 }
-```
 
-#### set
-```ts
-StoreClient#set(
-  namespace: string
-, id: string
-, payload: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<void>
-```
+class StoreClient {
+  constructor(options: IStoreClientOptions)
 
-#### setJSON
-```ts
-StoreClient#setJSON(
-  namespace: string
-, id: string
-, payload: Json
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<void>
-```
+  set(
+    namespace: string
+  , id: string
+  , payload: string
+  , options: IStoreClientRequestOptionsWithRevision = {}
+  ): Promise<void>
 
-#### setCSV
-```ts
-StoreClient#setJSON<T extends object>(
-  namespace: string
-, id: string
-, payload: T[]
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<void>
-```
+  setJSON<T>(
+    namespace: string
+  , id: string
+  , payload: T
+  , options: IStoreClientRequestOptionsWithRevision = {}
+  ): Promise<void>
 
-#### has
-```ts
-StoreClient#has(
-  namespace: string
-, id: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<boolean>
-```
+  setCSV<T extends object>(
+    namespace: string
+  , id: string
+  , payload: T[]
+  , options: IStoreClientRequestOptionsWithRevision = {}
+  ): Promise<void>
 
-#### get
-```ts
-StoreClient#get(
-  namespace: string
-, id: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<{
-  revision: string
-  payload: string
-} | undefined>
-```
+  has(
+    namespace: string
+  , id: string
+  , options: IStoreClientRequestOptionsWithRevision = {}
+  ): Promise<boolean>
 
-#### getJSON
-```ts
-StoreClient#getJSON(
-  namespace: string
-, id: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<{
-  revision: string
-  payload: Json
-} | undefined>
-```
+  get(
+    namespace: string
+  , id: string
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<string> | undefined>
 
-#### getCSV
-```ts
-StoreClient#getCSV<T extends object>(
-  namespace: string
-, id: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<{
-  revision: string
-  payload: T[]
-} | undefined>
-```
+  getJSON<T>(
+    namespace: string
+  , id: string
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<T> | undefined>
 
-#### del
-```ts
-StoreClient#del(
-  namespace: string
-, id: string
-, options?: IStoreClientRequestOptionsWithRevision
-): Promise<void>
-```
+  getCSV<T extends object>(
+    namespace: string
+  , id: string
+  , options?: IStoreClientRequestOptionsWithRevision
+  ): Promise<IItem<T[]> | undefined>
 
-#### clear
-```ts
-StoreClient#clear(
-  namespace: string
-, options?: IStoreClientRequestOptions
-): Promise<void>
-```
+  del(
+    namespace: string
+  , id: string
+  , options: IStoreClientRequestOptionsWithRevision = {}
+  ): Promise<void>
 
-#### getAllItemIds
-```ts
-StoreClient#getAllItemIds(
-  namespace: string
-, options?: IStoreClientRequestOptions
-): Promise<string[]>
-```
+  clear(
+    namespace: string
+  , options: IStoreClientRequestOptions = {}
+  ): Promise<void>
 
-#### getAllNamespaces
-```ts
-StoreClient#getAllNamespaces(
-  options?: IStoreClientRequestOptionsWithoutToken
-): Promise<string[]>
-```
+  stats(
+    namespace: string
+  , options: IStoreClientRequestOptionsWithoutToken = {}
+  ): Promise<IInfo>
 
-#### stats
-```ts
-StoreClient#stats(
-  namespace: string
-, options?: IStoreClientRequestOptionsWithoutToken
-): Promise<<{
-  namespace: string
-  items: number
-}>
+  getAllItemIds(
+    namespace: string
+  , options: IStoreClientRequestOptions = {}
+  ): Promise<string[]>
+
+  getAllNamespaces(
+    options: IStoreClientRequestOptionsWithoutToken = {}
+  ): Promise<string[]>
+}
 ```
 
 ### StoreManager
-```ts
-new StoreManager({
-  server: string
-, adminPassword: string
-, keepalive?: boolean
-, timeout?: number
-})
-```
-
 ```ts
 interface IStoreManagerRequestOptions {
   signal?: AbortSignal
   keepalive?: boolean
   timeout?: number | false
 }
+
+class StoreManager {
+  constructor(options: IStoreManagerOptions)
+
+  JsonSchema: JsonSchemaClient
+  Blacklist: BlacklistClient
+  Whitelist: WhitelistClient
+  TokenPolicy: TokenPolicyClient
+  Token: TokenClient
+  RevisionPolicy: RevisionPolicyClient
+}
 ```
 
-#### JsonSchema
-##### getNamespaces
+#### JsonSchemaClient
 ```ts
-StoreManager#JsonSchema.getNamespaces(
-  options?: IStoreManagerRequestOptions
-): Promise<string[]>
+class JsonSchemaClient {
+  getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
+  get(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<unknown>
+  set(
+    namespace: string
+  , schema: Json
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  async remove(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
 
-##### get
+#### BlacklistClient
 ```ts
-StoreManager#JsonSchema.get(namespace: string, options?: IStoreManagerRequestOptions): Promise<Json>
+class BlacklistClient {
+  getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
+  add(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void>
+  remove(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void>
+}
 ```
 
-##### set
+#### WhitelistClient
 ```ts
-StoreManager#JsonSchema.set(
-  namespace: string
-, schema: Json
-, options?: IStoreManagerRequestOptions
-): Promise<void>
+class WhitelistClient {
+  getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
+  add(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void>
+  remove(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void>
+}
 ```
 
-##### remove
+#### TokenPolicyClient
 ```ts
-StoreManager#JsonSchema.remove(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### RevisionPolicy
-##### getNamespaces
-```ts
-StoreManager#RevisionPolicy.getNamespaces(
-  options?: IStoreManagerRequestOptions
-): Promise<string[]>
-```
-
-##### get
-```ts
-StoreManager#RevisionPolicy.get(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<{
-  updateRevisionRequired: boolean | null
-  deleteRevisionRequired: boolean | null
-}>
-```
-
-##### setUpdateRevisionRequired
-```ts
-StoreManager#RevisionPolicy.setUpdateRevisionRequired(
-  namespace: string
-, val: boolean
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeUpdateRevisionRequired
-```ts
-StoreManager#RevisionPolicy.removeUpdateRevisionRequired(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### setDeleteRevisionRequired
-```ts
-StoreManager#RevisionPolicy.setDeleteRevisionRequired(
-  namespace: string
-, val: boolean
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeDeleteRevisionRequired
-```ts
-StoreManager#RevisionPolicy.removeDeleteRevisionRequired(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### Blacklist
-##### getNamespaces
-```ts
-StoreManager#Blacklist.getNamespaces(
-  options?: IStoreManagerRequestOptions
-): Promise<string[]>
-```
-
-##### add
-```ts
-StoreManager#Blacklist.add(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### remove
-```ts
-StoreManager#Blacklist.remove(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### Whitelist
-##### getNamespaces
-```ts
-StoreManager#Whitelist.getNamespaces(
-  options?: IStoreManagerRequestOptions
-): Promise<string[]>
-```
-
-##### add
-```ts
-StoreManager#Whitelist.add(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### remove
-```ts
-StoreManager#Whitelist.remove(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### TokenPolicy
-##### getNamespaces
-```ts
-StoreManager#TokenPolicy.getNamespaces(
-  options?: IStoreManagerRequestOptions
-): Promise<string[]>
-```
-
-##### get
-```ts
-StoreManager#TokenPolicy.get(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<{
+interface ITokenPolicy {
   writeTokenRequired: boolean | null
   readTokenRequired: boolean | null
   deleteTokenRequired: boolean | null
-}>
+}
+
+class TokenPolicyClient {
+  getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
+  get(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<ITokenPolicy>
+  setWriteTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeWriteTokenRequired(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  setReadTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeReadTokenRequired(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  setDeleteTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeDeleteTokenRequired(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
 
-##### setWriteTokenRequired
+#### TokenClient
 ```ts
-StoreManager#TokenPolicy.setWriteTokenRequired(
-  namespace: string
-, val: boolean
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeWriteTokenRequired
-```ts
-StoreManager#TokenPolicy.removeWriteTokenRequired(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### setReadTokenRequired
-```ts
-StoreManager#TokenPolicy.setReadTokenRequired(
-  namespace: string
-, val: boolean
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeReadTokenRequired
-```ts
-StoreManager#TokenPolicy.removeReadTokenRequired(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### setDeleteTokenRequired
-```ts
-StoreManager#TokenPolicy.setDeleteTokenRequired(
-  namespace: string
-, val: boolean
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeDeleteTokenRequired
-```ts
-StoreManager#TokenPolicy.removeDeleteTokenRequired(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-#### Token
-##### getNamespaces
-```ts
-StoreManager#Token.getNamespaces(options?: IStoreManagerRequestOptions): Promise<string[]>
-```
-
-##### getTokens
-```ts
-StoreManager#Token.getTokens(
-  namespace: string
-, options?: IStoreManagerRequestOptions
-): Promise<Array<{
+interface ITokenInfo {
   token: string
   write: boolean
   read: boolean
   delete: boolean
-}>>
+}
+
+class TokenClient {
+  getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
+  getTokens(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<ITokenInfo[]>
+  addWriteToken(
+    namespace: string
+  , token: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeWriteToken(
+    namespace: string
+  , token: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  addReadToken(
+    namespace: string
+  , token: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeReadToken(
+    namespace: string
+  , token: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  addDeleteToken(
+    namespace: string
+  , token: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeDeleteToken(
+    namespace: string
+  , token: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
 
-##### addWriteToken
+#### RevisionPolicyClient
 ```ts
-StoreManager#Token.addWriteToken(
-  namespace: string
-, token: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
+interface IRevisionPolicy {
+  updateRevisionRequired: boolean | null
+  deleteRevisionRequired: boolean | null
+}
 
-##### removeWriteToken
-```ts
-StoreManager#Token.removeWriteToken(
-  namespace: string
-, token: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### addReadToken
-```ts
-StoreManager#Token.addReadToken(
-  namespace: string
-, token: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeReadToken
-```ts
-StoreManager#Token.removeReadToken(
-  namespace: string
-, token: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### addDeleteToken
-```ts
-StoreManager#Token.addDeleteToken(
-  namespace: string
-, token: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
-```
-
-##### removeDeleteToken
-```ts
-StoreManager#Token.removeDeleteToken(
-  namespace: string
-, token: string
-, options?: IStoreManagerRequestOptions
-): Promise<void>
+class RevisionPolicyClient {
+  getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
+  get(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<IRevisionPolicy>
+  setUpdateRevisionRequired(
+    namespace: string
+  , val: boolean
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeUpdateRevisionRequired(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  setDeleteRevisionRequired(
+    namespace: string
+  , val: boolean
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+  removeDeleteRevisionRequired(
+    namespace: string
+  , options: IStoreManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
