@@ -1,23 +1,24 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
-import { pathname, json } from 'extra-request/transformers/index.js'
+import { pathname } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { IStoreManagerRequestOptions, StoreManagerBase } from './utils'
+import { IStoreManagerRequestOptions, Base } from './base'
 
-interface ITokenPolicy {
-  writeTokenRequired: boolean | null
-  readTokenRequired: boolean | null
-  deleteTokenRequired: boolean | null
+interface ITokenInfo {
+  token: string
+  write: boolean
+  read: boolean
+  delete: boolean
 }
 
-export class TokenPolicyClient extends StoreManagerBase {
+export class TokenManager extends Base {
   /**
    * @throws {AbortError}
    */
   async getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/store-with-token-policies')
+    , pathname('/admin/store-with-tokens')
     )
 
     return await fetch(req)
@@ -28,32 +29,31 @@ export class TokenPolicyClient extends StoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async get(
+  async getTokens(
     namespace: string
   , options: IStoreManagerRequestOptions = {}
-  ): Promise<ITokenPolicy> {
+  ): Promise<ITokenInfo[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/token-policies`)
+    , pathname(`/admin/store/${namespace}/tokens`)
     )
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as ITokenPolicy
+      .then(toJSON) as ITokenInfo[]
   }
 
   /**
    * @throws {AbortError}
    */
-  async setWriteTokenRequired(
+  async addWriteToken(
     namespace: string
-  , val: boolean
+  , token: string
   , options: IStoreManagerRequestOptions = {}
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/token-policies/write-token-required`)
-    , json(val)
+    , pathname(`/admin/store/${namespace}/tokens/${token}/write`)
     )
 
     await fetch(req).then(ok)
@@ -62,13 +62,14 @@ export class TokenPolicyClient extends StoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async removeWriteTokenRequired(
+  async removeWriteToken(
     namespace: string
+  , token: string
   , options: IStoreManagerRequestOptions = {}
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/token-policies/write-token-required`)
+    , pathname(`/admin/store/${namespace}/tokens/${token}/write`)
     )
 
     await fetch(req).then(ok)
@@ -77,15 +78,14 @@ export class TokenPolicyClient extends StoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async setReadTokenRequired(
+  async addReadToken(
     namespace: string
-  , val: boolean
+  , token: string
   , options: IStoreManagerRequestOptions = {}
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/token-policies/read-token-required`)
-    , json(val)
+    , pathname(`/admin/store/${namespace}/tokens/${token}/read`)
     )
 
     await fetch(req).then(ok)
@@ -94,13 +94,14 @@ export class TokenPolicyClient extends StoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async removeReadTokenRequired(
+  async removeReadToken(
     namespace: string
+  , token: string
   , options: IStoreManagerRequestOptions = {}
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/token-policies/read-token-required`)
+    , pathname(`/admin/store/${namespace}/tokens/${token}/read`)
     )
 
     await fetch(req).then(ok)
@@ -109,15 +110,14 @@ export class TokenPolicyClient extends StoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async setDeleteTokenRequired(
+  async addDeleteToken(
     namespace: string
-  , val: boolean
+  , token: string
   , options: IStoreManagerRequestOptions = {}
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/token-policies/delete-token-required`)
-    , json(val)
+    , pathname(`/admin/store/${namespace}/tokens/${token}/delete`)
     )
 
     await fetch(req).then(ok)
@@ -126,13 +126,14 @@ export class TokenPolicyClient extends StoreManagerBase {
   /**
    * @throws {AbortError}
    */
-  async removeDeleteTokenRequired(
+  async removeDeleteToken(
     namespace: string
+  , token: string
   , options: IStoreManagerRequestOptions = {}
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/token-policies/delete-token-required`)
+    , pathname(`/admin/store/${namespace}/tokens/${token}/delete`)
     )
 
     await fetch(req).then(ok)

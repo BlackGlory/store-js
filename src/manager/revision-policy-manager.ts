@@ -2,14 +2,14 @@ import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
 import { pathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { IStoreManagerRequestOptions, StoreManagerBase } from './utils'
+import { IStoreManagerRequestOptions, Base } from './base'
 
 interface IRevisionPolicy {
   updateRevisionRequired: boolean | null
   deleteRevisionRequired: boolean | null
 }
 
-export class RevisionPolicyClient extends StoreManagerBase {
+export class RevisionPolicyManager extends Base {
   /**
    * @throws {AbortError}
    */

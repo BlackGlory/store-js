@@ -2,16 +2,16 @@ import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
 import { pathname } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { IStoreManagerRequestOptions, StoreManagerBase } from './utils'
+import { IStoreManagerRequestOptions, Base } from './base'
 
-export class BlacklistClient extends StoreManagerBase {
+export class WhitelistManager extends Base {
   /**
    * @throws {AbortError}
    */
   async getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/blacklist')
+    , pathname('/admin/whitelist')
     )
 
     return await fetch(req)
@@ -25,7 +25,7 @@ export class BlacklistClient extends StoreManagerBase {
   async add(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/blacklist/${namespace}`)
+    , pathname(`/admin/whitelist/${namespace}`)
     )
 
     await fetch(req).then(ok)
@@ -37,7 +37,7 @@ export class BlacklistClient extends StoreManagerBase {
   async remove(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/blacklist/${namespace}`)
+    , pathname(`/admin/whitelist/${namespace}`)
     )
 
     await fetch(req).then(ok)

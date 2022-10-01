@@ -1,5 +1,5 @@
-import { server } from '@test/revision-policy.mock'
-import { RevisionPolicyClient } from '@src/revision-policy-client'
+import { server } from './revision-policy-manager.mock'
+import { RevisionPolicyManager } from '@manager/revision-policy-manager'
 import { ADMIN_PASSWORD } from '@test/utils'
 import '@blackglory/jest-matchers'
 
@@ -7,9 +7,9 @@ beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
-describe('RevisionPolicyClient', () => {
+describe('RevisionPolicyManager', () => {
   test('getNamespaces(): Promise<string[]>', async () => {
-    const client = createClient()
+    const client = createManager()
 
     const result = client.getNamespaces()
     const proResult = await result
@@ -24,7 +24,7 @@ describe('RevisionPolicyClient', () => {
       deleteRevisionRequired: boolean | null
     }>
   `, async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.get(namespace)
@@ -38,7 +38,7 @@ describe('RevisionPolicyClient', () => {
   })
 
   test('setUpdateRevisionRequired(namespace: string, val: boolean): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
     const val = true
 
@@ -50,7 +50,7 @@ describe('RevisionPolicyClient', () => {
   })
 
   test('removeUpdateRevisionRequired(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.removeUpdateRevisionRequired(namespace)
@@ -61,7 +61,7 @@ describe('RevisionPolicyClient', () => {
   })
 
   test('setDeleteRevisionRequired(namespace: string, val: boolean): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
     const val = true
 
@@ -73,7 +73,7 @@ describe('RevisionPolicyClient', () => {
   })
 
   test('removeDeleteRevisionRequired(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.removeDeleteRevisionRequired(namespace)
@@ -84,8 +84,8 @@ describe('RevisionPolicyClient', () => {
   })
 })
 
-function createClient() {
-  return new RevisionPolicyClient({
+function createManager() {
+  return new RevisionPolicyManager({
     server: 'http://localhost'
   , adminPassword: ADMIN_PASSWORD
   })

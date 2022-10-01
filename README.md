@@ -120,21 +120,27 @@ interface IStoreManagerRequestOptions {
   timeout?: number | false
 }
 
+interface IStoreManagerRequestOptions {
+  signal?: AbortSignal
+  keepalive?: boolean
+  timeout?: number | false
+}
+
 class StoreManager {
   constructor(options: IStoreManagerOptions)
 
-  JsonSchema: JsonSchemaClient
-  Blacklist: BlacklistClient
-  Whitelist: WhitelistClient
-  TokenPolicy: TokenPolicyClient
-  Token: TokenClient
-  RevisionPolicy: RevisionPolicyClient
+  JsonSchema: JsonSchemaManager
+  Blacklist: BlacklistManager
+  Whitelist: WhitelistManager
+  TokenPolicy: TokenPolicyManager
+  Token: TokenManager
+  RevisionPolicy: RevisionPolicyManager
 }
 ```
 
-#### JsonSchemaClient
+#### JsonSchemaManager
 ```ts
-class JsonSchemaClient {
+class JsonSchemaManager {
   getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
   get(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<unknown>
   set(
@@ -149,25 +155,25 @@ class JsonSchemaClient {
 }
 ```
 
-#### BlacklistClient
+#### BlacklistManager
 ```ts
-class BlacklistClient {
+class BlacklistManager {
   getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
   add(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void>
   remove(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void>
 }
 ```
 
-#### WhitelistClient
+#### WhitelistManager
 ```ts
-class WhitelistClient {
+class WhitelistManager {
   getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
   add(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void>
   remove(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<void>
 }
 ```
 
-#### TokenPolicyClient
+#### TokenPolicyManager
 ```ts
 interface ITokenPolicy {
   writeTokenRequired: boolean | null
@@ -175,7 +181,7 @@ interface ITokenPolicy {
   deleteTokenRequired: boolean | null
 }
 
-class TokenPolicyClient {
+class TokenPolicyManager {
   getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
   get(
     namespace: string
@@ -211,7 +217,7 @@ class TokenPolicyClient {
 }
 ```
 
-#### TokenClient
+#### TokenManager
 ```ts
 interface ITokenInfo {
   token: string
@@ -220,7 +226,7 @@ interface ITokenInfo {
   delete: boolean
 }
 
-class TokenClient {
+class TokenManager {
   getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
   getTokens(
     namespace: string
@@ -259,14 +265,14 @@ class TokenClient {
 }
 ```
 
-#### RevisionPolicyClient
+#### RevisionPolicyManager
 ```ts
 interface IRevisionPolicy {
   updateRevisionRequired: boolean | null
   deleteRevisionRequired: boolean | null
 }
 
-class RevisionPolicyClient {
+class RevisionPolicyManager {
   getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]>
   get(
     namespace: string
