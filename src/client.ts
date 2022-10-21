@@ -7,8 +7,6 @@ import { Falsy } from 'justypes'
 import { raceAbortSignals, timeoutSignal } from 'extra-abort'
 import { expectedVersion } from './utils'
 
-export { HTTPClientError } from '@blackglory/http-status'
-
 interface IItem<T> {
   revision: string
   payload: T
