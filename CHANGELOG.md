@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.0](https://github.com/BlackGlory/store-js/compare/v0.11.6...v0.12.0) (2022-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removed `HTTPClientError`, `HTTPError`, `AbortError`
+
+* remove `HTTPClientError`, `HTTPError`, `AbortError` ([2ec916a](https://github.com/BlackGlory/store-js/commit/2ec916aaf7da980d00f83821bb4f574623851973))
+
 ### [0.11.6](https://github.com/BlackGlory/store-js/compare/v0.11.5...v0.11.6) (2022-09-30)
 
 ### [0.11.5](https://github.com/BlackGlory/store-js/compare/v0.11.4...v0.11.5) (2022-09-30)
