@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { head, put, get, del, IHTTPOptionsTransformer } from 'extra-request'
-import { url, pathname, json, text, csv, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers/index.js'
+import { url, appendPathname, json, text, csv, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers/index.js'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toCSV, toText } from 'extra-response'
 import { Falsy } from 'justypes'
@@ -83,7 +83,7 @@ export class StoreClient {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}/items/${id}`)
+    , appendPathname(`/store/${namespace}/items/${id}`)
     , text(payload)
     )
 
@@ -101,7 +101,7 @@ export class StoreClient {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}/items/${id}`)
+    , appendPathname(`/store/${namespace}/items/${id}`)
     , json(payload)
     )
 
@@ -119,7 +119,7 @@ export class StoreClient {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}/items/${id}`)
+    , appendPathname(`/store/${namespace}/items/${id}`)
     , csv(payload)
     )
 
@@ -136,7 +136,7 @@ export class StoreClient {
   ): Promise<boolean> {
     const req = head(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}/items/${id}`)
+    , appendPathname(`/store/${namespace}/items/${id}`)
     )
 
     try {
@@ -215,7 +215,7 @@ export class StoreClient {
   ): Promise<Response> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}/items/${id}`)
+    , appendPathname(`/store/${namespace}/items/${id}`)
     )
 
     return await fetch(req).then(ok)
@@ -231,7 +231,7 @@ export class StoreClient {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}/items/${id}`)
+    , appendPathname(`/store/${namespace}/items/${id}`)
     )
 
     await fetch(req).then(ok)
@@ -246,7 +246,7 @@ export class StoreClient {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}`)
+    , appendPathname(`/store/${namespace}`)
     )
 
     await fetch(req).then(ok)
@@ -261,7 +261,7 @@ export class StoreClient {
   ): Promise<IInfo> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}/stats`)
+    , appendPathname(`/store/${namespace}/stats`)
     )
 
     return await fetch(req)
@@ -278,7 +278,7 @@ export class StoreClient {
   ): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/store/${namespace}/items`)
+    , appendPathname(`/store/${namespace}/items`)
     )
 
     return await fetch(req)
@@ -294,7 +294,7 @@ export class StoreClient {
   ): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/store')
+    , appendPathname('/store')
     )
 
     return await fetch(req)

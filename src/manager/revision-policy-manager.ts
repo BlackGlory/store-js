@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
-import { pathname, json } from 'extra-request/transformers/index.js'
+import { appendPathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { IStoreManagerRequestOptions, Base } from './base'
 
@@ -16,7 +16,7 @@ export class RevisionPolicyManager extends Base {
   async getNamespaces(options: IStoreManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/store-with-revision-policies')
+    , appendPathname('/admin/store-with-revision-policies')
     )
 
     return await fetch(req)
@@ -33,7 +33,7 @@ export class RevisionPolicyManager extends Base {
   ): Promise<IRevisionPolicy> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/revision-policies`)
+    , appendPathname(`/admin/store/${namespace}/revision-policies`)
     )
 
     return await fetch(req)
@@ -51,7 +51,7 @@ export class RevisionPolicyManager extends Base {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/revision-policies/update-revision-required`)
+    , appendPathname(`/admin/store/${namespace}/revision-policies/update-revision-required`)
     , json(val)
     )
 
@@ -67,7 +67,7 @@ export class RevisionPolicyManager extends Base {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/revision-policies/update-revision-required`)
+    , appendPathname(`/admin/store/${namespace}/revision-policies/update-revision-required`)
     )
 
     await fetch(req).then(ok)
@@ -83,7 +83,7 @@ export class RevisionPolicyManager extends Base {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/revision-policies/delete-revision-required`)
+    , appendPathname(`/admin/store/${namespace}/revision-policies/delete-revision-required`)
     , json(val)
     )
 
@@ -99,7 +99,7 @@ export class RevisionPolicyManager extends Base {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/store/${namespace}/revision-policies/delete-revision-required`)
+    , appendPathname(`/admin/store/${namespace}/revision-policies/delete-revision-required`)
     )
 
     await fetch(req).then(ok)
