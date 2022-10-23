@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.1](https://github.com/BlackGlory/store-js/compare/v0.12.0...v0.12.1) (2022-10-23)
+
+
+### Bug Fixes
+
+* replace `pathname` with `appendPathname` ([613c891](https://github.com/BlackGlory/store-js/commit/613c8916b1ecf43c2921df61e4e111970d3ab639))
+
 ## [0.12.0](https://github.com/BlackGlory/store-js/compare/v0.11.6...v0.12.0) (2022-10-21)
 
 
