@@ -2,7 +2,7 @@ import { fetch } from 'extra-fetch'
 import { head, put, get, del, IHTTPOptionsTransformer } from 'extra-request'
 import { url, appendPathname, json, text, csv, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers/index.js'
 import { NotFound } from '@blackglory/http-status'
-import { ok, toJSON, toCSV, toText } from 'extra-response'
+import { ok, toJSON, toText } from 'extra-response'
 import { Falsy } from 'justypes'
 import { raceAbortSignals, timeoutSignal } from 'extra-abort'
 import { expectedVersion } from './utils'
@@ -179,25 +179,6 @@ export class StoreClient {
       return await this._get(namespace, id, options).then(async res => ({
         revision: res.headers.get('ETag')!
       , payload: await toJSON(res)
-      }))
-    } catch (e) {
-      if (e instanceof NotFound) return undefined
-      throw e
-    }
-  }
-
-  /**
-   * @throws {AbortError}
-   */
-  async getCSV<T extends object>(
-    namespace: string
-  , id: string
-  , options?: IStoreClientRequestOptionsWithRevision
-  ): Promise<IItem<T[]> | undefined> {
-    try {
-      return await this._get(namespace, id, options).then(async res => ({
-        revision: res.headers.get('ETag')!
-      , payload: await toCSV(res) as T[]
       }))
     } catch (e) {
       if (e instanceof NotFound) return undefined

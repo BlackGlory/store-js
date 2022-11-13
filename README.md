@@ -79,12 +79,6 @@ class StoreClient {
   , options?: IStoreClientRequestOptionsWithRevision
   ): Promise<IItem<T> | undefined>
 
-  getCSV<T extends object>(
-    namespace: string
-  , id: string
-  , options?: IStoreClientRequestOptionsWithRevision
-  ): Promise<IItem<T[]> | undefined>
-
   del(
     namespace: string
   , id: string

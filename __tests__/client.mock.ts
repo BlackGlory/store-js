@@ -52,16 +52,6 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/store/:namespace/items/csv', (req, res, ctx) => {
-    if (badToken(req)) return res(ctx.status(401))
-
-    return res(
-      ctx.status(200)
-    , ctx.set('ETag', 'revision')
-    , ctx.text('key,value\r\nhello,world')
-    )
-  })
-
 , rest.get('/store/:namespace/items', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 

@@ -153,45 +153,6 @@ describe('StoreClient', () => {
     })
   })
 
-
-  describe(`
-    getCSV<T extends object>(
-      namespace: string
-    , id: string
-    ): Promise<{ revision: string; payload: T[] } | undefined>
-  `, () => {
-    describe('exist', () => {
-      it('return item', async () => {
-        const client = createClient()
-        const namespace = 'namespace'
-
-        const result = client.getCSV(namespace, 'csv')
-        const proResult = await result
-
-        expect(result).toBePromise()
-        expect(proResult).toStrictEqual({
-          revision: 'revision'
-        , payload: [
-            { key: 'hello', value: 'world' }
-          ]
-        })
-      })
-    })
-
-    describe('not exist', () => {
-      it('return undefined', async () => {
-        const client = createClient()
-        const namespace = 'namespace'
-
-        const result = client.getCSV(namespace, 'not-found')
-        const proResult = await result
-
-        expect(result).toBePromise()
-        expect(proResult).toBeUndefined()
-      })
-    })
-  })
-
   test('getAllItemIds(namespace: string): Promise<string[]>', async () => {
     const client = createClient()
     const namespace = 'namespace'
