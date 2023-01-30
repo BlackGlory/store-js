@@ -11,13 +11,17 @@
   "repository": "git@github.com:BlackGlory/store-js.git",
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
+  "type": "module",
   "sideEffects": false,
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "prepare": "ts-patch install -s",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src __tests__",
-    "test": "jest --runInBand --no-cache --config jest.config.js",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:coverage": "jest --coverage --config jest.config.js",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --no-cache --config jest.config.cjs",
+    "test:debug": "cross-env NODE_OPTIONS=--experimental-vm-modules node --inspect-brk node_modules/.bin/jest --runInBand jest.config.cjs",
+    "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage --config jest.config.cjs",
     "prepublishOnly": "run-s prepare clean build",
     "clean": "rimraf lib",
     "build": "tsc --project tsconfig.build.json --module commonjs --target es2018 --outDir lib",
@@ -25,37 +29,40 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s prepare lint test",
+      "pre-commit": "run-s prepare lint build test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
-    "@types/jest": "^29.2.2",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
-    "eslint": "^8.27.0",
+    "@blackglory/jest-resolver": "^0.3.0",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "@types/jest": "^29.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.33.0",
     "husky": "4",
-    "jest": "^29.3.1",
-    "jest-environment-jsdom": "^29.3.1",
-    "msw": "^0.48.2",
+    "jest": "^29.4.1",
+    "jest-environment-jsdom": "^29.4.1",
+    "jest-resolve": "^29.4.1",
+    "msw": "^1.0.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "standard-version": "^9.3.2",
-    "ts-jest": "^29.0.3",
-    "ts-patch": "^2.0.2",
-    "tslib": "^2.4.1",
+    "ts-jest": "^29.0.5",
+    "ts-patch": "^2.1.0",
+    "tslib": "^2.5.0",
     "typescript": "^4.8.4",
-    "typescript-transform-paths": "^3.4.4"
+    "typescript-transform-paths": "^3.4.6"
   },
   "dependencies": {
-    "@blackglory/http-status": "^1.0.1",
-    "@blackglory/prelude": "^0.1.8",
-    "extra-abort": "^0.1.2",
-    "extra-fetch": "^1.9.1",
-    "extra-request": "^4.0.1",
-    "extra-response": "^0.3.10",
-    "justypes": "^3.0.0"
+    "@blackglory/http-status": "^2.0.1",
+    "@blackglory/prelude": "^0.3.1",
+    "extra-abort": "^0.3.1",
+    "extra-fetch": "^4.0.4",
+    "extra-request": "^8.1.6",
+    "extra-response": "^0.5.1",
+    "justypes": "^4.1.0"
   }
 }

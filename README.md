@@ -139,7 +139,7 @@ class JsonSchemaManager {
   get(namespace: string, options: IStoreManagerRequestOptions = {}): Promise<unknown>
   set(
     namespace: string
-  , schema: Json
+  , schema: JSONValue
   , options: IStoreManagerRequestOptions = {}
   ): Promise<void>
   async remove(

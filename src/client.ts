@@ -1,11 +1,11 @@
 import { fetch } from 'extra-fetch'
-import { head, put, get, del, IHTTPOptionsTransformer } from 'extra-request'
-import { url, appendPathname, json, text, csv, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers/index.js'
+import { head, put, get, del, IRequestOptionsTransformer } from 'extra-request'
+import { url, appendPathname, json, text, csv, searchParams, signal, basicAuth, keepalive, header } from 'extra-request/transformers'
 import { NotFound } from '@blackglory/http-status'
 import { ok, toJSON, toText } from 'extra-response'
 import { Falsy } from '@blackglory/prelude'
 import { raceAbortSignals, timeoutSignal } from 'extra-abort'
-import { expectedVersion } from './utils'
+import { expectedVersion } from './utils.js'
 
 interface IItem<T> {
   revision: string
@@ -50,7 +50,7 @@ export class StoreClient {
 
   private getCommonTransformers(
     options: IStoreClientRequestOptions | IStoreClientRequestOptionsWithoutToken
-  ): Array<IHTTPOptionsTransformer | Falsy> {
+  ): Array<IRequestOptionsTransformer | Falsy> {
     const token = 'token' in options
                   ? (options.token ?? this.options.token)
                   : this.options.token

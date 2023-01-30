@@ -1,6 +1,7 @@
-import { server } from './revision-policy-manager.mock'
-import { RevisionPolicyManager } from '@manager/revision-policy-manager'
-import { ADMIN_PASSWORD } from '@test/utils'
+import { server } from './revision-policy-manager.mock.js'
+import { RevisionPolicyManager } from '@manager/revision-policy-manager.js'
+import { ADMIN_PASSWORD } from '@test/utils.js'
+import '@test/polyfill.js'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())

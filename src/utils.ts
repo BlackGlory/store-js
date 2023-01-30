@@ -1,1 +1,1 @@
-export const expectedVersion = '0.3.6'
+export const expectedVersion = '^0.4.0'
