@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.14.0](https://github.com/BlackGlory/store-js/compare/v0.13.0...v0.14.0) (2023-01-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* - CommonJS => ESM.
+- The minimal version of Node.js is 16.
+- It requires Store^0.4.0.
+
+### Features
+
+* upgrade ([8d5d421](https://github.com/BlackGlory/store-js/commit/8d5d42136534f244e00b1abf64eab7b72e5b8ef9))
+
 ## [0.13.0](https://github.com/BlackGlory/store-js/compare/v0.12.2...v0.13.0) (2022-11-13)
 
 
