@@ -3,7 +3,7 @@ import { ClientProxy, BatchClient, BatchClientProxy } from 'delight-rpc'
 import { IAPI, IItem, IStats, Revision } from './contract.js'
 import { timeoutSignal, withAbortSignal } from 'extra-abort'
 import { isUndefined } from '@blackglory/prelude'
-export { IStats } from './contract.js'
+export { IStats, IItem, IncorrectRevision } from './contract.js'
 
 export interface IStoreClientOptions {
   server: string
@@ -71,11 +71,15 @@ export class StoreClient {
     )
   }
 
+  /**
+   * @throws {IncorrectRevision}
+   * 在提供revision参数的情况下, 如果目标项目的revision值不等于参数, 或项目不存在, 则抛出此错误.
+   */
   async setItem(
     namespace: string
   , itemId: string
   , value: string
-  , revision?: Revision
+  , revision?: string
   , timeout?: number
   ): Promise<Revision> {
     return await this.withTimeout(() => {
@@ -87,10 +91,14 @@ export class StoreClient {
     }, timeout ?? this.timeout)
   }
 
+  /**
+   * @throws {IncorrectRevision}
+   * 在提供revision参数的情况下, 如果目标项目的revision值不等于参数, 或项目不存在, 则抛出此错误.
+   */
   async removeItem(
     namespace: string
   , itemId: string
-  , revision?: Revision
+  , revision?: string
   , timeout?: number
   ): Promise<void> {
     await this.withTimeout(() => {
