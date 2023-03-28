@@ -1,9 +1,9 @@
 import { createRPCClient } from '@utils/rpc-client.js'
-import { ClientProxy, BatchClient, BatchClientProxy } from 'delight-rpc'
-import { IAPI, IItem, IStats, Revision } from './contract.js'
+import { ClientProxy } from 'delight-rpc'
+import { IAPI, IItem, INamespaceStats } from './contract.js'
 import { timeoutSignal, withAbortSignal } from 'extra-abort'
-import { isUndefined } from '@blackglory/prelude'
-export { IStats, IItem, IncorrectRevision } from './contract.js'
+import { isUndefined, JSONValue } from '@blackglory/prelude'
+export { INamespaceStats, IItem, IncorrectRevision } from './contract.js'
 
 export interface IStoreClientOptions {
   server: string
@@ -13,14 +13,15 @@ export interface IStoreClientOptions {
 
 export class StoreClient {
   static async create(options: IStoreClientOptions): Promise<StoreClient> {
-    const { client, batchClient, proxy, close } = await createRPCClient(options.server)
-    return new StoreClient(client, batchClient, proxy, close, options.timeout)
+    const { client, close } = await createRPCClient(
+      options.server
+    , options.retryIntervalForReconnection
+    )
+    return new StoreClient(client, close, options.timeout)
   }
 
   private constructor(
     private client: ClientProxy<IAPI>
-  , private batchClient: BatchClient
-  , private batchProxy: BatchClientProxy<IAPI, unknown>
   , private closeClients: () => Promise<void>
   , private timeout?: number
   ) {}
@@ -29,9 +30,12 @@ export class StoreClient {
     await this.closeClients()
   }
 
-  async stats(namespace: string, timeout?: number): Promise<IStats> {
+  async getNamespaceStats(
+    namespace: string
+  , timeout?: number
+  ): Promise<INamespaceStats> {
     return await this.withTimeout(
-      () => this.client.stats(namespace)
+      () => this.client.getNamespaceStats(namespace)
     , timeout ?? this.timeout
     )
   }
@@ -57,14 +61,22 @@ export class StoreClient {
     )
   }
 
-  async hasItem(namespace: string, itemId: string, timeout?: number): Promise<boolean> {
+  async hasItem(
+    namespace: string
+  , itemId: string
+  , timeout?: number
+  ): Promise<boolean> {
     return await this.withTimeout(
       () => this.client.hasItem(namespace, itemId)
     , timeout ?? this.timeout
     )
   }
 
-  async getItem(namespace: string, itemId: string, timeout?: number): Promise<IItem | null> {
+  async getItem(
+    namespace: string
+  , itemId: string
+  , timeout?: number
+  ): Promise<IItem | null> {
     return await this.withTimeout(
       () => this.client.getItem(namespace, itemId)
     , timeout ?? this.timeout
@@ -78,10 +90,10 @@ export class StoreClient {
   async setItem(
     namespace: string
   , itemId: string
-  , value: string
+  , value: JSONValue
   , revision?: string
   , timeout?: number
-  ): Promise<Revision> {
+  ): Promise<string> {
     return await this.withTimeout(() => {
       if (isUndefined(revision)) {
         return this.client.setItem(namespace, itemId, value)

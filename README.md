@@ -15,13 +15,12 @@ interface IStoreClientOptions {
   retryIntervalForReconnection?: number
 }
 
-interface IStats {
-  namespace: string
+interface INamespaceStats {
   items: number
 }
 
 interface IItem {
-  value: string
+  value: JSONValue
   revision: string
 }
 
@@ -32,13 +31,16 @@ class StoreClient {
 
   close(): Promise<void>
 
-  stats(namespace: string, timeout?: number): Promise<IStats>
+  getNamespaceStats(namespace: string, timeout?: number): Promise<INamespaceStats>
+
   getAllNamespaces(timeout?: number): Promise<string[]>
+
   getAllItemIds(namespace: string, timeout?: number): Promise<string[]>
 
   clearItemsByNamespace(namespace: string, timeout?: number): Promise<void>
 
   hasItem(namespace: string, itemId: string, timeout?: number): Promise<boolean>
+
   getItem(namespace: string, itemId: string, timeout?: number): Promise<IItem | null>
 
   /**
@@ -48,10 +50,10 @@ class StoreClient {
   setItem(
     namespace: string
   , itemId: string
-  , value: string
+  , value: JSONValue
   , revision?: string
   , timeout?: number
-  ): Promise<Revision>
+  ): Promise<string>
 
   /**
    * @throws {IncorrectRevision}
