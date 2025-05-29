@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.17.0](https://github.com/BlackGlory/store-js/compare/v0.16.1...v0.17.0) (2025-05-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* - Replaced `timeout: number` with `signal: AbortSignal`
+- The module requires Store@^0.6.2
+* Node.js v16 => Node.js v22
+
+### Features
+
+* replace `timeout: number` with `signal: AbortSignal` ([5f13657](https://github.com/BlackGlory/store-js/commit/5f136575a6e7bd4126feffd5bd35860883a4d2cf))
+
+
+* upgrade dependencies ([10d1138](https://github.com/BlackGlory/store-js/commit/10d11388871f8f42905d9274a1eb638b63b4e816))
+
 ### [0.16.1](https://github.com/BlackGlory/store-js/compare/v0.16.0...v0.16.1) (2023-06-11)
 
 
