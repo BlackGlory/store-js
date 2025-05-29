@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { StoreClient } from '@src/store-client.js'
 
 const server = 'ws://store:8080'
