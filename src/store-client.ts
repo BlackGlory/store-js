@@ -1,8 +1,8 @@
 import { createRPCClient } from '@utils/rpc-client.js'
 import { ClientProxy } from 'delight-rpc'
 import { IAPI, IItem, INamespaceStats } from './contract.js'
-import { timeoutSignal, withAbortSignal } from 'extra-abort'
-import { isUndefined, JSONValue } from '@blackglory/prelude'
+import { raceAbortSignals, timeoutSignal } from 'extra-abort'
+import { isntUndefined, isUndefined, JSONValue } from '@blackglory/prelude'
 export { INamespaceStats, IItem, IncorrectRevision } from './contract.js'
 
 export interface IStoreClientOptions {
@@ -32,55 +32,43 @@ export class StoreClient {
 
   async getNamespaceStats(
     namespace: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<INamespaceStats> {
-    return await this.withTimeout(
-      () => this.client.getNamespaceStats(namespace)
-    , timeout ?? this.timeout
+    return await this.client.getNamespaceStats(
+      namespace
+    , this.withTimeout(signal)
     )
   }
 
-  async getAllNamespaces(timeout?: number): Promise<string[]> {
-    return await this.withTimeout(
-      () => this.client.getAllNamespaces()
-    , timeout ?? this.timeout
-    )
+  async getAllNamespaces(signal?: AbortSignal): Promise<string[]> {
+    return await this.client.getAllNamespaces(this.withTimeout(signal))
   }
 
-  async getAllItemIds(namespace: string, timeout?: number): Promise<string[]> {
-    return await this.withTimeout(
-      () => this.client.getAllItemIds(namespace)
-    , timeout ?? this.timeout
-    )
+  async getAllItemIds(namespace: string, signal?: AbortSignal): Promise<string[]> {
+    return await this.client.getAllItemIds(namespace, this.withTimeout(signal))
   }
 
-  async clearItemsByNamespace(namespace: string, timeout?: number): Promise<void> {
-    await this.withTimeout(
-      () => this.client.clearItemsByNamespace(namespace)
-    , timeout ?? this.timeout
-    )
+  async clearItemsByNamespace(
+    namespace: string
+  , signal?: AbortSignal
+  ): Promise<void> {
+    await this.client.clearItemsByNamespace(namespace, this.withTimeout(signal))
   }
 
   async hasItem(
     namespace: string
   , itemId: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<boolean> {
-    return await this.withTimeout(
-      () => this.client.hasItem(namespace, itemId)
-    , timeout ?? this.timeout
-    )
+    return await this.client.hasItem(namespace, itemId, this.withTimeout(signal))
   }
 
   async getItem(
     namespace: string
   , itemId: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<IItem | null> {
-    return await this.withTimeout(
-      () => this.client.getItem(namespace, itemId)
-    , timeout ?? this.timeout
-    )
+    return await this.client.getItem(namespace, itemId, this.withTimeout(signal))
   }
 
   /**
@@ -92,15 +80,24 @@ export class StoreClient {
   , itemId: string
   , value: JSONValue
   , revision?: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<string> {
-    return await this.withTimeout(() => {
-      if (isUndefined(revision)) {
-        return this.client.setItem(namespace, itemId, value)
-      } else {
-        return this.client.setItem(namespace, itemId, value, revision)
-      }
-    }, timeout ?? this.timeout)
+    if (isUndefined(revision)) {
+      return await this.client.setItem(
+        namespace
+      , itemId
+      , value
+      , this.withTimeout(signal)
+      )
+    } else {
+      return await this.client.setItem(
+        namespace
+      , itemId
+      , value
+      , revision
+      , this.withTimeout(signal)
+      )
+    }
   }
 
   /**
@@ -111,25 +108,28 @@ export class StoreClient {
     namespace: string
   , itemId: string
   , revision?: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<void> {
-    await this.withTimeout(() => {
-      if (isUndefined(revision)) {
-        return this.client.removeItem(namespace, itemId)
-      } else {
-        return this.client.removeItem(namespace, itemId, revision)
-      }
-    }, timeout ?? this.timeout)
+    if (isUndefined(revision)) {
+      await this.client.removeItem(
+        namespace
+      , itemId
+      , this.withTimeout(signal)
+      )
+    } else {
+      await this.client.removeItem(
+        namespace
+      , itemId
+      , revision
+      , this.withTimeout(signal)
+      )
+    }
   }
 
-  private async withTimeout<T>(
-    fn: () => PromiseLike<T>
-  , timeout: number | undefined = this.timeout
-  ): Promise<T> {
-    if (timeout) {
-      return await withAbortSignal(timeoutSignal(timeout), fn)
-    } else {
-      return await fn()
-    }
+  private withTimeout(signal?: AbortSignal): AbortSignal {
+    return raceAbortSignals([
+      isntUndefined(this.timeout) && timeoutSignal(this.timeout)
+    , signal
+    ])
   }
 }

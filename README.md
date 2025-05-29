@@ -31,17 +31,28 @@ class StoreClient {
 
   close(): Promise<void>
 
-  getNamespaceStats(namespace: string, timeout?: number): Promise<INamespaceStats>
+  getNamespaceStats(
+    namespace: string
+  , signal?: AbortSignal
+  ): Promise<INamespaceStats>
 
-  getAllNamespaces(timeout?: number): Promise<string[]>
+  getAllNamespaces(signal?: AbortSignal): Promise<string[]>
 
-  getAllItemIds(namespace: string, timeout?: number): Promise<string[]>
+  getAllItemIds(namespace: string, signal?: AbortSignal): Promise<string[]>
 
-  clearItemsByNamespace(namespace: string, timeout?: number): Promise<void>
+  clearItemsByNamespace(namespace: string, signal?: AbortSignal): Promise<void>
 
-  hasItem(namespace: string, itemId: string, timeout?: number): Promise<boolean>
+  hasItem(
+    namespace: string
+  , itemId: string
+  , signal?: AbortSignal
+  ): Promise<boolean>
 
-  getItem(namespace: string, itemId: string, timeout?: number): Promise<IItem | null>
+  getItem(
+    namespace: string
+  , itemId: string
+  , signal?: AbortSignal
+  ): Promise<IItem | null>
 
   /**
    * @throws {IncorrectRevision}
@@ -52,7 +63,7 @@ class StoreClient {
   , itemId: string
   , value: JSONValue
   , revision?: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<string>
 
   /**
@@ -63,7 +74,7 @@ class StoreClient {
     namespace: string
   , itemId: string
   , revision?: string
-  , timeout?: number
+  , signal?: AbortSignal
   ): Promise<void>
 }
 ```

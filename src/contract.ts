@@ -1,7 +1,7 @@
 import { CustomError } from '@blackglory/errors'
 import { JSONValue } from '@blackglory/prelude'
 
-export const expectedVersion = '^0.6.0'
+export const expectedVersion = '^0.6.2'
 
 export interface INamespaceStats {
   items: number
@@ -29,11 +29,18 @@ export interface IAPI {
    * 在提供revision参数的情况下, 如果目标项目的revision值不等于参数, 或项目不存在, 则抛出此错误.
    * @returns 如果成功, 返回新的revision.
    */
-  setItem(
-    namespace: string
-  , itemId: string
-  , value: JSONValue
-  , revision?: string
+  setItem(...args:
+  | [
+      namespace: string
+    , itemId: string
+    , value: JSONValue
+    , revision: string
+    ]
+  | [
+      namespace: string
+    , itemId: string
+    , value: JSONValue
+    ]
   ): string
 
   /**
@@ -41,7 +48,17 @@ export interface IAPI {
    * @throws {IncorrectRevision}
    * 在提供revision参数的情况下, 如果目标项目的revision值不等于参数, 或项目不存在, 则抛出此错误.
    */
-  removeItem(namespace: string, itemId: string, revision?: string): null
+  removeItem(...args:
+  | [
+      namespace: string
+    , itemId: string
+    , revision: string
+    ]
+  | [
+      namespace: string
+    , itemId: string
+    ]
+  ): null
 }
 
 export class IncorrectRevision extends CustomError {}
