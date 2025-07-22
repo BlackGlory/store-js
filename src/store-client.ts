@@ -16,6 +16,7 @@ export class StoreClient {
     const { client, close } = await createRPCClient(
       options.server
     , options.retryIntervalForReconnection
+    , options.timeout
     )
     return new StoreClient(client, close, options.timeout)
   }
