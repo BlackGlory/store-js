@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.17.1](https://github.com/BlackGlory/store-js/compare/v0.17.0...v0.17.1) (2025-07-22)
+
+
+### Features
+
+* make the timeout apply to connect and reconnect ([d5f53d9](https://github.com/BlackGlory/store-js/commit/d5f53d9c371db328bccf004259636448d583dc72))
+
 ## [0.17.0](https://github.com/BlackGlory/store-js/compare/v0.16.1...v0.17.0) (2025-05-29)
 
 
