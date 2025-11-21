@@ -11,4 +11,4 @@ services:
     command: test
 
   store:
-    image: 'blackglory/store:0.6.2'
+    image: 'blackglory/store:0.6.3'

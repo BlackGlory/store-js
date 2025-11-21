@@ -80,7 +80,7 @@ export class StoreClient {
     namespace: string
   , itemId: string
   , value: JSONValue
-  , revision?: string
+  , revision?: string | null
   , signal?: AbortSignal
   ): Promise<string> {
     if (isUndefined(revision)) {
