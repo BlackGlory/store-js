@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.18.0](https://github.com/BlackGlory/store-js/compare/v0.17.1...v0.18.0) (2025-11-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **set-item:** The module requires Store@^0.6.3
+
+### Features
+
+* **set-item:** add support for `null` revision ([6b0f14b](https://github.com/BlackGlory/store-js/commit/6b0f14b483923265816fdc9b87c541a087eab051))
+
 ### [0.17.1](https://github.com/BlackGlory/store-js/compare/v0.17.0...v0.17.1) (2025-07-22)
 
 
