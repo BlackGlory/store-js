@@ -15,6 +15,11 @@ interface IStoreClientOptions {
   retryIntervalForReconnection?: number
 }
 
+interface IStoreClientRequestOptions {
+  signal?: AbortSignal
+  timeout?: number | false
+}
+
 interface INamespaceStats {
   items: number
 }
@@ -33,25 +38,33 @@ class StoreClient {
 
   getNamespaceStats(
     namespace: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IStoreClientRequestOptions
   ): Promise<INamespaceStats>
 
-  getAllNamespaces(signal?: AbortSignal): Promise<string[]>
+  getAllNamespaces(
+    signalOrOptions?: AbortSignal | IStoreClientRequestOptions
+  ): Promise<string[]>
 
-  getAllItemIds(namespace: string, signal?: AbortSignal): Promise<string[]>
+  getAllItemIds(
+    namespace: string
+  , signalOrOptions?: AbortSignal | IStoreClientRequestOptions
+  ): Promise<string[]>
 
-  clearItemsByNamespace(namespace: string, signal?: AbortSignal): Promise<void>
+  clearItemsByNamespace(
+    namespace: string
+  , signalOrOptions?: AbortSignal | IStoreClientRequestOptions
+  ): Promise<void>
 
   hasItem(
     namespace: string
   , itemId: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IStoreClientRequestOptions
   ): Promise<boolean>
 
   getItem(
     namespace: string
   , itemId: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IStoreClientRequestOptions
   ): Promise<IItem | null>
 
   /**
@@ -63,7 +76,7 @@ class StoreClient {
   , itemId: string
   , value: JSONValue
   , revision?: string | null
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IStoreClientRequestOptions
   ): Promise<string>
 
   /**
@@ -74,7 +87,7 @@ class StoreClient {
     namespace: string
   , itemId: string
   , revision?: string
-  , signal?: AbortSignal
+  , signalOrOptions?: AbortSignal | IStoreClientRequestOptions
   ): Promise<void>
 }
 ```
