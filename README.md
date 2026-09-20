@@ -11,6 +11,11 @@ yarn add @blackglory/store-js
 ```ts
 interface IStoreClientOptions {
   server: string
+
+  basicAuth?: {
+    username: string
+    password: string
+  }
   timeout?: number
   retryIntervalForReconnection?: number
 }

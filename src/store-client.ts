@@ -1,12 +1,17 @@
 import { createRPCClient } from '@utils/rpc-client.js'
 import { ClientProxy } from 'delight-rpc'
-import { IAPI, IItem, INamespaceStats } from './contract.js'
+import { expectedVersion, IAPI, IItem, INamespaceStats } from './contract.js'
 import { raceAbortSignals, timeoutSignal, isAbortSignal } from 'extra-abort'
 import { isUndefined, JSONValue } from '@blackglory/prelude'
 export { INamespaceStats, IItem, IncorrectRevision } from './contract.js'
 
 export interface IStoreClientOptions {
   server: string
+
+  basicAuth?: {
+    username: string
+    password: string
+  }
   timeout?: number
   retryIntervalForReconnection?: number
 }
@@ -18,11 +23,14 @@ export interface IStoreClientRequestOptions {
 
 export class StoreClient {
   static async create(options: IStoreClientOptions): Promise<StoreClient> {
-    const { client, close } = await createRPCClient(
-      options.server
-    , options.retryIntervalForReconnection
-    , options.timeout
-    )
+    const { client, close } = await createRPCClient<IAPI>({
+      url: options.server
+    , retryIntervalForReconnection: options.retryIntervalForReconnection
+    , timeoutForConnection: options.timeout
+    , basicAuth: options.basicAuth
+    , expectedVersion
+    })
+
     return new StoreClient(client, close, options.timeout)
   }
 
