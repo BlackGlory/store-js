@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.18.4](https://github.com/BlackGlory/store-js/compare/v0.18.3...v0.18.4) (2026-09-20)
+
+
+### Features
+
+* add `IStoreClientOptions.basicAuth` ([709dc27](https://github.com/BlackGlory/store-js/commit/709dc279a86fd31912087ae6fb17d01f511dfd2f))
+
 ### [0.18.3](https://github.com/BlackGlory/store-js/compare/v0.18.2...v0.18.3) (2026-05-24)
 
 ### [0.18.2](https://github.com/BlackGlory/store-js/compare/v0.18.1...v0.18.2) (2026-05-24)
